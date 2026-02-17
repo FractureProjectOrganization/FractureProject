@@ -21,7 +21,7 @@ public class DynamicNode : MonoBehaviour
             {
                 if (Physics.Raycast(refEnd.position, -direction, out RaycastHit hitBack, distance, mask))
                 {
-                    transform.position = hitBack.point;
+                    //transform.position = hitBack.point;
                 }
             }
         }

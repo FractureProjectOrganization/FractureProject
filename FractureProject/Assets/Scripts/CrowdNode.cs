@@ -8,7 +8,7 @@ public class CrowdNode
     public Vector3 position;
     public bool isActive;
     
-    public CrowdNode(Vector3 position, CrowdNode nextNode, bool isActive = false)
+    public CrowdNode(Vector3 position, CrowdNode nextNode, bool isActive)
     {
         this.position = position;
         this.isActive = isActive;
@@ -47,7 +47,7 @@ public class CrowdNode
 
 public class DynamicCrowdNode : CrowdNode
 {
-    public DynamicCrowdNode(Vector3 position, CrowdNode nextNode, bool isActive = false) : base(position, nextNode, isActive)
+    public DynamicCrowdNode(Vector3 position, CrowdNode nextNode, bool isActive) : base(position, nextNode, isActive)
     {
     }
 
@@ -65,11 +65,11 @@ public class DynamicCrowdNode : CrowdNode
 
 public class SwitchCrowdNode : CrowdNode
 {
-    public CrowdNode[] nextNodes;
+    public CrowdNode[] nextOriginNodes;
     
-    public SwitchCrowdNode(Vector3 position, CrowdNode[] nextNodes, bool isActive = false) : base(position, null, isActive)
+    public SwitchCrowdNode(Vector3 position, CrowdNode nextNode, CrowdNode[] nextOriginNodes, bool isActive) : base(position, nextNode, isActive)
     {
-        
+        this.nextOriginNodes = nextOriginNodes;
     }
 
     public override void DebugNode()
@@ -80,11 +80,12 @@ public class SwitchCrowdNode : CrowdNode
     
     public override void DebugSegment()
     {
-        foreach (CrowdNode node in nextNodes)
+        foreach (CrowdNode node in nextOriginNodes)
         {
             Gizmos.color = node.isActive ? Color.darkViolet : Color.violet;
             Gizmos.DrawLine(position, node.position);
         }
+        base.DebugSegment();
     }
     
     public void Switch()

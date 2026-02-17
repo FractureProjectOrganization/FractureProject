@@ -9,29 +9,36 @@ public class Crowd : MonoBehaviour
     
     private void Awake()
     {
-        rootNode = GenerateNodeByChild(gameObject.transform);
-        if (debugMode) InitDebugger();
+        rootNode = CreateNewBranch(gameObject.transform);
+        if (debugMode) InitDebugger(rootNode);
+    }
+
+    private CrowdNode CreateNewBranch(Transform newBranchOrigin)
+    {
+        return new CrowdNode(
+            newBranchOrigin.position,
+            GenerateNodeByChildren(newBranchOrigin),
+            newBranchOrigin.gameObject.activeSelf
+        );
     }
     
-    private CrowdNode GenerateNodeByChild(Transform originObject, int nodeIndex = 0)
+    private CrowdNode GenerateNodeByChildren(Transform origin, int nodeIndex = 0)
     {
-        if (nodeIndex >= originObject.childCount) return null;
+        if (nodeIndex >= origin.childCount) return null;
         
-        Transform nodeObject = originObject.GetChild(nodeIndex);
+        Transform nodeObject = origin.GetChild(nodeIndex);
         bool isNodeActive = nodeObject.gameObject.activeSelf;
-        
-        Destroy(nodeObject.gameObject);
 
         if (nodeObject.childCount > 0)
         {
-            CrowdNode[] nextNodes = new CrowdNode[nodeObject.childCount];
+            CrowdNode[] nextOriginNodes = new CrowdNode[nodeObject.childCount];
             for (int i = 0; i < nodeObject.childCount; i++)
-                nextNodes[i] = GenerateNodeByChild(nodeObject.GetChild(i));
+                nextOriginNodes[i] = CreateNewBranch(nodeObject.GetChild(i));
             
-            return new SwitchCrowdNode(nodeObject.position, nextNodes, isNodeActive);
+            return new SwitchCrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), nextOriginNodes, isNodeActive);
         }
             
-        return new CrowdNode(nodeObject.position, GenerateNodeByChild(originObject, nodeIndex+1), isNodeActive);
+        return new CrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), isNodeActive);
     }
 
     #region DebugManager
@@ -39,12 +46,21 @@ public class Crowd : MonoBehaviour
     [SerializeField] private bool debugMode;
     private List<CrowdNode> nodes = new List<CrowdNode>();
 
-    private void InitDebugger()
+    private void InitDebugger(CrowdNode startingNode)
     {
-        CrowdNode currentNode = rootNode;
+        CrowdNode currentNode = startingNode;
         while (currentNode != null)
         {
             nodes.Add(currentNode);
+
+            if (currentNode is SwitchCrowdNode switchCrowdNode)
+            {
+                foreach (CrowdNode node in switchCrowdNode.nextOriginNodes)
+                {
+                    InitDebugger(node);
+                }
+            }
+            
             currentNode = currentNode.nextNode;
         }
     }
