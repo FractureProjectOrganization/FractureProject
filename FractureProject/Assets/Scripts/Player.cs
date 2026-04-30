@@ -5,7 +5,7 @@ public class Player : MonoBehaviour
 {
     public static Player instance { get; private set; }
     
-    private AnimatorController animatorController;
+    public AnimatorController animatorController;
     
     //Stoian
     public SpriteRenderer spriteRenderer;
@@ -17,10 +17,14 @@ public class Player : MonoBehaviour
         Walking,
         Transported,
         Ejected,
-        Pushing //Nico
+        Pushing, //Nico
+        Attacking
     }
     
     public States currentState = States.Idle;
+
+    [HideInInspector] 
+    public Vector3 lastFacingDirection = new Vector3(1, 0, 1).normalized;
 
     private void Awake()
     {
@@ -52,8 +56,10 @@ public class Player : MonoBehaviour
     private Vector3 ejectionDirection;
     private Vector3 ejectionTargetPosition;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
 
+    public bool locked;
+    
     void Update()
     {
         float h = Input.GetAxisRaw("Horizontal");
@@ -61,22 +67,43 @@ public class Player : MonoBehaviour
         
         direction = new Vector3(h, 0, v).normalized;
         
-        if (currentState != States.Transported && currentState != States.Ejected /*nico*/ && currentState != States.Pushing)
+        if (direction.magnitude > 0.1f)
+        {
+            Vector3 snappedInput;
+            
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
+            {
+                snappedInput = new Vector3(Mathf.Sign(direction.x), 0, 0); 
+            }
+            else
+            {
+                snappedInput = new Vector3(0, 0, Mathf.Sign(direction.z)); 
+            }
+
+            lastFacingDirection = Quaternion.Euler(0, 45, 0) * snappedInput;
+        }
+        
+        if (currentState != States.Transported && currentState != States.Ejected && currentState != States.Pushing && currentState != States.Attacking)
         {
             ChangeState(direction.magnitude > 0.1f ? States.Walking : States.Idle);
         }
         
-        if (currentState == States.Walking || /*Stoian*/ currentState == States.Pushing)
+        if (currentState == States.Walking)
         {
             animatorController.UpdateMoveDirection(direction.x, direction.z);
         }
         
         //Stoian
-        if (h > 0 && v <= 0) //Down Right
+        if (currentState == States.Pushing)
+        {
+            return;
+        }
+        
+        if (h > 0 && v < 0) //Down Right
         {
             spriteRenderer.flipX = true;
         }
-        else if (h < 0 && v <= 0) //Down Left
+        else if (h < 0 && v < 0) //Down Left
         {
             spriteRenderer.flipX = false;
         } 
@@ -88,6 +115,14 @@ public class Player : MonoBehaviour
         {
             spriteRenderer.flipX = false;
         }
+        else if (h > 0 && v == 0) //Right
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (h < 0 && v == 0) //Left
+        {
+            spriteRenderer.flipX = true;
+        }
         //Stoian
     }
     
@@ -98,6 +133,7 @@ public class Player : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
+            case States.Attacking:
                 rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0); 
                 break;
             case States.Walking: 
@@ -137,6 +173,7 @@ public class Player : MonoBehaviour
 
     public void Move()
     {
+        if (locked) return;
         skewedDirection = Quaternion.Euler(0, 45, 0) * direction;
 
         rb.linearVelocity = new Vector3(skewedDirection.x * moveSpeed, rb.linearVelocity.y, skewedDirection.z * moveSpeed);
@@ -230,27 +267,8 @@ public class Player : MonoBehaviour
         return Vector3.zero;
     }
 
-    //Stoian
-    public void OnCollisionStay(Collision collision)
+    public void LockPlayer(bool Locked)
     {
-        if (collision.gameObject.CompareTag("ProtoBarrier"))
-        {
-            Push();
-        }
+        locked = Locked;
     }
-
-    public void Push()
-    {
-        ChangeState(States.Pushing);
-    }
-
-    public void OnCollisionExit(Collision other)
-    {
-        if (other.gameObject.CompareTag("ProtoBarrier"))
-        {
-            ChangeState(States.Walking);
-        }
-    }
-    //Stoian
 }
-
