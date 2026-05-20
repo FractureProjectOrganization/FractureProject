@@ -27,10 +27,17 @@ public class CrowdNode
     
     public bool isConnectedToSource = false;
 
-    public CrowdNode(Vector3 position, CrowdNode nextNode, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null)
+    private float crowdWidth;
+    
+    private int playerLayer;
+
+    public CrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null)
     {
         this.position = position;
         this.nextNode = nextNode;
+        this.crowdWidth = crowdWidth;
+        
+        playerLayer = LayerMask.GetMask("Player");
         
         track?.Add(this);
         
@@ -56,24 +63,32 @@ public class CrowdNode
         
         CheckObstacles(targetNode);
     }
-
+    
     public void CheckObstacles(CrowdNode targetNode)
     {
         if (state == CrowdState.Empty) return;
         if (targetNode == null) return;
 
-        if (Physics.Linecast(this.position, targetNode.position, out RaycastHit hit))
+        Vector3 direction = (targetNode.position - this.position).normalized;
+        float distance = Vector3.Distance(this.position, targetNode.position);
+
+        if (Physics.SphereCast(this.position, crowdWidth, direction, out RaycastHit hit, distance, playerLayer))
         {
-            if (hit.collider.CompareTag("Player"))
+            ManageCollisions(hit, targetNode);
+        }
+    }
+
+    private void ManageCollisions(RaycastHit hit, CrowdNode targetNode)
+    {
+        if (hit.collider.CompareTag("Player"))
+        {
+            if (targetNode.state == CrowdState.Flowing)
             {
-                if (targetNode.state == CrowdState.Flowing)
-                {
-                    Player.instance.SetCrowdToFollow(this);
-                }
-                else if (targetNode.state == CrowdState.Stagnant)
-                {
-                    Player.instance.BlockByCrowd();
-                }
+                Player.instance.SetCrowdToFollow(this);
+            }
+            else if (targetNode.state == CrowdState.Stagnant)
+            {
+                Player.instance.BlockByCrowd();
             }
         }
     }
@@ -97,8 +112,8 @@ public class SwitchCrowdNode : CrowdNode
         }
     }
     
-    public SwitchCrowdNode(Vector3 position, CrowdNode nextNode, CrowdNode[] nextOriginNodes, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
-        : base(position, nextNode, track, stateListener)
+    public SwitchCrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, CrowdNode[] nextOriginNodes, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
+        : base(position, nextNode, crowdWidth, track, stateListener)
     {
         this.nextOriginNodes = nextOriginNodes;
     }
@@ -130,8 +145,8 @@ public class SwitchCrowdNode : CrowdNode
 
 public class ExitCrowdNode : CrowdNode
 {
-    public ExitCrowdNode(Vector3 position, CrowdNode nextNode, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
-        : base(position, nextNode, track, stateListener) { }
+    public ExitCrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
+        : base(position, nextNode, crowdWidth, track, stateListener) { }
 }
 
 public class StopCrowdNode : CrowdNode
@@ -140,8 +155,8 @@ public class StopCrowdNode : CrowdNode
 
     public bool isStopped = false;
     
-    public StopCrowdNode(Vector3 position, CrowdNode nextNode, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
-        : base(position, nextNode, track, stateListener) { }
+    public StopCrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null) 
+        : base(position, nextNode, crowdWidth, track, stateListener) { }
 
     public CrowdNode GetHiddenNode() => base.nextNode;
 }
@@ -150,8 +165,8 @@ public class IntermediateExitCrowdNode : CrowdNode
 {
     public Vector2 ejectionDirection;
 
-    public IntermediateExitCrowdNode(Vector3 position, CrowdNode nextNode, Vector2 ejectionDirection, HashSet<CrowdNode> track = null) 
-        : base(position, nextNode, track)
+    public IntermediateExitCrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, Vector2 ejectionDirection, HashSet<CrowdNode> track = null) 
+        : base(position, nextNode, crowdWidth, track)
     {
         this.ejectionDirection = ejectionDirection;
     }
