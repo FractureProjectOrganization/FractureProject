@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using System.Collections.Generic;
 
 public class SucessionOfEvents : MonoBehaviour
 {
     [SerializeField] private string tagToTrigger;
     [SerializeField] private bool isTriggeredOnEnter,isTriggeredOnExit,isTriggeredOnAwake;
-    [SerializeField] private List<TimedEvent> events;
+    [SerializeField] public List<TimedEvent> events;
     private Coroutine eventsCoroutine;
     
 
@@ -23,7 +23,7 @@ public class SucessionOfEvents : MonoBehaviour
         foreach (TimedEvent e in events)
         { 
             float timer = e.timeBeforeNextEvent;
-            e.ExecuteEvent(e.type);
+            e.ExecuteEvent(e.type,this);
             while (timer > 0)
             {
                 timer-=Time.deltaTime;
@@ -57,6 +57,8 @@ public class TimedEvent
     [Header ("Parameters")]
     public UnityEvent unityEvent;
     public Transform cameraTargetPoint;
+    public Transform start, finish, targetObject;
+    private SucessionOfEvents sucession;
     
     [Header ("Time")]
     public float timeBeforeNextEvent;
@@ -72,7 +74,7 @@ public class TimedEvent
         Dialogue
     }
     
-    public void ExecuteEvent(EventType eventType)
+    public void ExecuteEvent(EventType eventType, SucessionOfEvents events)
     {
         switch (eventType)
         {
@@ -84,6 +86,7 @@ public class TimedEvent
                 break;
             case EventType.ObjectMovement:
                 eventDelegate += ObjectMovement;
+                sucession = events;
                 break;
             case EventType.Dialogue:
                 eventDelegate += Dialogue;
@@ -108,12 +111,22 @@ public class TimedEvent
 
     public void ObjectMovement()
     {
-        
+        sucession.StartCoroutine(ItemMovement(targetObject, start, finish));
     }
 
     public void Dialogue()
     {
         
     }
-    
+
+    private IEnumerator ItemMovement(Transform target, Transform start, Transform finish)
+    {
+        float timer = timeBeforeNextEvent;
+        while (timer > 0f)
+        {
+            timer-=Time.deltaTime;
+            target.position = Vector3.Lerp(start.position,finish.position, 1-timer/timeBeforeNextEvent);
+            yield return null;
+        }
+    }
 }

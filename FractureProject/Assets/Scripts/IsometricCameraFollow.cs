@@ -49,4 +49,9 @@ public class IsometricCameraFollow : MonoBehaviour
         
         currentTarget = newTarget;
     }
+
+    public Transform GetTarget()
+    {
+        return currentTarget;
+    }
 }
