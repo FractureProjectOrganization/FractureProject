@@ -12,6 +12,7 @@ public class AnimatorController : MonoBehaviour
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
     private static readonly int MoveYHash = Animator.StringToHash("MoveY");
     private static readonly int IsDown = Animator.StringToHash("isDown"); //Stoian
+    private static readonly int InCombat = Animator.StringToHash("inCombat"); //Stoian
 
     public void OnStateChanged(Player.States newState)
     {
@@ -30,6 +31,11 @@ public class AnimatorController : MonoBehaviour
         animator.SetBool(IsPushingHash,newState == Player.States.Pushing);//Nico
         animator.SetBool(IsAttacking, newState == Player.States.Attacking);
         
+    }
+    
+    public void SetInCombat(bool value)
+    {
+        animator.SetBool(InCombat, value);
     }
 
     public void UpdateMoveDirection(float dirX, float dirY)
