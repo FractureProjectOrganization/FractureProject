@@ -33,11 +33,13 @@ public class DialogDisplayer : MonoBehaviour
     {
         for (int i = 0; i < currentDialog.dialog.Length; i++)
         {
+            Debug.Log(currentDialog.dialog[i].text);
             DisplayLine(currentDialog.dialog[i]);
             ManageBubble(currentDialog.dialog[i].isPlayer);
 
             previousLineIsPlayer = currentDialog.dialog[i].isPlayer;
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q));
+            yield return null;
         }
         
         ResetDisplay();
@@ -84,7 +86,11 @@ public class DialogDisplayer : MonoBehaviour
     {
         StopAllCoroutines();
         playerAnimator.SetTrigger(StopTrigger);
-        pnjAnimator?.SetTrigger(StopTrigger);
+        
+        if (pnjAnimator != null)
+        {
+            pnjAnimator.SetTrigger(StopTrigger);
+        }
         
         currentDialog = null;
         pnjAnimator = null;
