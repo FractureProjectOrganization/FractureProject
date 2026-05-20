@@ -9,6 +9,8 @@ public class Crowd : MonoBehaviour
     private HashSet<CrowdNode> allNodesSet = new HashSet<CrowdNode>();
 
     public CrowdNode[] allNodes { get; private set; }
+
+    [SerializeField] private float crowdWidth;
     
     private void Awake()
     {
@@ -38,7 +40,7 @@ public class Crowd : MonoBehaviour
         
         if (newBranchOrigin.childCount == 0)
         {
-            return new ExitCrowdNode(newBranchOrigin.position, null, allNodesSet, stateListener);
+            return new ExitCrowdNode(newBranchOrigin.position, null, crowdWidth, allNodesSet, stateListener);
         }
         
         IntermediateExitFlag intermediateExit = newBranchOrigin.GetComponent<IntermediateExitFlag>();
@@ -47,6 +49,7 @@ public class Crowd : MonoBehaviour
             return new IntermediateExitCrowdNode(
                 newBranchOrigin.position, 
                 GenerateNodeByChildren(newBranchOrigin),
+                crowdWidth,
                 intermediateExit.GetNormalizedDirection(),
                 allNodesSet
             );
@@ -55,6 +58,7 @@ public class Crowd : MonoBehaviour
         return new CrowdNode(
             newBranchOrigin.position,
             GenerateNodeByChildren(newBranchOrigin),
+            crowdWidth,
             allNodesSet,
             stateListener
         );
@@ -78,6 +82,7 @@ public class Crowd : MonoBehaviour
                 new SwitchCrowdNode(
                     nodeObject.position, 
                     GenerateNodeByChildren(origin, nodeIndex+1), 
+                    crowdWidth,
                     nextOriginNodes,
                     allNodesSet,
                     stateListener
@@ -93,7 +98,7 @@ public class Crowd : MonoBehaviour
         }
         
         if (nodeIndex == origin.childCount - 1) {
-            return new ExitCrowdNode(nodeObject.position, null, allNodesSet, stateListener);
+            return new ExitCrowdNode(nodeObject.position, null, crowdWidth, allNodesSet, stateListener);
         }
         
         IntermediateExitFlag intermediateExit = nodeObject.GetComponent<IntermediateExitFlag>();
@@ -102,6 +107,7 @@ public class Crowd : MonoBehaviour
             return new IntermediateExitCrowdNode(
                 nodeObject.position, 
                 GenerateNodeByChildren(origin, nodeIndex + 1),
+                crowdWidth,
                 intermediateExit.GetNormalizedDirection(),
                 allNodesSet
             );
@@ -113,6 +119,7 @@ public class Crowd : MonoBehaviour
             StopCrowdNode stopNode = new StopCrowdNode(
                 nodeObject.position, 
                 GenerateNodeByChildren(origin, nodeIndex + 1),
+                crowdWidth,
                 allNodesSet,
                 stateListener
             );
@@ -121,7 +128,7 @@ public class Crowd : MonoBehaviour
             return stopNode;
         }
 
-        return new CrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), allNodesSet, stateListener);
+        return new CrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), crowdWidth, allNodesSet, stateListener);
     }
     
     public event Action OnCrowdPathChanged;

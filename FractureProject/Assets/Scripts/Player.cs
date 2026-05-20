@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     
     public AnimatorController animatorController;
 
+    public bool inCombat;
+
     public AudioSource footsteps;
     public float stepTime= 0.5f;
     private Coroutine stepCoroutine;
