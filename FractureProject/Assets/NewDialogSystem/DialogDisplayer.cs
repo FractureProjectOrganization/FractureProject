@@ -11,7 +11,7 @@ public class DialogDisplayer : MonoBehaviour
     private TMP_Text pnjText;
     
     private static readonly int StartTrigger = Animator.StringToHash("Start");
-    private static readonly int StopTrigger = Animator.StringToHash("Stop");
+    private static readonly int StopTrigger = Animator.StringToHash("End");
     private static readonly int NextTrigger = Animator.StringToHash("Next");
 
     private DialogData currentDialog;
