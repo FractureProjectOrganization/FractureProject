@@ -9,6 +9,8 @@ public class Crowd : MonoBehaviour
     private HashSet<CrowdNode> allNodesSet = new HashSet<CrowdNode>();
 
     public CrowdNode[] allNodes { get; private set; }
+
+    [SerializeField] private float crowdWidth;
     
     private void Awake()
     {
@@ -34,9 +36,11 @@ public class Crowd : MonoBehaviour
 
     private CrowdNode CreateNewBranch(Transform newBranchOrigin)
     {
+        INodeStateListener stateListener = newBranchOrigin.GetComponent<INodeStateListener>();
+        
         if (newBranchOrigin.childCount == 0)
         {
-            return new ExitCrowdNode(newBranchOrigin.position, null, allNodesSet);
+            return new ExitCrowdNode(newBranchOrigin.position, null, crowdWidth, allNodesSet, stateListener);
         }
         
         IntermediateExitFlag intermediateExit = newBranchOrigin.GetComponent<IntermediateExitFlag>();
@@ -45,6 +49,7 @@ public class Crowd : MonoBehaviour
             return new IntermediateExitCrowdNode(
                 newBranchOrigin.position, 
                 GenerateNodeByChildren(newBranchOrigin),
+                crowdWidth,
                 intermediateExit.GetNormalizedDirection(),
                 allNodesSet
             );
@@ -53,7 +58,9 @@ public class Crowd : MonoBehaviour
         return new CrowdNode(
             newBranchOrigin.position,
             GenerateNodeByChildren(newBranchOrigin),
-            allNodesSet
+            crowdWidth,
+            allNodesSet,
+            stateListener
         );
     }
     
@@ -62,6 +69,8 @@ public class Crowd : MonoBehaviour
         if (nodeIndex >= origin.childCount) return null;
         
         Transform nodeObject = origin.GetChild(nodeIndex);
+        
+        INodeStateListener stateListener = nodeObject.GetComponent<INodeStateListener>();
 
         if (nodeObject.childCount > 0)
         {
@@ -73,8 +82,10 @@ public class Crowd : MonoBehaviour
                 new SwitchCrowdNode(
                     nodeObject.position, 
                     GenerateNodeByChildren(origin, nodeIndex+1), 
+                    crowdWidth,
                     nextOriginNodes,
-                    allNodesSet
+                    allNodesSet,
+                    stateListener
                     );
             
             SwitchNodeEvent eventLinked = nodeObject.GetComponent<SwitchNodeEvent>();
@@ -87,7 +98,7 @@ public class Crowd : MonoBehaviour
         }
         
         if (nodeIndex == origin.childCount - 1) {
-            return new ExitCrowdNode(nodeObject.position, null, allNodesSet);
+            return new ExitCrowdNode(nodeObject.position, null, crowdWidth, allNodesSet, stateListener);
         }
         
         IntermediateExitFlag intermediateExit = nodeObject.GetComponent<IntermediateExitFlag>();
@@ -96,6 +107,7 @@ public class Crowd : MonoBehaviour
             return new IntermediateExitCrowdNode(
                 nodeObject.position, 
                 GenerateNodeByChildren(origin, nodeIndex + 1),
+                crowdWidth,
                 intermediateExit.GetNormalizedDirection(),
                 allNodesSet
             );
@@ -107,18 +119,21 @@ public class Crowd : MonoBehaviour
             StopCrowdNode stopNode = new StopCrowdNode(
                 nodeObject.position, 
                 GenerateNodeByChildren(origin, nodeIndex + 1),
-                allNodesSet
+                crowdWidth,
+                allNodesSet,
+                stateListener
             );
         
             stopEvent.Bind(stopNode, this);
             return stopNode;
         }
 
-        return new CrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), allNodesSet);
+        return new CrowdNode(nodeObject.position, GenerateNodeByChildren(origin, nodeIndex+1), crowdWidth, allNodesSet, stateListener);
     }
     
+    public event Action OnCrowdPathChanged;
     
-    public void RefreshCrowdStates()
+    public void RefreshCrowdStates(bool mustKillDeadBranch = false)
     {
         foreach (var node in allNodes) node.isConnectedToSource = false;
 
@@ -151,10 +166,13 @@ public class Crowd : MonoBehaviour
             {
                 if (node.state == CrowdState.Flowing || node.state == CrowdState.Stagnant)
                 {
-                    node.state = CrowdState.Stagnant; 
+                    node.state = mustKillDeadBranch ? CrowdState.Empty : CrowdState.Stagnant;
                 }
             }
         }
+        
+        if(mustKillDeadBranch)return;
+        OnCrowdPathChanged?.Invoke();
     }
     
 }

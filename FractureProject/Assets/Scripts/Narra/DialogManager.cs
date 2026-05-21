@@ -1,63 +1,98 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class DialogManager : MonoBehaviour
 {
-    private Queue<string> sentences;
+    private Queue<string> sentencesQueue;
     public TriggerEvent TriggerEvent;
     public static DialogManager instance;
     public TMPro.TMP_Text nameText;
     public TMPro.TMP_Text phrasesText;
-
+    public Animator animatorUrsula;
+    public Animator animatorPNJ;
+    public Player controller; 
+    //public GameObject trigger;
+   
     void Start()
     {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-            Debug.Log("the canvas just fucking died");
-        }
+        //if (instance != null)
+        //{
+            //Destroy(gameObject);
+            
+            //Debug.Log("the dialog manager isn't there");
+        //}
+        
         instance = this;
         
-        sentences = new Queue<string>();
-        Debug.Log(sentences.Count);
+        sentencesQueue = new Queue<string>();
+        
+        //Debug.Log(sentencesQueue.Count);
     }
 
+    public void InitiateDialogue(Dialogs dialogs)
+    {
+        Debug.Log("Starting to chat with " + dialogs.DialogueName);
+        nameText.text = dialogs.DialogueName;
+        phrasesText.text = "...";
+        
+        sentencesQueue.Clear();
+        
+
+        foreach (string sentence in dialogs.sentences.ToList())
+        {
+            sentencesQueue.Enqueue(sentence);
+        }
+    }
+    
     public void StartDialogue(Dialogs dialogs)
     {
-        Debug.Log("Starting to chat with " + dialogs.name);
-        nameText.text = dialogs.name;
-        sentences.Clear();
-
-        foreach (string sentence in dialogs.sentences)
-        {
-            sentences.Enqueue(sentence);
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                Debug.Log("tkt ça marche");
-                sentences.Dequeue();
-                Debug.Log(sentence);
-            }
-        }
-
-        DisplayNextSentence();
+        StartCoroutine(DisplayNextSentence(dialogs));
+        
     }
 
-    public void DisplayNextSentence()
+    IEnumerator DisplayNextSentence(Dialogs dialogs)
     {
-        if (sentences.Count == 0)
+        //Debug.Log("gonna chat soon");
+        if (!dialogs) yield break;
+        while (sentencesQueue.Count > 0)
         {
-            EndDialogue();
-            return;
-        }
+            if (!dialogs.ended) animatorUrsula.SetTrigger("Start");
+            while(!(Input.GetKeyDown(KeyCode.Q)||Input.GetButtonDown("Fire1")))
+            {
+                
+                yield return null;
+            }
 
-        string sentence = sentences.Dequeue();
-        phrasesText.text = sentence;
-        Debug.Log(sentence);
+            animatorUrsula.SetTrigger("Next");
+
+            
+            //Debug.Log(sentencesQueue.First());
+            //Debug.Log(sentencesQueue.Count);
+            
+            phrasesText.text = sentencesQueue.First();
+            sentencesQueue.Dequeue();
+            
+            yield return new WaitForEndOfFrame();
+        }
+        
+        yield return new WaitForSeconds(2);
+        dialogs.ended = true;
+        EndDialogue();
+
+        //trigger.SetActive(false);
     }
 
     public void EndDialogue()
     {
-        Debug.Log("Finished chatting.");
+
+        animatorUrsula.SetTrigger("End");
+        
+        //Debug.Log("Finished chatting.");
+        
+        StopCoroutine("DisplayNextSentence");
     }
 }
