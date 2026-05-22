@@ -270,7 +270,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c930ded664d4534abf47e53e89cd579, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
-  moveSpeed: 4
+  moveSpeed: 5
   stopDistance: 0.5
   attackTriggerDistance: 1.5
   attackRange: 1.5
@@ -278,7 +278,7 @@ MonoBehaviour:
   attackDelay: 0.5
   attackDuration: 1
   hitDuration: 0.5
-  knockbackForce: 10
+  knockbackForce: 20
   knockbackFriction: 5
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   blinkInterval: 0.1
