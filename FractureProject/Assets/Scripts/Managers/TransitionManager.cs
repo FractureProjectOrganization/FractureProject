@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -50,6 +51,14 @@ public class TransitionManager : MonoBehaviour
 
         Player.instance.locked = true;
         fadeToBlackAnimator.SetBool(Black, true);
+        StartCoroutine(WaitForFade());
+    }
+
+    IEnumerator WaitForFade()
+    {
+        yield return new WaitForSeconds(2.5f);
+        SceneManager.instance.LoadNextScene();
+        yield return null;
     }
 
     public void FadeFromBlack()
