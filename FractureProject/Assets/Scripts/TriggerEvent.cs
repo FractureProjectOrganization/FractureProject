@@ -48,6 +48,6 @@ public class TriggerEvent : MonoBehaviour
     //Stoian
     public void DeleteTrigger()
     {
-        GameObject.Destroy(this);
+        Destroy(this);
     }
 }
