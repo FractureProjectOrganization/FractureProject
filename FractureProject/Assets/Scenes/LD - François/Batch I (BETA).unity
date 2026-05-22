@@ -3304,7 +3304,7 @@ GameObject:
   - component: {fileID: 68461463}
   - component: {fileID: 68461462}
   m_Layer: 0
-  m_Name: TriggerStart (2)
+  m_Name: TriggerDialStart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7288,6 +7288,118 @@ PrefabInstance:
       addedObject: {fileID: 150633894}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 23316b1405007254abb9b2ce565fe59f, type: 3}
+--- !u!1 &131669113
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 131669114}
+  - component: {fileID: 131669116}
+  - component: {fileID: 131669115}
+  m_Layer: 0
+  m_Name: TriggerDial (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &131669114
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131669113}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7179207, z: -0, w: -0.69612485}
+  m_LocalPosition: {x: 197.17, y: 0.9116411, z: -314.8}
+  m_LocalScale: {x: 1.883328, y: 0.43131, z: 1.9793389}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398367813}
+  m_LocalEulerAnglesHint: {x: 0, y: 268.234, z: 0}
+--- !u!114 &131669115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131669113}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3c431a0a1acc748b717dd29b878657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerEvent
+  onTriggerEnterAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1845702141}
+        m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
+        m_MethodName: DisplayDialog
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1782426375}
+          m_ObjectArgumentAssemblyTypeName: DialogRuntimeContainer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 557432704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onTriggerExitAction:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTag: Player
+  isTalking: 0
+  initDialog: 0
+  dialogs: {fileID: 0}
+--- !u!65 &131669116
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131669113}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0604424, y: 2.446253, z: 3.0402918}
+  m_Center: {x: 1.5302218, y: 0.72312754, z: -1.0201479}
 --- !u!1001 &134892108
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21259,6 +21371,11 @@ Transform:
   m_Children:
   - {fileID: 1637415414685664376}
   - {fileID: 68461461}
+  - {fileID: 939080400}
+  - {fileID: 1132878913}
+  - {fileID: 1724249259}
+  - {fileID: 904213575}
+  - {fileID: 131669114}
   - {fileID: 827967163}
   - {fileID: 1684381064}
   - {fileID: 96263271}
@@ -26218,6 +26335,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1120582188760547114, guid: 1ce1ea5fef0ef164da17f64fc1f348f2, type: 3}
   m_PrefabInstance: {fileID: 1376486003}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &479638496
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 479638498}
+  - component: {fileID: 479638497}
+  m_Layer: 0
+  m_Name: DialogCrowd (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &479638497
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479638496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
+  <data>k__BackingField: {fileID: 11400000, guid: ea1b560794b4ebd41a1b50c0892dc299, type: 2}
+  <pnjBubbleAnimator>k__BackingField: {fileID: 0}
+  <pnjBubbleText>k__BackingField: {fileID: 0}
+  <dialogueEndEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1369064949}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueEvents:
+    _serializedList: []
+--- !u!4 &479638498
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479638496}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56628, y: 3.06377, z: -186.1267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &480616002
 GameObject:
   m_ObjectHideFlags: 0
@@ -50096,6 +50289,118 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5841993254175329819, guid: 5300749adfdaad8429a7d4d685a6858b, type: 3}
   m_PrefabInstance: {fileID: 422483539}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &904213574
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 904213575}
+  - component: {fileID: 904213577}
+  - component: {fileID: 904213576}
+  m_Layer: 0
+  m_Name: TriggerDial (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &904213575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904213574}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7179207, z: -0, w: -0.69612485}
+  m_LocalPosition: {x: 74.46, y: 0.9116411, z: -363.44}
+  m_LocalScale: {x: 4.1656737, y: 0.43131, z: 2.5225754}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398367813}
+  m_LocalEulerAnglesHint: {x: 0, y: 268.234, z: 0}
+--- !u!114 &904213576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904213574}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3c431a0a1acc748b717dd29b878657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerEvent
+  onTriggerEnterAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1845702141}
+        m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
+        m_MethodName: DisplayDialog
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1449708888}
+          m_ObjectArgumentAssemblyTypeName: DialogRuntimeContainer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 557432704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onTriggerExitAction:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTag: Player
+  isTalking: 0
+  initDialog: 0
+  dialogs: {fileID: 0}
+--- !u!65 &904213577
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 904213574}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0604424, y: 2.446253, z: 3.0402918}
+  m_Center: {x: 1.5302218, y: 0.72312754, z: -1.0201479}
 --- !u!1001 &906136607
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52303,6 +52608,118 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2897245466427751170, guid: 4be7ebd2c956a1b489a51c612ee64eea, type: 3}
   m_PrefabInstance: {fileID: 938457555}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &939080399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 939080400}
+  - component: {fileID: 939080402}
+  - component: {fileID: 939080401}
+  m_Layer: 0
+  m_Name: TriggerDial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &939080400
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939080399}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.97479266, z: -0, w: 0.22311288}
+  m_LocalPosition: {x: 114.49, y: 0.9116411, z: -219.58}
+  m_LocalScale: {x: 4.081565, y: 0.43131, z: 1.9605}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398367813}
+  m_LocalEulerAnglesHint: {x: 0, y: 154.216, z: 0}
+--- !u!114 &939080401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939080399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3c431a0a1acc748b717dd29b878657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerEvent
+  onTriggerEnterAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1845702141}
+        m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
+        m_MethodName: DisplayDialog
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 971445745}
+          m_ObjectArgumentAssemblyTypeName: DialogRuntimeContainer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 557432704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onTriggerExitAction:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTag: Player
+  isTalking: 0
+  initDialog: 0
+  dialogs: {fileID: 0}
+--- !u!65 &939080402
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939080399}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0604424, y: 2.446253, z: 3.0402918}
+  m_Center: {x: 1.5302218, y: 0.72312754, z: -1.0201479}
 --- !u!4 &939911709 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 278800254429684774, guid: 469e85118982d7e489c096fb621728cc, type: 3}
@@ -54527,6 +54944,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6698346818082700425, guid: dd3c37723dff87b41915d720a87993d7, type: 3}
   m_PrefabInstance: {fileID: 970977973}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &971445744
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 971445746}
+  - component: {fileID: 971445745}
+  m_Layer: 0
+  m_Name: DialogCrowd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &971445745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971445744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
+  <data>k__BackingField: {fileID: 11400000, guid: b9f73f73d5bc9114bb61f893ded7abb1, type: 2}
+  <pnjBubbleAnimator>k__BackingField: {fileID: 0}
+  <pnjBubbleText>k__BackingField: {fileID: 0}
+  <dialogueEndEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 330159347}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueEvents:
+    _serializedList: []
+--- !u!4 &971445746
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 971445744}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56628, y: 3.06377, z: -186.1267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &972044273 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6680492315359175499, guid: ada2f4293252a964583b8186b772831a, type: 3}
@@ -63362,6 +63855,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca216969900408498319e94687d176f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchNodeEvent
+--- !u!1 &1132878912
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1132878913}
+  - component: {fileID: 1132878915}
+  - component: {fileID: 1132878914}
+  m_Layer: 0
+  m_Name: TriggerDial (B)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1132878913
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132878912}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.9999572, z: -0, w: -0.009259335}
+  m_LocalPosition: {x: 107.98, y: 0.9116411, z: -279.28}
+  m_LocalScale: {x: 7.508855, y: 0.43131, z: 1.9605}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398367813}
+  m_LocalEulerAnglesHint: {x: 0, y: 181.061, z: 0}
+--- !u!114 &1132878914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132878912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3c431a0a1acc748b717dd29b878657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerEvent
+  onTriggerEnterAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1845702141}
+        m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
+        m_MethodName: DisplayDialog
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2002326117}
+          m_ObjectArgumentAssemblyTypeName: DialogRuntimeContainer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 557432704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onTriggerExitAction:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTag: Player
+  isTalking: 0
+  initDialog: 0
+  dialogs: {fileID: 0}
+--- !u!65 &1132878915
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132878912}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0604424, y: 2.446253, z: 3.0402918}
+  m_Center: {x: 1.5302218, y: 0.72312754, z: -1.0201479}
 --- !u!1001 &1133545609
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -81989,6 +82594,82 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca216969900408498319e94687d176f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchNodeEvent
+--- !u!1 &1449708887
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1449708889}
+  - component: {fileID: 1449708888}
+  m_Layer: 0
+  m_Name: DialogCrowd (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1449708888
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449708887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
+  <data>k__BackingField: {fileID: 11400000, guid: 575b5fda6c378e2459c64ad5b2d5b038, type: 2}
+  <pnjBubbleAnimator>k__BackingField: {fileID: 0}
+  <pnjBubbleText>k__BackingField: {fileID: 0}
+  <dialogueEndEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1009202805}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueEvents:
+    _serializedList: []
+--- !u!4 &1449708889
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1449708887}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56628, y: 3.06377, z: -186.1267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1450022833 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8646068947970879072, guid: 80791f7aa1de38a4599d52837dfa1581, type: 3}
@@ -92099,6 +92780,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7093099767049081834, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
+      propertyPath: m_text
+      value: Ursula
+      objectReference: {fileID: 0}
     - target: {fileID: 7892075952440317898, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -97353,6 +98038,118 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca216969900408498319e94687d176f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SwitchNodeEvent
+--- !u!1 &1724249258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1724249259}
+  - component: {fileID: 1724249261}
+  - component: {fileID: 1724249260}
+  m_Layer: 0
+  m_Name: TriggerDial (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1724249259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724249258}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.7179207, z: -0, w: -0.69612485}
+  m_LocalPosition: {x: 0.59, y: 0.9116411, z: -319.23}
+  m_LocalScale: {x: 1.5503643, y: 0.43131, z: 2.5225754}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 398367813}
+  m_LocalEulerAnglesHint: {x: 0, y: 268.234, z: 0}
+--- !u!114 &1724249260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724249258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec3c431a0a1acc748b717dd29b878657, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerEvent
+  onTriggerEnterAction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1845702141}
+        m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
+        m_MethodName: DisplayDialog
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 479638497}
+          m_ObjectArgumentAssemblyTypeName: DialogRuntimeContainer, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 557432704}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+  onTriggerExitAction:
+    m_PersistentCalls:
+      m_Calls: []
+  targetTag: Player
+  isTalking: 0
+  initDialog: 0
+  dialogs: {fileID: 0}
+--- !u!65 &1724249261
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1724249258}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0604424, y: 2.446253, z: 3.0402918}
+  m_Center: {x: 1.5302218, y: 0.72312754, z: -1.0201479}
 --- !u!1001 &1724794824
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -99991,6 +100788,82 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 469e85118982d7e489c096fb621728cc, type: 3}
+--- !u!1 &1782426374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1782426376}
+  - component: {fileID: 1782426375}
+  m_Layer: 0
+  m_Name: DialogCrowd (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1782426375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782426374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
+  <data>k__BackingField: {fileID: 11400000, guid: 024fd9e6608852f43b15b10ee240c084, type: 2}
+  <pnjBubbleAnimator>k__BackingField: {fileID: 0}
+  <pnjBubbleText>k__BackingField: {fileID: 0}
+  <dialogueEndEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 867415786}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueEvents:
+    _serializedList: []
+--- !u!4 &1782426376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782426374}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56628, y: 3.06377, z: -186.1267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1787477756
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111928,6 +112801,82 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8436508086037129982, guid: cd48759caaf42d64baa4911597265833, type: 3}
   m_PrefabInstance: {fileID: 737258106}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2002326116
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2002326118}
+  - component: {fileID: 2002326117}
+  m_Layer: 0
+  m_Name: DialogBlocked
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2002326117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002326116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
+  <data>k__BackingField: {fileID: 11400000, guid: 7542ba3e6c11528478f62141832a5483, type: 2}
+  <pnjBubbleAnimator>k__BackingField: {fileID: 0}
+  <pnjBubbleText>k__BackingField: {fileID: 0}
+  <dialogueEndEvent>k__BackingField:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1625744704}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: LockPlayer
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1390491611}
+        m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
+        m_MethodName: ChangeTarget
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1502640361}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  dialogueEvents:
+    _serializedList: []
+--- !u!4 &2002326118
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2002326116}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.56628, y: 3.06377, z: -186.1267}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2002909961
 GameObject:
   m_ObjectHideFlags: 0
@@ -123071,5 +124020,10 @@ SceneRoots:
   - {fileID: 1930030328}
   - {fileID: 1845702142}
   - {fileID: 1128254613}
+  - {fileID: 971445746}
+  - {fileID: 479638498}
+  - {fileID: 1449708889}
+  - {fileID: 1782426376}
+  - {fileID: 2002326118}
   - {fileID: 4992232587855918856}
   - {fileID: 1676243515}
