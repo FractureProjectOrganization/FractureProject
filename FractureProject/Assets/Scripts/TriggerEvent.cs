@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Object = System.Object;
 
 public class TriggerEvent : MonoBehaviour
 {
@@ -44,4 +45,9 @@ public class TriggerEvent : MonoBehaviour
         }
     }
     
+    //Stoian
+    public void DeleteTrigger()
+    {
+        GameObject.Destroy(this);
+    }
 }

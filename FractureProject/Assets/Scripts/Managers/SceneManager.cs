@@ -24,7 +24,7 @@ public class SceneManager : MonoBehaviour
         instance = this;
     }
     
-    public void Temp()
+    public void LoadNextScene()
     {
         //Handle Transition visuals
 
