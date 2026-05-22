@@ -10,10 +10,11 @@ public class SucessionOfEvents : MonoBehaviour
     [SerializeField] private bool isTriggeredOnEnter,isTriggeredOnExit,isTriggeredOnAwake;
     [SerializeField] public List<TimedEvent> events;
     private Coroutine eventsCoroutine;
-    
+    public bool noInteruption;
 
     public void PlayEvents()
     {
+        if (eventsCoroutine != null && noInteruption) return;
         if(eventsCoroutine != null) StopCoroutine(eventsCoroutine);
         eventsCoroutine= StartCoroutine(EventPlay(events));
     }

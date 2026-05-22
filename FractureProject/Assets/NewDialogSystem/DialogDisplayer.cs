@@ -5,16 +5,15 @@ using UnityEngine;
 public class DialogDisplayer : MonoBehaviour
 {
     [SerializeField] private Animator playerAnimator;
-    private Animator pnjAnimator;
 
     [SerializeField] private TMP_Text playerText;
-    private TMP_Text pnjText;
     
     private static readonly int StartTrigger = Animator.StringToHash("Start");
     private static readonly int StopTrigger = Animator.StringToHash("End");
     private static readonly int NextTrigger = Animator.StringToHash("Next");
 
     private DialogData currentDialog;
+    private DialogRuntimeContainer currentDialogContainer;
 
     private bool? previousLineIsPlayer;
 
@@ -23,9 +22,8 @@ public class DialogDisplayer : MonoBehaviour
         ResetDisplay();
         
         currentDialog = datas.data;
-        pnjAnimator = datas.pnjBubbleAnimator;
-        pnjText = datas.pnjBubbleText;
-        
+
+        currentDialogContainer = datas;
         StartCoroutine(ReadDialog());
     }
 
@@ -35,66 +33,54 @@ public class DialogDisplayer : MonoBehaviour
         {
             Debug.Log(currentDialog.dialog[i].text);
             DisplayLine(currentDialog.dialog[i]);
-            ManageBubble(currentDialog.dialog[i].isPlayer);
+            ManageBubble(currentDialog.dialog[i].isPlayer,true);
 
             previousLineIsPlayer = currentDialog.dialog[i].isPlayer;
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q));
+            if (currentDialogContainer.dialogueEvents.ContainsKey(i))
+            {
+                currentDialogContainer.dialogueEvents[i].Invoke();
+                yield return new WaitForSeconds(2f);
+            }
+            
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q)||Input.GetButtonDown("Fire1"));
             yield return null;
         }
-        
+        ManageBubble(currentDialog.dialog[currentDialog.dialog.Length-1].isPlayer, false);
         ResetDisplay();
+        currentDialogContainer.dialogueEndEvent.Invoke();
     }
 
     private void DisplayLine(Line line)
     {
-        if (line.isPlayer)
-            playerText.text = line.text;
-        else if (pnjText != null)
-            pnjText.text = line.text;
+        playerText.text = line.text;
     }
     
-    private void ManageBubble(bool isPlayerTalking)
+    private void ManageBubble(bool lineIsPlayer, bool isTalking)
     {
-        switch (previousLineIsPlayer, isPlayerTalking)
+        playerAnimator.SetBool("PNJ",!lineIsPlayer);
+        if (previousLineIsPlayer == null)
         {
-            case (null, true):
-                playerAnimator.SetTrigger(StartTrigger);
-                break;
-            case (null, false):
-                pnjAnimator?.SetTrigger(StartTrigger);
-                break;
-
-            case (true, true):
-                playerAnimator.SetTrigger(NextTrigger);
-                break;
-            case (false, true):
-                pnjAnimator?.SetTrigger(StopTrigger);
-                playerAnimator.SetTrigger(StartTrigger);
-                break;
-
-            case (false, false):
-                pnjAnimator?.SetTrigger(NextTrigger);
-                break;
-            case (true, false):
-                playerAnimator.SetTrigger(StopTrigger);
-                pnjAnimator?.SetTrigger(StartTrigger);
-                break;
+            playerAnimator.SetTrigger(StartTrigger);
+        }
+        else if (isTalking)
+        {
+            playerAnimator.SetTrigger(NextTrigger);
+        }
+        else
+        {
+            playerAnimator.SetBool("Ended",true);
+            playerAnimator.SetTrigger(StopTrigger);
         }
     }
 
     private void ResetDisplay()
     {
         StopAllCoroutines();
-        playerAnimator.SetTrigger(StopTrigger);
+        //playerAnimator.SetBool("Ended",true);
         
-        if (pnjAnimator != null)
-        {
-            pnjAnimator.SetTrigger(StopTrigger);
-        }
         
         currentDialog = null;
-        pnjAnimator = null;
-        pnjText = null;
+
         
         previousLineIsPlayer = null;
     }
