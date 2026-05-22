@@ -1,14 +1,24 @@
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class FlashbackGuardsManager : MonoBehaviour
 {
-    [System.Serializable]
+    public static FlashbackGuardsManager Instance;
 
-    public class FlashbackGuard
+    [SerializeField] private FlashbackGuards[] guardsZones;
+
+    private void Awake()
     {
-        public List<GameObject> Guards;
-        public List<GameObject> ObservationSpots;
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+    }
+
+    public void CheckAllZones()
+    {
+        foreach (FlashbackGuards zone in guardsZones)
+        {
+            if (!zone.HasBeenObserved) return;
+        }
+        
+        Debug.Log("All zones have been observed");
     }
 }
