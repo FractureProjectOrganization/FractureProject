@@ -42,7 +42,7 @@ public class DialogDisplayer : MonoBehaviour
                 yield return new WaitForSeconds(2f);
             }
             
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q));
+            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q)||Input.GetButtonDown("Fire1"));
             yield return null;
         }
         ManageBubble(currentDialog.dialog[currentDialog.dialog.Length-1].isPlayer, false);
