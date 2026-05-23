@@ -48,8 +48,7 @@ public class TransitionManager : MonoBehaviour
     public void FadeToBlack()
     {
         if (!fadeToBlackAnimator) return;
-
-        Player.instance.locked = true;
+        
         fadeToBlackAnimator.SetBool(Black, true);
         StartCoroutine(WaitForFade());
     }

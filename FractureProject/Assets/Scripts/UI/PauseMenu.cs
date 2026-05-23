@@ -51,8 +51,6 @@ public class PauseMenu : MonoBehaviour
         Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
         pauseMenuPanel.SetActive(true);
-        
-        Debug.Log(Player.instance.locked);
     }
 
     public void Resume()
@@ -62,6 +60,8 @@ public class PauseMenu : MonoBehaviour
         Time.timeScale = 1;
         pauseMenuPanel.SetActive(false);
         UIManager.instance.RemoveFirstSelectedButton();
+        
+        Player.instance.locked = false;
     }
 
     public void Settings()

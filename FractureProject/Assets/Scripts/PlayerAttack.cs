@@ -26,9 +26,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
         {
-            if (Time.time >= nextAttackTime && 
+            if (Time.time >= nextAttackTime && !playerMovement.locked &&
                (playerMovement.currentState == Player.States.Idle || playerMovement.currentState == Player.States.Walking))
             {
                 PerformAttack();
@@ -38,10 +38,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void PerformAttack()
     {
+        Player.instance.locked = true;
+        
         playerMovement.ChangeState(Player.States.Attacking);
         nextAttackTime = Time.time + attackCooldown;
-
-        Player.instance.locked = true;
         
         Vector3 hitCenter = transform.position + (playerMovement.lastFacingDirection * attackRange);
         hitCenter.y = transform.position.y;
