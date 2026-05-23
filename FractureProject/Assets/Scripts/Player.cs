@@ -294,7 +294,6 @@ public class Player : MonoBehaviour
 
     public void LockPlayer(bool Locked)
     {
-        Debug.Log("I'm called mf");
         locked = Locked;
     }
 
