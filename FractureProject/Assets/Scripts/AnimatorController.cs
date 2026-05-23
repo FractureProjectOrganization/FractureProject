@@ -28,7 +28,7 @@ public class AnimatorController : MonoBehaviour
         
         animator.SetBool(IsMovingHash, newState == Player.States.Walking);
         animator.SetBool(IsTransportedHash, newState == Player.States.Transported);
-        animator.SetBool(IsPushingHash,newState == Player.States.Pushing);//Nico
+        //animator.SetBool(IsPushingHash,newState == Player.States.Pushing);//Nico
         animator.SetBool(IsAttacking, newState == Player.States.Attacking);
         
     }
