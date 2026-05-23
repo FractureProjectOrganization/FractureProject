@@ -26,7 +26,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
         {
             if (Time.time >= nextAttackTime && 
                (playerMovement.currentState == Player.States.Idle || playerMovement.currentState == Player.States.Walking))
@@ -99,8 +99,13 @@ public class PlayerAttack : MonoBehaviour
 
     private void EndAttack()
     {
+        Debug.Log("WTF");
+        
+        Debug.LogWarning(playerMovement.currentState);
+        
         if (playerMovement.currentState == Player.States.Attacking)
         {
+            Debug.Log("suicide");
             Player.instance.locked = false;
             playerMovement.ChangeState(Player.States.Idle);
         }
