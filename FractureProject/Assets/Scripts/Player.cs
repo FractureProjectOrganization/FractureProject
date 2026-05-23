@@ -74,7 +74,6 @@ public class Player : MonoBehaviour
         //François
         if (locked) 
         {
-            ChangeState(States.Idle);
             return;
         }
         //François
@@ -176,6 +175,7 @@ public class Player : MonoBehaviour
     public void ChangeState(States newState)
     {
         if (currentState == newState) return;
+        Debug.Log($"State changing from {currentState} to {newState}", this);
         
         if (newState == States.Transported || newState == States.Ejected)
         {
@@ -302,7 +302,6 @@ public class Player : MonoBehaviour
 
     public void LockPlayer(bool Locked)
     {
-        //Debug.Log("Lock");
         locked = Locked;
     }
 

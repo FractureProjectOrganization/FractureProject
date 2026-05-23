@@ -38,10 +38,10 @@ public class PlayerAttack : MonoBehaviour
 
     private void PerformAttack()
     {
+        Player.instance.locked = true;
+        
         playerMovement.ChangeState(Player.States.Attacking);
         nextAttackTime = Time.time + attackCooldown;
-
-        Player.instance.locked = true;
         
         Vector3 hitCenter = transform.position + (playerMovement.lastFacingDirection * attackRange);
         hitCenter.y = transform.position.y;
