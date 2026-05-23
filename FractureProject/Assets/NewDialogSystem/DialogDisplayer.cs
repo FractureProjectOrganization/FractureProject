@@ -31,7 +31,7 @@ public class DialogDisplayer : MonoBehaviour
     {
         for (int i = 0; i < currentDialog.dialog.Length; i++)
         {
-            Debug.Log(currentDialog.dialog[i].text);
+            //Debug.Log(currentDialog.dialog[i].text);
             DisplayLine(currentDialog.dialog[i]);
             ManageBubble(currentDialog.dialog[i].isPlayer,true);
 
