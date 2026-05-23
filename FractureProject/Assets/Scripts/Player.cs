@@ -168,7 +168,6 @@ public class Player : MonoBehaviour
     public void ChangeState(States newState)
     {
         if (currentState == newState) return;
-        Debug.Log($"State changing from {currentState} to {newState}", this);
         
         if (newState == States.Transported || newState == States.Ejected)
         {
@@ -295,6 +294,7 @@ public class Player : MonoBehaviour
 
     public void LockPlayer(bool Locked)
     {
+        Debug.Log("I'm called mf");
         locked = Locked;
     }
 
