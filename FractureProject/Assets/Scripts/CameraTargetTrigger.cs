@@ -4,7 +4,7 @@ using UnityEngine;
 public class CameraTargetTrigger : MonoBehaviour
 {
     public Transform cameraTargetPoint;
-    public bool resetOnExit = false;
+    public bool resetOnExit = false, isSequence = false;
     private Transform savedTarget;
 
     [Header("Paramètres de séquence")] [Tooltip("Doit être cochée pour utiliser les paramètres ci-dessous")]
@@ -41,7 +41,7 @@ public class CameraTargetTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!sequenceStarted && other.CompareTag("Player"))
+        if (isSequence && !sequenceStarted && other.CompareTag("Player"))
         {
             if (savedTarget != null && IsometricCameraFollow.instance != null)
             {
