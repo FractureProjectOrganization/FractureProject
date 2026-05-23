@@ -71,6 +71,13 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        if (locked)
+        {
+            if (currentState == States.Walking)
+                ChangeState(States.Idle);
+            return;
+        }
+        
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         
