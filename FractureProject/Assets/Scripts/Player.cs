@@ -71,13 +71,6 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        //François
-        if (locked) 
-        {
-            return;
-        }
-        //François
-        
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         
