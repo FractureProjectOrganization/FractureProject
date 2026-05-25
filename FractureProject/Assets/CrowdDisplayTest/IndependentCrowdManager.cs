@@ -45,7 +45,8 @@ public class IndependentCrowdManager : MonoBehaviour
         Crowd parentCrowd,
         float dispDelay,
         float dispDuration,
-        float dispDist) 
+        float dispDist,
+        float characterRotationY) 
     {
         cpuData = characters;
         characterCount = characters.Length;
@@ -94,6 +95,8 @@ public class IndependentCrowdManager : MonoBehaviour
         {
             targetCrowd.OnCrowdPathChanged += UpdatePathData;
         }
+        
+        propertyBlock.SetFloat("_RotationY", characterRotationY);
     }
 
     private void UpdatePathData()
@@ -140,19 +143,6 @@ public class IndependentCrowdManager : MonoBehaviour
         
         if (newWaypointCount < 2) return;
 
-        if (totalPathLength > 0f && commonPathLength < totalPathLength)
-        {
-            CrowdNode splitNode = null;
-            if (divergeIndex >= 0 && divergeIndex < currentWaypointCount) {
-                splitNode = currentPathNodes[divergeIndex]; 
-            } else if (newWaypointCount < currentWaypointCount) {
-                splitNode = currentPathNodes[newWaypointCount];
-            }
-
-            ExtractCutCharacters(totalPathLength, commonPathLength, splitNode);
-            BakeOffsetAndRemoveCut(commonPathLength);
-        }
-
         totalPathLength = newAccumulatedDistance;
         currentWaypointCount = newWaypointCount;
 
@@ -164,58 +154,6 @@ public class IndependentCrowdManager : MonoBehaviour
         waypointBuffer.SetData(waypointPositions);
         propertyBlock.SetInt("_WaypointCount", currentWaypointCount);
         propertyBlock.SetFloat("_TotalPathLength", totalPathLength);
-    }
-
-    void ExtractCutCharacters(float oldLength, float cutLength, CrowdNode refNode)
-    {
-        if (refNode == null) return;
-
-        crowdBuffer.GetData(cpuData);
-        List<CrowdDisplayer.CharacterData> cutChars = new List<CrowdDisplayer.CharacterData>();
-
-        for (int i = 0; i < characterCount; i++)
-        {
-            if (cpuData[i].uvRect.z == 0f) continue;
-
-            float currentRealPos = cpuData[i].absoluteDistance + localOffset;
-            if (cutLength < oldLength && currentRealPos > cutLength)
-            {
-                CrowdDisplayer.CharacterData copy = cpuData[i];
-                copy.absoluteDistance = currentRealPos; 
-                cutChars.Add(copy);
-            }
-        }
-
-        if (cutChars.Count > 0)
-        {
-            Vector4[] oldPath = new Vector4[currentWaypointCount];
-            System.Array.Copy(waypointPositions, oldPath, currentWaypointCount);
-            
-            CrowdNode[] oldNodes = new CrowdNode[currentWaypointCount];
-            System.Array.Copy(currentPathNodes, oldNodes, currentWaypointCount);
-
-            GameObject go = new GameObject("IndependentCrowd_Cut_Sub");
-            IndependentCrowdManager mgr = go.AddComponent<IndependentCrowdManager>();
-            
-            Texture tex = propertyBlock.GetTexture("_MainTex");
-            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, refNode, characterMesh, materialTemplate, tex, moveSpeed, targetCrowd, dispersionDelay, dispersionDuration, dispersionDistance);
-        }
-    }
-
-    void BakeOffsetAndRemoveCut(float cutLength)
-    {
-        for (int i = 0; i < characterCount; i++) {
-            if (cpuData[i].uvRect.z == 0f) continue;
-
-            float currentRealPos = cpuData[i].absoluteDistance + localOffset;
-            if (currentRealPos > cutLength) {
-                cpuData[i].uvRect.z = 0f;
-            } else {
-                cpuData[i].absoluteDistance = currentRealPos;
-            }
-        }
-        localOffset = 0f;
-        crowdBuffer.SetData(cpuData);
     }
 
     void Update()

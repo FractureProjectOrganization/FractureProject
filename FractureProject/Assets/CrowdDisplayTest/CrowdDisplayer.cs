@@ -80,6 +80,8 @@ public class CrowdDisplayer : MonoBehaviour
 
         argsBuffer = new ComputeBuffer(1, 5 * sizeof(uint), ComputeBufferType.IndirectArguments);
         argsBuffer.SetData(new uint[5] { characterMesh.GetIndexCount(0), (uint)characterCount, 0, 0, 0 });
+        
+        propertyBlock.SetFloat("_RotationY", characterRotationY);
     }
 
     private void UpdatePathData()
@@ -201,7 +203,7 @@ public class CrowdDisplayer : MonoBehaviour
             
             Texture tex = (characters != null && characters.Length > 0) ? characters[0].texture : null;
             
-            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, refNode, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, targetCrowd, dispersionDelay, dispersionDuration, dispersionDistance);
+            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, refNode, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, targetCrowd, dispersionDelay, dispersionDuration, dispersionDistance, characterRotationY);
         }
     }
 
@@ -256,7 +258,6 @@ public class CrowdDisplayer : MonoBehaviour
         if (bufferDirty) NormalizeDistances();
 
         propertyBlock.SetFloat("_GlobalOffset", globalOffset);
-        propertyBlock.SetFloat("_RotationY", characterRotationY);
         
         Graphics.DrawMeshInstancedIndirect(characterMesh, 0, crowdMaterialTemplate, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
     }
