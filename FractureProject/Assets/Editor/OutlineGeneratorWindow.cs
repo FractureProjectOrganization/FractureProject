@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 
 public class OutlineGeneratorWindow : EditorWindow
 {
@@ -265,6 +266,10 @@ public class OutlineGeneratorWindow : EditorWindow
         {
             Debug.LogWarning("Material introuvable au chemin indiqué.");
         }
+        
+        Undo.RegisterCreatedObjectUndo(outlineObject, "Création Outline");
+        EditorSceneManager.MarkSceneDirty(targetObject.scene);
+        EditorUtility.SetDirty(targetObject);
     }
 
     private static Vector3 GetFaceNormal(Vector3 a, Vector3 b, Vector3 c)
