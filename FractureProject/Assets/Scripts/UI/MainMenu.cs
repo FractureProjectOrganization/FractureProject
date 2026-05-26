@@ -10,8 +10,6 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject tempText;
     
-    private InputAction pauseAction;
-    
     private void Awake()
     {
         if (instance != null && instance != this)
