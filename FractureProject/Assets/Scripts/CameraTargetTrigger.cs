@@ -21,7 +21,7 @@ public class CameraTargetTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            savedTarget = other.transform;
+            savedTarget = IsometricCameraFollow.instance.GetTarget();
 
             if (IsometricCameraFollow.instance != null)
             {
@@ -47,6 +47,11 @@ public class CameraTargetTrigger : MonoBehaviour
             {
                 IsometricCameraFollow.instance.ChangeTarget(savedTarget);
             }
+        }
+
+        if (other.CompareTag("Player") && resetOnExit)
+        {
+            IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
     }
     
