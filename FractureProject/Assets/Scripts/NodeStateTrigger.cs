@@ -28,12 +28,15 @@ public class NodeStateTrigger : MonoBehaviour, INodeStateListener
     public void OnStateChange()
     {
         if (!isReady) return;
-        
-        if (node.state == targetState)
-            action.Invoke();
 
-        if (oneTimeOnly)
-            node.DisconnectListener();
+        if (node.state == targetState)
+        {
+            action.Invoke();
+            if (oneTimeOnly)
+                node.DisconnectListener();
+        }
+
+        
     }
 
     private IEnumerator WaitingPatchForReady()
