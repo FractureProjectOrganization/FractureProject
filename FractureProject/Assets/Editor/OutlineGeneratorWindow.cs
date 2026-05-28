@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -86,13 +87,18 @@ public class OutlineGeneratorWindow : EditorWindow
             }
             
             GameObject targetObject = filter.gameObject;
+            
+            string assetName = rootObject + "_" + targetObject.name + "_Outline.asset";
+            string cleanAssetName = Regex.Replace(assetName, @"\s+|\([^)]*\)", "");
 
-            Mesh outlineMesh = AssetDatabase.LoadAssetAtPath<Mesh>(safeFolderPath + rootObject + "_" + targetObject.name + "_Outline"  + ".asset");
+            string finalPath = safeFolderPath + cleanAssetName;
+            
+            Mesh outlineMesh = AssetDatabase.LoadAssetAtPath<Mesh>(finalPath);
         
             if (outlineMesh == null)
             {
                 outlineMesh = ExtractAndGenerate(targetObject, rootObject);
-                SaveOutlineMesh(targetObject, outlineMesh, safeFolderPath);
+                SaveOutlineMesh(targetObject, outlineMesh, finalPath);
             }
             
             if (outlineMesh != null)
@@ -231,8 +237,6 @@ public class OutlineGeneratorWindow : EditorWindow
         Debug.Log(targetObject.name + ": Mesh calculé. Generation du mesh...");
         
         Mesh outlineMesh = new Mesh();
-        outlineMesh.name = rootObject + "_" + targetObject.name + "_Outline";
-
         outlineMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         outlineMesh.SetVertices(newVertices);
@@ -254,19 +258,19 @@ public class OutlineGeneratorWindow : EditorWindow
         return Vector3.Cross(side1, side2).normalized;
     }
 
-    private void SaveOutlineMesh(GameObject targetObject, Mesh outlineMesh, string saveFolder)
+    private void SaveOutlineMesh(GameObject targetObject, Mesh outlineMesh, string savePath)
     {
         if (outlineMesh == null) return;
         
-        string fileAssetPath = saveFolder + outlineMesh.name + ".asset";
+        outlineMesh.name = Path.GetFileNameWithoutExtension(savePath);
         
-        if (AssetDatabase.LoadAssetAtPath<Mesh>(fileAssetPath) != null)
+        if (AssetDatabase.LoadAssetAtPath<Mesh>(savePath) != null)
         {
-            AssetDatabase.DeleteAsset(fileAssetPath);
+            AssetDatabase.DeleteAsset(savePath);
             Debug.Log(targetObject.name + ": Ancien fichier Asset supprimé");
         }
 
-        AssetDatabase.CreateAsset(outlineMesh, fileAssetPath);
+        AssetDatabase.CreateAsset(outlineMesh, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
@@ -275,12 +279,16 @@ public class OutlineGeneratorWindow : EditorWindow
 
     private void PlaceOutlineAuto(GameObject targetObject, Mesh outlineMesh)
     {
-        Transform existingChild = targetObject.transform.Find(outlineMesh.name);
-        
-        if (existingChild != null)
+        for (int i = targetObject.transform.childCount - 1; i >= 0; i--)
         {
-            DestroyImmediate(existingChild.gameObject);
-            Debug.Log(targetObject.name + ": Ancien outline GameObject supprimé de la scène.");
+            Transform child = targetObject.transform.GetChild(i);
+        
+            if (child.name.Contains("Outline"))
+            {
+                DestroyImmediate(child.gameObject);
+            
+                Debug.Log(targetObject.name + ": Ancien outline GameObject supprimé de la scène.");
+            }
         }
         
         GameObject outlineObject = new GameObject(outlineMesh.name);
