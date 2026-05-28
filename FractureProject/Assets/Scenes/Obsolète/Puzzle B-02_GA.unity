@@ -1434,6 +1434,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 139206775}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &133460211
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2457,6 +2461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f246027fc9841b243988f56e7036dda8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Crowd
+  crowdWidth: 0
 --- !u!1 &185137713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2490,6 +2495,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 139206775}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &185137715
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2745,6 +2754,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1070062926}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &198325799
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2961,6 +2974,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1481163719}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &206619545
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5479,6 +5496,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1070062926}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &396012662
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7300,6 +7321,7 @@ MonoBehaviour:
   targetTag: ProtoBarrier
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &511692145
 BoxCollider:
@@ -10708,6 +10730,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1481163719}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &814414246
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13889,6 +13915,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1195634778}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &1112062396
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14341,6 +14371,7 @@ MonoBehaviour:
   targetTag: ProtoBarrier
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1140311880
 BoxCollider:
@@ -14416,6 +14447,7 @@ MonoBehaviour:
   targetTag: Player
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1154701249
 BoxCollider:
@@ -15987,6 +16019,7 @@ MonoBehaviour:
   targetTag: Player
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1263313386
 BoxCollider:
@@ -19422,6 +19455,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   animatorController: {fileID: 0}
+  inCombat: 0
+  footsteps: {fileID: 0}
+  stepTime: 0.5
   spriteRenderer: {fileID: 0}
   currentState: 0
   lastFacingDirection: {x: 0.70710677, y: 0, z: 0.70710677}
@@ -19668,6 +19704,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 139206775}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &1547652467
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -19978,6 +20018,7 @@ MonoBehaviour:
   targetTag: ProtoBarrier
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1561861344
 BoxCollider:
@@ -20258,6 +20299,7 @@ MonoBehaviour:
   targetTag: ProtoBarrier
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1606056509
 BoxCollider:
@@ -20467,6 +20509,7 @@ MonoBehaviour:
   targetTag: Player
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1642520961
 BoxCollider:
@@ -22260,6 +22303,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1070062926}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &1841312572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23043,6 +23090,7 @@ MonoBehaviour:
   targetTag: ProtoBarrier
   isTalking: 0
   initDialog: 0
+  once: 0
   dialogs: {fileID: 0}
 --- !u!65 &1894652829
 BoxCollider:
@@ -23848,6 +23896,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1195634778}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &1980321253
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24036,6 +24088,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 139206775}
+  resetOnExit: 0
+  isSequence: 0
+  startSequence: 0
+  observationTime: 0
 --- !u!65 &1996354837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25125,6 +25181,103 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &1214667255432754093
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 141558326307994310, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_Name
+      value: Canva
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8136914736306894396, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
 --- !u!4 &1305007945303728950
 Transform:
   m_ObjectHideFlags: 0
@@ -26066,6 +26219,7 @@ SceneRoots:
   - {fileID: 8040511749097761177}
   - {fileID: 6829998647372831847}
   - {fileID: 8852023205352586769}
+  - {fileID: 1214667255432754093}
   - {fileID: 1212880627}
   - {fileID: 1487110069}
   - {fileID: 431256230}

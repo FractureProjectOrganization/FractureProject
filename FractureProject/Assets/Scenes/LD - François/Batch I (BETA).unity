@@ -123925,6 +123925,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -360.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1262075561693051719, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
+      propertyPath: firstPauseButton
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 1320484656413964335, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
       propertyPath: player
       value: 
@@ -124062,10 +124066,11 @@ PrefabInstance:
       value: UI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4977640163534355333, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4928766013978744004, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
-      insertIndex: -1
+      insertIndex: 2
       addedObject: {fileID: 492704145}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
