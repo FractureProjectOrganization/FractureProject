@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -48,9 +49,34 @@ public class OutlineGeneratorWindow : EditorWindow
 
         MeshFilter[] allMeshFilters = rootObject.GetComponentsInChildren<MeshFilter>();
         int objectsProcessed = 0;
+        
+        string saveFolder = "Assets/GeneratedOutlines/" + rootObject;
+        
+        if (!Directory.Exists(saveFolder))
+        {
+            Directory.CreateDirectory(saveFolder);
+        }
+        else
+        {
+            DirectoryInfo directoryInfo = new DirectoryInfo(saveFolder);
+
+            foreach (FileInfo file in directoryInfo.GetFiles())
+            {
+                file.Delete();
+            }
+        }
+        AssetDatabase.Refresh();
+        
+        string safeFolderPath = saveFolder;
+        if (!safeFolderPath.EndsWith("/"))
+        {
+            safeFolderPath += "/";
+        }
 
         foreach (MeshFilter filter in allMeshFilters)
         {
+            Debug.Log("Prochain objet...");
+            
             if (filter == null) 
             {
                 continue;
@@ -59,20 +85,36 @@ public class OutlineGeneratorWindow : EditorWindow
             {
                 continue;
             }
-            Debug.Log("Prochain objet...");
+            
+            GameObject targetObject = filter.gameObject;
+            
+            string assetName = rootObject + "_" + targetObject.name + "_Outline.asset";
+            string cleanAssetName = Regex.Replace(assetName, @"\s+|\([^)]*\)", "");
 
-            ExtractAndGenerate(filter.gameObject);
+            string finalPath = safeFolderPath + cleanAssetName;
+            
+            Mesh outlineMesh = AssetDatabase.LoadAssetAtPath<Mesh>(finalPath);
+        
+            if (outlineMesh == null)
+            {
+                outlineMesh = ExtractAndGenerate(targetObject, rootObject);
+                SaveOutlineMesh(targetObject, outlineMesh, finalPath);
+            }
+            
+            if (outlineMesh != null)
+                PlaceOutlineAuto(targetObject, outlineMesh);
+            
             objectsProcessed++;
         }
         
         Debug.Log("Execution du tool terminée");
     }
 
-    private void ExtractAndGenerate(GameObject targetObject)
+    private Mesh ExtractAndGenerate(GameObject targetObject, GameObject rootObject)
     {
         MeshFilter meshFilter = targetObject.GetComponent<MeshFilter>();
         
-        if (meshFilter == null || meshFilter.sharedMesh == null) return;
+        if (meshFilter == null || meshFilter.sharedMesh == null) return null;
 
         Mesh sourceMesh = meshFilter.sharedMesh;
 
@@ -195,8 +237,6 @@ public class OutlineGeneratorWindow : EditorWindow
         Debug.Log(targetObject.name + ": Mesh calculé. Generation du mesh...");
         
         Mesh outlineMesh = new Mesh();
-        outlineMesh.name = targetObject.name + "_Outline";
-
         outlineMesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
 
         outlineMesh.SetVertices(newVertices);
@@ -206,41 +246,49 @@ public class OutlineGeneratorWindow : EditorWindow
         outlineMesh.RecalculateBounds();
 
         Debug.Log(targetObject.name + ": Génération terminée. Sauvegarde en cours...");
+
+        return outlineMesh;
+    }
+
+    private static Vector3 GetFaceNormal(Vector3 a, Vector3 b, Vector3 c)
+    {
+        Vector3 side1 = b - a;
+        Vector3 side2 = c - a;
         
-        string saveFolder = "Assets/GeneratedOutlines/" + sourceMesh.name;
+        return Vector3.Cross(side1, side2).normalized;
+    }
+
+    private void SaveOutlineMesh(GameObject targetObject, Mesh outlineMesh, string savePath)
+    {
+        if (outlineMesh == null) return;
         
-        if (!Directory.Exists(saveFolder))
+        outlineMesh.name = Path.GetFileNameWithoutExtension(savePath);
+        
+        if (AssetDatabase.LoadAssetAtPath<Mesh>(savePath) != null)
         {
-            Directory.CreateDirectory(saveFolder);
-            AssetDatabase.Refresh(); 
-        }
-        
-        string safeFolderPath = saveFolder;
-        if (!safeFolderPath.EndsWith("/"))
-        {
-            safeFolderPath += "/";
-        }
-        
-        string fileAssetPath = safeFolderPath + outlineMesh.name + ".asset";
-        
-        if (AssetDatabase.LoadAssetAtPath<Mesh>(fileAssetPath) != null)
-        {
-            AssetDatabase.DeleteAsset(fileAssetPath);
+            AssetDatabase.DeleteAsset(savePath);
             Debug.Log(targetObject.name + ": Ancien fichier Asset supprimé");
         }
 
-        AssetDatabase.CreateAsset(outlineMesh, fileAssetPath);
+        AssetDatabase.CreateAsset(outlineMesh, savePath);
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
         Debug.Log(targetObject.name + ": Fichier sauvegardé !");
-        
-        Transform existingChild = targetObject.transform.Find(outlineMesh.name);
-        
-        if (existingChild != null)
+    }
+
+    private void PlaceOutlineAuto(GameObject targetObject, Mesh outlineMesh)
+    {
+        for (int i = targetObject.transform.childCount - 1; i >= 0; i--)
         {
-            DestroyImmediate(existingChild.gameObject);
-            Debug.Log(targetObject.name + ": Ancien outline GameObject supprimé de la scène.");
+            Transform child = targetObject.transform.GetChild(i);
+        
+            if (child.name.Contains("Outline"))
+            {
+                DestroyImmediate(child.gameObject);
+            
+                Debug.Log(targetObject.name + ": Ancien outline GameObject supprimé de la scène.");
+            }
         }
         
         GameObject outlineObject = new GameObject(outlineMesh.name);
@@ -271,13 +319,29 @@ public class OutlineGeneratorWindow : EditorWindow
         EditorSceneManager.MarkSceneDirty(targetObject.scene);
         EditorUtility.SetDirty(targetObject);
     }
-
-    private static Vector3 GetFaceNormal(Vector3 a, Vector3 b, Vector3 c)
-    {
-        Vector3 side1 = b - a;
-        Vector3 side2 = c - a;
-        
-        return Vector3.Cross(side1, side2).normalized;
-    }
     
+}
+
+public struct Edge
+{
+    public int v1;
+    public int v2;
+
+    public Edge(int a, int b)
+    {
+        v1 = Mathf.Min(a, b);
+        v2 = Mathf.Max(a, b);
+    }
+
+    public override bool Equals(object obj)
+    {
+        if (!(obj is Edge)) return false;
+        Edge other = (Edge)obj;
+        return v1 == other.v1 && v2 == other.v2;
+    }
+
+    public override int GetHashCode()
+    {
+        return v1.GetHashCode() ^ v2.GetHashCode();
+    }
 }
