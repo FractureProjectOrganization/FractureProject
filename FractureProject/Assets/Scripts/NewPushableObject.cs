@@ -44,6 +44,7 @@ public class NewPushableObject : MonoBehaviour
                 outPlayed = false;
                 SoundManager.PlaySound("Interact In");
             }
+            
             if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
             {
                 
@@ -63,23 +64,6 @@ public class NewPushableObject : MonoBehaviour
                 
                 Player.instance.animatorController.UpdateMoveDirection(playerDir.x, playerDir.z);
                 
-                if (playerDir.x > 0 && playerDir.z <= 0) //Down Right
-                {
-                    Player.instance.spriteRenderer.flipX = true;
-                }
-                else if (playerDir.x < 0 && playerDir.z <= 0) //Down Left
-                {
-                    Player.instance.spriteRenderer.flipX = false;
-                } 
-                else if (playerDir.x < 0 && playerDir.z > 0) //Up Left
-                {
-                    Player.instance.spriteRenderer.flipX = true;
-                } 
-                else if (playerDir.x > 0 && playerDir.z > 0) //Up Right
-                {
-                    Player.instance.spriteRenderer.flipX = false;
-                }
-                
                 Vector3 dir = new Vector3(0f, 0f, 0f);
                 if(onX)dir +=(new Vector3(Input.GetAxis("Horizontal"), 0f, 0f));
                 if(onZ)dir +=(new Vector3( 0f, 0f,Input.GetAxis("Vertical")));
@@ -93,7 +77,7 @@ public class NewPushableObject : MonoBehaviour
             else
             {
                 Player.instance.locked = false;
-                Player.instance.ChangeState(Player.States.Walking);
+                Player.instance.ChangeState(Player.States.Idle);
                 
             }
         }
