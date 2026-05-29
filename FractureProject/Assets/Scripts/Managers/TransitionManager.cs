@@ -13,6 +13,8 @@ public class TransitionManager : MonoBehaviour
     private static readonly int Cinematic = Animator.StringToHash("isCinematic");
     private static readonly int Black = Animator.StringToHash("isBlack");
 
+    public float TimeBforeSceneSwitch = 0f;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -56,6 +58,7 @@ public class TransitionManager : MonoBehaviour
     IEnumerator WaitForFade()
     {
         yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(TimeBforeSceneSwitch);
         SceneManager.instance.LoadNextScene();
         yield return null;
     }
