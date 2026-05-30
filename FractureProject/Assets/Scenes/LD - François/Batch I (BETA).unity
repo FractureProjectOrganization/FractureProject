@@ -33787,19 +33787,19 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 871590043}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 164.19751
+      value: 198.01787
       objectReference: {fileID: 0}
     - target: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.49983978
+      value: 8.49984
       objectReference: {fileID: 0}
     - target: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -291.2771
+      value: -311.72293
       objectReference: {fileID: 0}
     - target: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -33833,6 +33833,58 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[1].Key
+      value: CrowdCheer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[2].Key
+      value: TypeWriter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[3].Key
+      value: Interact In
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[4].Key
+      value: Interact Out
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[5].Key
+      value: Sign Flip
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[6].Key
+      value: Push
+      objectReference: {fileID: 0}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: fa3d1346d56d58148949d25e32b94636, type: 3}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[2].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: ad21cd26696edca4ebbabec8a0a22444, type: 3}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[3].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: ac0f4d683b7483f4b8aa604bd67da6c0, type: 3}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[4].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: 04b311c85a787c54389056e042f30f61, type: 3}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[5].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: 111dff5dd09465b439cef0b582d2ad02, type: 3}
+    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
+      propertyPath: sfx._serializedList.Array.data[6].Value
+      value: 
+      objectReference: {fileID: 8300000, guid: 756769dc203cc1f43bc56a471faf00ed, type: 3}
     - target: {fileID: 7509431380251440420, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
       propertyPath: m_Volume
       value: 0.432
@@ -48946,7 +48998,6 @@ Transform:
   - {fileID: 1154682435}
   - {fileID: 1792783374}
   - {fileID: 2072733250}
-  - {fileID: 600204404}
   - {fileID: 1140680059}
   - {fileID: 1332781089}
   - {fileID: 2105972407}
@@ -125489,3 +125540,4 @@ SceneRoots:
   - {fileID: 4992232587855918856}
   - {fileID: 1676243515}
   - {fileID: 25174892}
+  - {fileID: 600204403}
