@@ -22,6 +22,25 @@ public class NewPushableObject : MonoBehaviour
 
     [SerializeField] private SpriteRenderer outline;
     
+    private Vector3 safeObjectPosition;
+    private Vector3 safePlayerPosition;
+    private bool pushCanceled = false;
+    
+    [HideInInspector] public bool canBePush = true;
+    private bool isBlockedByCrowdThisFrame = false;
+    
+    private void LateUpdate()
+    {
+        canBePush = !isBlockedByCrowdThisFrame;
+        isBlockedByCrowdThisFrame = false;
+    }
+
+    public void BlockByCrowd()
+    {
+        isBlockedByCrowdThisFrame = true;
+        canBePush = false;
+    }
+    
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -44,13 +63,14 @@ public class NewPushableObject : MonoBehaviour
                 outPlayed = false;
                 SoundManager.PlaySound("Interact In");
             }
+            
             if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
             {
                 
                 Player.instance.locked = true;
                 Player.instance.ChangeState(Player.States.Pushing);
-
-                //"Ce sera le probleme d'Olivier" -Alissa
+                
+                Player.instance.currentPushable = this;
                 
                 if (Camera.main == null) return;
                 
@@ -62,23 +82,6 @@ public class NewPushableObject : MonoBehaviour
                 playerDir = Quaternion.AngleAxis(-45f, Vector3.up) * playerDir;
                 
                 Player.instance.animatorController.UpdateMoveDirection(playerDir.x, playerDir.z);
-                
-                if (playerDir.x > 0 && playerDir.z <= 0) //Down Right
-                {
-                    Player.instance.spriteRenderer.flipX = true;
-                }
-                else if (playerDir.x < 0 && playerDir.z <= 0) //Down Left
-                {
-                    Player.instance.spriteRenderer.flipX = false;
-                } 
-                else if (playerDir.x < 0 && playerDir.z > 0) //Up Left
-                {
-                    Player.instance.spriteRenderer.flipX = true;
-                } 
-                else if (playerDir.x > 0 && playerDir.z > 0) //Up Right
-                {
-                    Player.instance.spriteRenderer.flipX = false;
-                }
                 
                 Vector3 dir = new Vector3(0f, 0f, 0f);
                 if(onX)dir +=(new Vector3(Input.GetAxis("Horizontal"), 0f, 0f));
@@ -93,7 +96,9 @@ public class NewPushableObject : MonoBehaviour
             else
             {
                 Player.instance.locked = false;
-                Player.instance.ChangeState(Player.States.Walking);
+                Player.instance.ChangeState(Player.States.Idle);
+                
+                Player.instance.currentPushable = null;
                 
             }
         }
@@ -110,7 +115,6 @@ public class NewPushableObject : MonoBehaviour
     }
 
     public SpriteRenderer spriteRenderer;
-    public Sprite spriteWhenPush;
     private Sprite baseSprite;
     
     [Space]
@@ -123,6 +127,18 @@ public class NewPushableObject : MonoBehaviour
 
     private void TryPush(Vector3 direction)
     {
+        Vector3 playerToObject = transform.position - Player.instance.transform.position;
+        playerToObject.y = 0;
+        playerToObject.Normalize();
+
+        float dotProduct = Vector3.Dot(direction, playerToObject);
+        bool isPushing = dotProduct > 0.1f; 
+
+        if (isPushing && !canBePush)
+        {
+            return; 
+        }
+        
         Vector3 testSize = boxCol.size * 0.45f; 
         Vector3 center = transform.TransformPoint(boxCol.center);
 
@@ -134,47 +150,85 @@ public class NewPushableObject : MonoBehaviour
         }
     }
 
-    private IEnumerator Push(Vector3 direction)
+    public void CancelPush()
     {
-        isMoving = true;
+        if (isMoving && !pushCanceled)
+        {
+            pushCanceled = true;
+        }
+    }
 
-        Vector3 startPos = rb.position;
-        Vector3 targetPos = startPos + (direction * unitsPerPush);
+
+    private IEnumerator Push(Vector3 direction)
+    { 
+        isMoving = true; 
+        pushCanceled = false;
+        
+        safeObjectPosition = rb.position; 
+        safePlayerPosition = Player.instance.rb.position;
+        
+        Vector3 startPos = rb.position; 
+        Vector3 targetPos = startPos + (direction * unitsPerPush); 
         Vector3 offset = startPos - Player.instance.transform.position;
         
         Gamepad gamepad = Gamepad.current;
         
-        while (Vector3.Distance(rb.position, targetPos) > 0.01f)
-        {
-            Vector3 newPos = Vector3.MoveTowards(rb.position, targetPos, pushSpeed * Time.fixedDeltaTime);
-            rb.MovePosition(newPos);
-            Player.instance.rb.MovePosition(newPos-offset);
-
-            if (gamepad != null)
-            {
-                gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
+        while (Vector3.Distance(rb.position, targetPos) > 0.01f) 
+        { 
+            if (pushCanceled) 
+            { 
+                yield return StartCoroutine(RevertPush()); 
+                yield break; 
             }
             
-            yield return new WaitForFixedUpdate();
+            Vector3 newPos = Vector3.MoveTowards(rb.position, targetPos, pushSpeed * Time.fixedDeltaTime); 
+            rb.MovePosition(newPos); 
+            Player.instance.rb.MovePosition(newPos - offset);
+            
+            if (gamepad != null) 
+            { 
+                gamepad.SetMotorSpeeds(lowFrequency, highFrequency); 
+            }
+            
+            yield return new WaitForFixedUpdate(); 
         }
-        
+    
         rb.MovePosition(targetPos);
         pushTimer = 0f;
         isMoving = false;
-        SoundManager.PlaySound("Push",0.2f);
-
+        SoundManager.PlaySound("Push", 0.2f);
 
         if (gamepad != null)
         {
             gamepad.PauseHaptics();
         }
     }
+    
+    private IEnumerator RevertPush() 
+    { 
+        Gamepad gamepad = Gamepad.current; 
+        Vector3 offset = safeObjectPosition - safePlayerPosition;
 
-    private Vector3 GetSnappyDirection(Vector3 inputDir)
+    while (Vector3.Distance(rb.position, safeObjectPosition) > 0.01f)
     {
-        if (Mathf.Abs(inputDir.x) > Mathf.Abs(inputDir.z))
-            return new Vector3(Mathf.Sign(inputDir.x), 0, 0);
-        else
-            return new Vector3(0, 0, Mathf.Sign(inputDir.z));
+        Vector3 newPos = Vector3.MoveTowards(rb.position, safeObjectPosition, pushSpeed * Time.fixedDeltaTime);
+        rb.MovePosition(newPos);
+        Player.instance.rb.MovePosition(newPos - offset);
+
+        yield return new WaitForFixedUpdate();
     }
+
+    rb.MovePosition(safeObjectPosition);
+    Player.instance.rb.MovePosition(safePlayerPosition);
+    
+    pushTimer = 0f;
+    isMoving = false;
+    pushCanceled = false;
+
+    if (gamepad != null)
+    {
+        gamepad.PauseHaptics();
+    }
+    }
+
 }
