@@ -133,7 +133,7 @@ public class Crowd : MonoBehaviour
     
     public event Action OnCrowdPathChanged;
     
-    public void RefreshCrowdStates(bool mustKillDeadBranch = false)
+    public void RefreshCrowdStates(bool mustKillDeadBranch = true)
     {
         foreach (var node in allNodes) node.isConnectedToSource = false;
 
@@ -171,7 +171,6 @@ public class Crowd : MonoBehaviour
             }
         }
         
-        if(mustKillDeadBranch)return;
         OnCrowdPathChanged?.Invoke();
     }
     
