@@ -33833,75 +33833,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundManager
       objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.size
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[1].Key
-      value: CrowdCheer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[2].Key
-      value: TypeWriter
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[3].Key
-      value: Interact In
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[4].Key
-      value: Interact Out
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[5].Key
-      value: Sign Flip
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[6].Key
-      value: Push
-      objectReference: {fileID: 0}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[1].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: fa3d1346d56d58148949d25e32b94636, type: 3}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[2].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: ad21cd26696edca4ebbabec8a0a22444, type: 3}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[3].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: ac0f4d683b7483f4b8aa604bd67da6c0, type: 3}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[4].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: 04b311c85a787c54389056e042f30f61, type: 3}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[5].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: 111dff5dd09465b439cef0b582d2ad02, type: 3}
-    - target: {fileID: 6771297015168939572, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: sfx._serializedList.Array.data[6].Value
-      value: 
-      objectReference: {fileID: 8300000, guid: 756769dc203cc1f43bc56a471faf00ed, type: 3}
-    - target: {fileID: 7509431380251440420, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      propertyPath: m_Volume
-      value: 0.432
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1911384642}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
---- !u!4 &600204404 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1941550997185506089, guid: a906bd94e1d6a924bb3fd880b1ad03b4, type: 3}
-  m_PrefabInstance: {fileID: 600204403}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &600451085
 GameObject:
   m_ObjectHideFlags: 0
@@ -86119,6 +86055,7 @@ MonoBehaviour:
         m_CallState: 2
   targetState: 1
   oneTimeOnly: 0
+  cheerOnFlowing: 1
 --- !u!1001 &1486525846
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -87148,6 +87085,7 @@ MonoBehaviour:
         m_CallState: 2
   targetState: 0
   oneTimeOnly: 0
+  cheerOnFlowing: 0
 --- !u!1001 &1498179070
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -104593,6 +104531,7 @@ MonoBehaviour:
         m_CallState: 2
   targetState: 1
   oneTimeOnly: 0
+  cheerOnFlowing: 1
 --- !u!1001 &1840321639
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108905,135 +108844,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5043912143088946868, guid: ee00e04c170737b4698017d4d4a1648c, type: 3}
   m_PrefabInstance: {fileID: 1183208229}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1911384641
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1911384642}
-  - component: {fileID: 1911384643}
-  m_Layer: 0
-  m_Name: CrowdNoise
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1911384642
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911384641}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 600204404}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &1911384643
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1911384641}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 8cab0504e21692140a84ccd3093d52db, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.5
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!4 &1913255093 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 278800254429684774, guid: 469e85118982d7e489c096fb621728cc, type: 3}
@@ -120955,6 +120765,7 @@ MonoBehaviour:
         m_CallState: 2
   targetState: 0
   oneTimeOnly: 0
+  cheerOnFlowing: 0
 --- !u!4 &2109275763 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 564613341488557630, guid: 450db8460b6af39418ac97c28b1f78d2, type: 3}
