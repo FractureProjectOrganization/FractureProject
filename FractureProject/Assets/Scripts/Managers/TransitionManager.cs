@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class TransitionManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class TransitionManager : MonoBehaviour
     
     private static readonly int Cinematic = Animator.StringToHash("isCinematic");
     private static readonly int Black = Animator.StringToHash("isBlack");
+
+    public UnityEvent whenFaded;
 
     public float TimeBforeSceneSwitch = 0f;
 
@@ -58,6 +61,7 @@ public class TransitionManager : MonoBehaviour
     IEnumerator WaitForFade()
     {
         yield return new WaitForSeconds(2.5f);
+        whenFaded.Invoke();
         yield return new WaitForSeconds(TimeBforeSceneSwitch);
         SceneManager.instance.LoadNextScene();
         yield return null;
