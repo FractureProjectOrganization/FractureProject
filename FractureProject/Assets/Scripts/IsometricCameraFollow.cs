@@ -8,7 +8,8 @@ public class IsometricCameraFollow : MonoBehaviour
     public float smoothTime = 0.1f;
 
     [Header("FIN UNIQUEMENT, NE PAS TOUCHER")]
-    public float newSmoothTime = 5f; 
+    public float fastSmoothTime = 1f;
+    public float slowSmoothTime = 5f; 
     
     private Transform currentTarget;
     private Vector3 offset;
@@ -58,8 +59,13 @@ public class IsometricCameraFollow : MonoBehaviour
         return currentTarget;
     }
 
-    public void ChangeSmoothTime()
+    public void FastSmoothTime()
     {
-        smoothTime = newSmoothTime;
+        smoothTime = fastSmoothTime;
+    }
+    
+    public void SlowSmoothTime()
+    {
+        smoothTime = slowSmoothTime;
     }
 }
