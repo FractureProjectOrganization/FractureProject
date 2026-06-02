@@ -2496,7 +2496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &110608128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12959,6 +12959,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 4188639811494797559, guid: f9b35b65c98d1314c961dbfbad4f14b0, type: 3}
   m_PrefabInstance: {fileID: 855765841}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &498406919 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1770452889403759788, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
+  m_PrefabInstance: {fileID: 1618243187}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &499029179 stripped
 Transform:
@@ -43755,6 +43760,10 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2408848689274293997, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
+      propertyPath: outlineTrigger
+      value: 
+      objectReference: {fileID: 498406919}
     - target: {fileID: 2408848689274293997, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
       propertyPath: onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

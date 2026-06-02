@@ -13,11 +13,12 @@ public class RotatingSign : MonoBehaviour
     public float highFrequency;
     public float rumbleDuration;
     public SpriteRenderer lineSignRenderer;
+    [SerializeField] private GameObject outlineTrigger;
 
+    private OutlineGradient outlineGradient;
     private RotatingPanneau visuel;
     
     [Space]
-
 
     public UnityEvent onInteraction;
 
@@ -25,6 +26,7 @@ public class RotatingSign : MonoBehaviour
     private void Start()
     {
         visuel = GetComponent<RotatingPanneau>();
+        outlineGradient = outlineTrigger.GetComponent<OutlineGradient>();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -32,7 +34,7 @@ public class RotatingSign : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNear = true;
-            lineSignRenderer.color = new Color(1f, 1f, 1f, 1f);
+            outlineGradient.FillOutline(true);
             
             StartCoroutine(Rumble());
             SoundManager.PlaySound("Interact In");
@@ -45,8 +47,9 @@ public class RotatingSign : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNear = false;
+            outlineGradient.FillOutline(false);
+            
             SoundManager.PlaySound("Interact Out");
-
         }
 
     }
@@ -55,8 +58,6 @@ public class RotatingSign : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            lineSignRenderer.color = new Color(1f, 1f, 1f, 1f);
-            
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
             {
                 if (cooldown) return;

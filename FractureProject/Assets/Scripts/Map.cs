@@ -17,12 +17,19 @@ public class Map : MonoBehaviour
     
     [Tooltip("Temps avant le reset de la caméra")]
     public float observationTime = 0f;
-    
-    [SerializeField] private SpriteRenderer outline;
 
     private bool changedCam;
     private bool playerInside;
     private Collider playerCollider;
+    
+    [SerializeField] private GameObject outlineTrigger;
+
+    private OutlineGradient outlineGradient;
+
+    private void Start()
+    {
+        outlineGradient = outlineTrigger.GetComponent<OutlineGradient>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,7 +37,7 @@ public class Map : MonoBehaviour
         {
             playerInside = true;
             playerCollider = other;
-            outline.color = new Color(outline.color.r, outline.color.g, outline.color.b, 1);
+            outlineGradient.FillOutline(true);
         }
     }
 
@@ -40,6 +47,7 @@ public class Map : MonoBehaviour
         {
             playerInside = false;
             playerCollider = null;
+            outlineGradient.FillOutline(false);
         }
     }
 

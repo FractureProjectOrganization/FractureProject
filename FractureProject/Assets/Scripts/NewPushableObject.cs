@@ -19,8 +19,6 @@ public class NewPushableObject : MonoBehaviour
     private BoxCollider boxCol;
 
     public bool isPlayerNear = false, onX, onZ, inPlayed, outPlayed;
-
-    [SerializeField] private SpriteRenderer outline;
     
     private Vector3 safeObjectPosition;
     private Vector3 safePlayerPosition;
@@ -54,7 +52,6 @@ public class NewPushableObject : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            outline.color = new Color(outline.color.r, outline.color.g, outline.color.b, 1);
             
             if (isMoving) return;
             if (!inPlayed)

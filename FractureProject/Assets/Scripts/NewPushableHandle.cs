@@ -6,6 +6,10 @@ using UnityEngine.InputSystem;
 public class NewPushableHandle : MonoBehaviour
 {
     private NewPushableObject obj;
+    
+    [SerializeField] private GameObject outlineTrigger;
+
+    private OutlineGradient outlineGradient;
 
     [Header("Controller Vibration Settings")]
     [Range(0f, 1f), Tooltip("Vibration lourde")]
@@ -17,6 +21,7 @@ public class NewPushableHandle : MonoBehaviour
     private void Start()
     {
         obj = GetComponentInParent<NewPushableObject>();
+        outlineGradient = outlineTrigger.GetComponent<OutlineGradient>();
     }
 
     void OnTriggerEnter(Collider other)
@@ -25,6 +30,7 @@ public class NewPushableHandle : MonoBehaviour
         {
             obj.isPlayerNear = true;
             StartCoroutine(Rumble());
+            outlineGradient.FillOutline(true);
         }
     }
 
@@ -33,6 +39,7 @@ public class NewPushableHandle : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             obj.isPlayerNear = false;
+            outlineGradient.FillOutline(false);
         }
     }
 
