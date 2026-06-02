@@ -11,7 +11,6 @@ public class FlashbackGuards : MonoBehaviour
         if (HasBeenObserved) return;
         
         HasBeenObserved = true;
-        Debug.Log("Observed");
 
         //Pas nécessaire, mais ne pas supprimer
         /*foreach (GameObject point in observationPoints)
