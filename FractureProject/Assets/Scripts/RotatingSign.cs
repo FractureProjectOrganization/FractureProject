@@ -6,13 +6,6 @@ using UnityEngine.InputSystem;
 
 public class RotatingSign : MonoBehaviour
 {
-    [Header("Controller Vibration Settings")]
-    [Range(0f, 1f), Tooltip("Vibration lourde")]
-    public float lowFrequency;
-    [Range(0f, 1f), Tooltip("Vibration légere")]
-    public float highFrequency;
-    public float rumbleDuration;
-    public SpriteRenderer lineSignRenderer;
     [SerializeField] private GameObject outlineTrigger;
 
     private OutlineGradient outlineGradient;
@@ -36,7 +29,7 @@ public class RotatingSign : MonoBehaviour
             isPlayerNear = true;
             outlineGradient.FillOutline(true);
             
-            StartCoroutine(Rumble());
+            StartCoroutine(HapticManager.instance.InteractionFeedback());
             SoundManager.PlaySound("Interact In");
         }
     }
@@ -74,18 +67,6 @@ public class RotatingSign : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         {
             cooldown = false;
-        }
-    }
-
-    private IEnumerator Rumble()
-    {
-        Gamepad gamepad = Gamepad.current;
-
-        if (gamepad != null)
-        {
-            gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
-            yield return new WaitForSeconds(rumbleDuration);
-            gamepad.PauseHaptics();
         }
     }
 }

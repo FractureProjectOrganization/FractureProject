@@ -11,13 +11,6 @@ public class NewPushableHandle : MonoBehaviour
 
     private OutlineGradient outlineGradient;
 
-    [Header("Controller Vibration Settings")]
-    [Range(0f, 1f), Tooltip("Vibration lourde")]
-    public float lowFrequency;
-    [Range(0f, 1f), Tooltip("Vibration légere")]
-    public float highFrequency;
-    public float rumbleDuration;
-
     private void Start()
     {
         obj = GetComponentInParent<NewPushableObject>();
@@ -29,7 +22,7 @@ public class NewPushableHandle : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             obj.isPlayerNear = true;
-            StartCoroutine(Rumble());
+            StartCoroutine(HapticManager.instance.InteractionFeedback());
             outlineGradient.FillOutline(true);
         }
     }
@@ -40,18 +33,6 @@ public class NewPushableHandle : MonoBehaviour
         {
             obj.isPlayerNear = false;
             outlineGradient.FillOutline(false);
-        }
-    }
-
-    private IEnumerator Rumble()
-    {
-        Gamepad gamepad = Gamepad.current;
-
-        if (gamepad != null)
-        {
-            gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
-            yield return new WaitForSeconds(rumbleDuration);
-            gamepad.PauseHaptics();
         }
     }
 }

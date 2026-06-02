@@ -38,6 +38,7 @@ public class Map : MonoBehaviour
             playerInside = true;
             playerCollider = other;
             outlineGradient.FillOutline(true);
+            StartCoroutine(HapticManager.instance.InteractionFeedback());
         }
     }
 

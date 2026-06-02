@@ -114,14 +114,6 @@ public class NewPushableObject : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private Sprite baseSprite;
     
-    [Space]
-    
-    [Header("Controller Vibration Settings")]
-    [Range(0f, 1f), Tooltip("Vibration lourde")]
-    public float lowFrequency;
-    [Range(0f, 1f), Tooltip("Vibration légere")]
-    public float highFrequency;
-
     private void TryPush(Vector3 direction)
     {
         Vector3 playerToObject = transform.position - Player.instance.transform.position;
@@ -182,9 +174,9 @@ public class NewPushableObject : MonoBehaviour
             rb.MovePosition(newPos); 
             Player.instance.rb.MovePosition(newPos - offset);
             
-            if (gamepad != null) 
-            { 
-                gamepad.SetMotorSpeeds(lowFrequency, highFrequency); 
+            if (gamepad != null)
+            {
+                StartCoroutine(HapticManager.instance.Push());
             }
             
             yield return new WaitForFixedUpdate(); 
