@@ -19,24 +19,44 @@ public class Map : MonoBehaviour
     public float observationTime = 0f;
     
     [SerializeField] private SpriteRenderer outline;
-    
+
+    private bool changedCam;
+    private bool playerInside;
+    private Collider playerCollider;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
+            playerInside = true;
+            playerCollider = other;
             outline.color = new Color(outline.color.r, outline.color.g, outline.color.b, 1);
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1")))
+        if (other.CompareTag("Player"))
         {
-            ChangeCam(other);
+            playerInside = false;
+            playerCollider = null;
         }
-        else if (other.CompareTag("Player") && !Input.anyKey)
+    }
+
+    private void Update()
+    {
+        if (!playerInside || !playerCollider) return;
+
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
         {
-            ResetCam(other);
+            if (!changedCam)
+            {
+                ChangeCam(playerCollider);
+            }
+            else if (changedCam)
+            {
+                ResetCam(playerCollider);
+            }
         }
     }
 
@@ -59,6 +79,8 @@ public class Map : MonoBehaviour
                 StartCoroutine(BlockAndReleasePlayer(other.gameObject));
             }
         }
+        
+        changedCam = true;
     }
 
     private void ResetCam(Collider other)
@@ -77,6 +99,8 @@ public class Map : MonoBehaviour
         {
             IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
+        
+        changedCam = false;
     }
     
     private IEnumerator BlockAndReleasePlayer(GameObject playerObject)
