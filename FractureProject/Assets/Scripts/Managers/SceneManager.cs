@@ -28,13 +28,10 @@ public class SceneManager : MonoBehaviour
     {
         if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1 > UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
         {
-            Debug.Log(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
-            Debug.Log(UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings);
             LoadMainMenu();
         }
         else
         {
-            Debug.Log("NAN LA C DE LA RACDE");
             UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
