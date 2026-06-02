@@ -33785,6 +33785,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2424891431937367633, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: m_Size.x
+      value: 13.283981
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424891431937367633, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: m_Size.z
+      value: 12.574432
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424891431937367633, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: m_Center.x
+      value: 0.090278625
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424891431937367633, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: m_Center.z
+      value: -0.13241577
+      objectReference: {fileID: 0}
     - target: {fileID: 4872836666781533974, guid: 41c9f32658089094495188283c1f53a8, type: 3}
       propertyPath: m_Name
       value: Binoculars (2)
@@ -33833,6 +33849,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 1735511585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -92765,7 +92785,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1631440437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95348,6 +95368,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 1160103267}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -122469,6 +122493,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 1735511585}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
