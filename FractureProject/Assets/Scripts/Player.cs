@@ -14,9 +14,7 @@ public class Player : MonoBehaviour
     public float stepTime= 0.5f;
     private Coroutine stepCoroutine;
     
-    //Stoian
-    public SpriteRenderer spriteRenderer;
-    //Stoian
+    [HideInInspector] public NewPushableObject currentPushable;
     
     public enum States
     {
@@ -109,37 +107,6 @@ public class Player : MonoBehaviour
             animatorController.UpdateMoveDirection(direction.x, direction.z);
         }
         
-        //Stoian
-        if (currentState == States.Pushing)
-        {
-            return;
-        }
-        
-        if (h > 0 && v < 0) //Down Right
-        {
-            spriteRenderer.flipX = true;
-        }
-        else if (h < 0 && v < 0) //Down Left
-        {
-            spriteRenderer.flipX = false;
-        } 
-        else if (h < 0 && v > 0) //Up Left
-        {
-            spriteRenderer.flipX = true;
-        } 
-        else if (h > 0 && v > 0) //Up Right
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (h > 0 && v == 0) //Right
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (h < 0 && v == 0) //Left
-        {
-            spriteRenderer.flipX = true;
-        }
-        //Stoian
     }
     
     void FixedUpdate()
@@ -280,13 +247,19 @@ public class Player : MonoBehaviour
 
     public void BlockByCrowd()
     {
+        if (currentState == States.Pushing && currentPushable != null)
+        {
+            currentPushable.CancelPush();
+            return; 
+        }
+
         Vector3 targetPos = lastPositionAllowed;
-        
+    
         if (skewedDirection.magnitude > 0.01f)
         {
             targetPos -= skewedDirection * 0.02f;
         }
-        
+    
         rb.MovePosition(targetPos);
     }
     

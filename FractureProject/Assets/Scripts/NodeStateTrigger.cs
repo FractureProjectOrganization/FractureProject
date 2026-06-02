@@ -15,6 +15,8 @@ public class NodeStateTrigger : MonoBehaviour, INodeStateListener
     
     private CrowdNode node;
 
+    public bool cheerOnFlowing;
+
     private void Start()
     {
         StartCoroutine(WaitingPatchForReady());
@@ -32,6 +34,7 @@ public class NodeStateTrigger : MonoBehaviour, INodeStateListener
         if (node.state == targetState)
         {
             action.Invoke();
+            if(cheerOnFlowing && targetState == CrowdState.Flowing) SoundManager.PlaySound("CrowdCheer");
             if (oneTimeOnly)
                 node.DisconnectListener();
         }

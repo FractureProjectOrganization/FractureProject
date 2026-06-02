@@ -29,7 +29,7 @@ public class CrowdNode
 
     private float crowdWidth;
     
-    private int playerLayer;
+    private int collisionLayer;
 
     public CrowdNode(Vector3 position, CrowdNode nextNode, float crowdWidth, HashSet<CrowdNode> track = null, INodeStateListener stateListener = null)
     {
@@ -37,7 +37,7 @@ public class CrowdNode
         this.nextNode = nextNode;
         this.crowdWidth = crowdWidth;
         
-        playerLayer = LayerMask.GetMask("Player");
+        collisionLayer = LayerMask.GetMask("Player", "PushableObject");
         
         track?.Add(this);
         
@@ -72,7 +72,9 @@ public class CrowdNode
         Vector3 direction = (targetNode.position - this.position).normalized;
         float distance = Vector3.Distance(this.position, targetNode.position);
 
-        if (Physics.SphereCast(this.position, crowdWidth, direction, out RaycastHit hit, distance, playerLayer))
+        RaycastHit[] hits = Physics.SphereCastAll(this.position, crowdWidth, direction, distance, collisionLayer);
+
+        foreach (RaycastHit hit in hits)
         {
             ManageCollisions(hit, targetNode);
         }
@@ -89,6 +91,14 @@ public class CrowdNode
             else if (targetNode.state == CrowdState.Stagnant)
             {
                 Player.instance.BlockByCrowd();
+            }
+        }
+        else if (hit.collider.CompareTag("ProtoBarrier"))
+        {
+            NewPushableObject pushable = hit.collider.GetComponent<NewPushableObject>();
+            if (pushable != null)
+            {
+                pushable.BlockByCrowd();
             }
         }
     }

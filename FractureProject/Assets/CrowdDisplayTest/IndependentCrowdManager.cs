@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections.Generic;
 
 public class IndependentCrowdManager : MonoBehaviour
 {
@@ -90,70 +89,8 @@ public class IndependentCrowdManager : MonoBehaviour
 
         argsBuffer = new ComputeBuffer(1, 5 * sizeof(uint), ComputeBufferType.IndirectArguments);
         argsBuffer.SetData(new uint[5] { characterMesh.GetIndexCount(0), (uint)characterCount, 0, 0, 0 });
-
-        if (targetCrowd != null)
-        {
-            targetCrowd.OnCrowdPathChanged += UpdatePathData;
-        }
         
         propertyBlock.SetFloat("_RotationY", characterRotationY);
-    }
-
-    private void UpdatePathData()
-    {
-        if (targetCrowd == null || currentPathNodes == null || currentPathNodes.Length == 0 || currentPathNodes[0] == null) return;
-
-        int newWaypointCount = 0;
-        float newAccumulatedDistance = 0f; 
-        CrowdNode currentNode = currentPathNodes[0];
-        Vector3 lastPosition = currentNode.position;
-        
-        Vector4[] newWaypoints = new Vector4[waypointPositions.Length];
-        CrowdNode[] newPathNodes = new CrowdNode[waypointPositions.Length];
-        
-        float commonPathLength = 0f;
-        bool diverged = false;
-        int divergeIndex = -1;
-
-        while (currentNode != null)
-        {
-            newAccumulatedDistance += Vector3.Distance(lastPosition, currentNode.position);
-            newWaypoints[newWaypointCount] = new Vector4(currentNode.position.x, currentNode.position.y, currentNode.position.z, newAccumulatedDistance);
-            newPathNodes[newWaypointCount] = currentNode;
-            
-            if (!diverged)
-            {
-                if (newWaypointCount >= currentWaypointCount) {
-                    diverged = true; 
-                } else {
-                    Vector3 oldPos = new Vector3(waypointPositions[newWaypointCount].x, waypointPositions[newWaypointCount].y, waypointPositions[newWaypointCount].z);
-                    if (Vector3.Distance(oldPos, currentNode.position) > 0.01f) {
-                        diverged = true; 
-                        divergeIndex = newWaypointCount; 
-                    } else {
-                        commonPathLength = newAccumulatedDistance; 
-                    }
-                }
-            }
-            lastPosition = currentNode.position;
-            newWaypointCount++;
-            if (newWaypointCount >= newWaypoints.Length) break;
-            currentNode = currentNode.nextNode;
-        }
-        
-        if (newWaypointCount < 2) return;
-
-        totalPathLength = newAccumulatedDistance;
-        currentWaypointCount = newWaypointCount;
-
-        for(int i = 0; i < currentWaypointCount; i++) {
-            waypointPositions[i] = newWaypoints[i];
-            currentPathNodes[i] = newPathNodes[i];
-        }
-
-        waypointBuffer.SetData(waypointPositions);
-        propertyBlock.SetInt("_WaypointCount", currentWaypointCount);
-        propertyBlock.SetFloat("_TotalPathLength", totalPathLength);
     }
 
     void Update()
@@ -198,7 +135,7 @@ public class IndependentCrowdManager : MonoBehaviour
         {
             if (waypointPositions[i].w >= maxCurrentPos - 0.01f)
             {
-                if (currentPathNodes[i] != null && currentPathNodes[i].state == CrowdState.Stagnant)
+                if (currentPathNodes[i] != null && currentPathNodes[i] is StopCrowdNode stopNode && stopNode.isStopped)
                 {
                     isBlocked = true;
                 }
@@ -229,7 +166,6 @@ public class IndependentCrowdManager : MonoBehaviour
             if (blockedTimer >= dispersionDelay)
             {
                 isDispersing = true;
-                targetCrowd.RefreshCrowdStates(true);
                 return; 
             }
         }
@@ -255,7 +191,6 @@ public class IndependentCrowdManager : MonoBehaviour
 
     void OnDisable()
     {
-        if (targetCrowd != null) targetCrowd.OnCrowdPathChanged -= UpdatePathData;
         if (crowdBuffer != null) crowdBuffer.Release();
         if (argsBuffer != null) argsBuffer.Release();
         if (waypointBuffer != null) waypointBuffer.Release();

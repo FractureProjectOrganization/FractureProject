@@ -23,6 +23,12 @@ public class CrowdDisplayer : MonoBehaviour
     public float dispersionDelay = 3f;
     public float dispersionDuration = 2f;
     public float dispersionDistance = 5f;
+
+    [Header("Density Smoothing")]
+    public float densitySmoothSpeed = 1f;
+    
+    private float[] targetDistances;
+    private bool isSmoothingDensity = false;
     
     private ComputeBuffer crowdBuffer;
     private ComputeBuffer argsBuffer;
@@ -54,7 +60,9 @@ public class CrowdDisplayer : MonoBehaviour
         
         propertyBlock = new MaterialPropertyBlock();
         float initialLength = CalculateInitialPathLength();
+        
         cpuData = new CharacterData[characterCount];
+        targetDistances = new float[characterCount];
 
         for (int i = 0; i < characterCount; i++)
         {
@@ -154,7 +162,13 @@ public class CrowdDisplayer : MonoBehaviour
         }
         else if (newAccumulatedDistance > currentPathLength + 0.01f)
         {
+            float oldLength = currentPathLength;
             hasStartedLooping = false;
+    
+            if (oldLength > 0f)
+            {
+                RescaleAbsoluteDistances(oldLength, float.MaxValue, newAccumulatedDistance);
+            }
         }
 
         currentPathLength = newAccumulatedDistance;
@@ -233,6 +247,23 @@ public class CrowdDisplayer : MonoBehaviour
 
         if (canMove) globalOffset += Time.deltaTime * currentSpeed; 
 
+        if (isSmoothingDensity && canMove)
+        {
+            bool stillSmoothing = false;
+            float maxSmoothDelta = Mathf.Min(densitySmoothSpeed, currentSpeed * 0.9f) * Time.deltaTime;
+
+            for (int i = 0; i < characterCount; i++)
+            {
+                if (Mathf.Abs(cpuData[i].absoluteDistance - targetDistances[i]) > 0.001f)
+                {
+                    cpuData[i].absoluteDistance = Mathf.MoveTowards(cpuData[i].absoluteDistance, targetDistances[i], maxSmoothDelta);
+                    stillSmoothing = true;
+                    bufferDirty = true;
+                }
+            }
+            isSmoothingDensity = stillSmoothing;
+        }
+
         if (isFlowing)
         {
             float averageSpacing = currentPathLength / Mathf.Max(1, characterCount);
@@ -249,6 +280,11 @@ public class CrowdDisplayer : MonoBehaviour
                     hasStartedLooping = true;
                     float newRealPos = minRealPos - averageSpacing;
                     cpuData[i].absoluteDistance = newRealPos - globalOffset;
+                    
+                    if (targetDistances != null && targetDistances.Length > i) {
+                        targetDistances[i] = cpuData[i].absoluteDistance; 
+                    }
+
                     minRealPos = newRealPos; 
                     bufferDirty = true;
                 }
@@ -266,30 +302,41 @@ public class CrowdDisplayer : MonoBehaviour
     {
         crowdBuffer.GetData(cpuData);
         float averageSpacing = trueNewLength / Mathf.Max(1, characterCount);
-        float minRealPos = 0f; 
-        bool hasKeptCharacters = false;
+
+        System.Collections.Generic.List<int> keptIndices = new System.Collections.Generic.List<int>();
+        System.Collections.Generic.List<int> cutIndices = new System.Collections.Generic.List<int>();
 
         for (int i = 0; i < characterCount; i++) {
-            float currentRealPos = cpuData[i].absoluteDistance + globalOffset;
-            if (!(cutLength < oldLength && currentRealPos > cutLength)) {
-                if (!hasKeptCharacters || currentRealPos < minRealPos) {
-                    minRealPos = currentRealPos;
-                    hasKeptCharacters = true;
-                }
-            }
+            cpuData[i].absoluteDistance += globalOffset;
+            float currentRealPos = cpuData[i].absoluteDistance;
+            
+            if (cutLength < oldLength && currentRealPos > cutLength) cutIndices.Add(i);
+            else keptIndices.Add(i);
         }
+        globalOffset = 0f;
 
-        for (int i = 0; i < characterCount; i++) {
-            float currentRealPos = cpuData[i].absoluteDistance + globalOffset;
-            if (cutLength < oldLength && currentRealPos > cutLength) {
-                minRealPos -= averageSpacing;
-                cpuData[i].absoluteDistance = minRealPos; 
-            } else {
-                cpuData[i].absoluteDistance = currentRealPos;
-            }
+        keptIndices.Sort((a, b) => cpuData[b].absoluteDistance.CompareTo(cpuData[a].absoluteDistance));
+        cutIndices.Sort((a, b) => cpuData[b].absoluteDistance.CompareTo(cpuData[a].absoluteDistance));
+
+        float startPos = trueNewLength;
+        if (keptIndices.Count > 0) {
+            startPos = cpuData[keptIndices[0]].absoluteDistance;
         }
         
-        globalOffset = 0f;
+        float currentTarget = startPos;
+
+        foreach (int i in keptIndices) {
+            targetDistances[i] = currentTarget;
+            currentTarget -= averageSpacing;
+        }
+
+        foreach (int i in cutIndices) {
+            cpuData[i].absoluteDistance = currentTarget;
+            targetDistances[i] = currentTarget;
+            currentTarget -= averageSpacing;
+        }
+
+        isSmoothingDensity = true;
         crowdBuffer.SetData(cpuData);
     }
 
@@ -301,7 +348,13 @@ public class CrowdDisplayer : MonoBehaviour
         }
 
         if (minDistance > 0f) {
-            for (int i = 0; i < characterCount; i++) cpuData[i].absoluteDistance -= minDistance;
+            for (int i = 0; i < characterCount; i++) {
+                cpuData[i].absoluteDistance -= minDistance;
+                
+                if (targetDistances != null && targetDistances.Length > i) {
+                    targetDistances[i] -= minDistance;
+                }
+            }
             globalOffset += minDistance;
         }
         crowdBuffer.SetData(cpuData);

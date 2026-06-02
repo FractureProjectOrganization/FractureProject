@@ -13,17 +13,35 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject mainMenuPanel;
     [SerializeField] private GameObject tempText;
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject skipText;
     
     public VideoPlayer videoPlayer;
 
-    void Start() 
+    private bool isDezoomed;
+
+    private void Start() 
     {
         videoPlayer.loopPointReached += OnVideoEnd;
     }
 
-    void OnVideoEnd(VideoPlayer vp) 
+    private void Update()
     {
-        animator.SetTrigger(Dezoom);
+        if (isDezoomed) return;
+        
+        if (Input.anyKey)
+        {
+            OnVideoEnd(videoPlayer);
+        }
+
+    }
+
+    void OnVideoEnd(VideoPlayer vp)
+    {
+        if (isDezoomed) return;
+        
+        animator.SetBool(Dezoom, true);
+        isDezoomed = true;
+        skipText.SetActive(false);
     }
     
     private void Awake()
