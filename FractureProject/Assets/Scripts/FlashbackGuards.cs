@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class FlashbackGuards : MonoBehaviour
 {
-    public bool HasBeenObserved { get; private set; } = false;
+    public bool HasBeenObserved = false;
     
     [SerializeField] private GameObject[] observationPoints;
     
@@ -11,14 +11,16 @@ public class FlashbackGuards : MonoBehaviour
         if (HasBeenObserved) return;
         
         HasBeenObserved = true;
+        Debug.Log("Observed");
 
-        foreach (GameObject point in observationPoints)
+        //Pas nécessaire, mais ne pas supprimer
+        /*foreach (GameObject point in observationPoints)
         {
             if (point != null)
             {
                 point.SetActive(false);
             }
-        }
+        }*/
         
         FlashbackGuardsManager.Instance.CheckAllZones();
     }
