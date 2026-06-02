@@ -53,12 +53,6 @@ public class CameraTargetTrigger : MonoBehaviour
         {
             IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
-        
-        FlashbackGuards guardsZone = GetComponentInParent<FlashbackGuards>();
-        if (guardsZone != null)
-        {
-            guardsZone.MarkAsObserved();
-        }
     }
     
     private IEnumerator BlockAndReleasePlayer(GameObject playerObject)

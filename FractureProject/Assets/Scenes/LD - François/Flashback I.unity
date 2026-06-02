@@ -13213,6 +13213,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2eebced55131af74980799df9922d892, type: 3}
+--- !u!1 &300854300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 967448860149352932, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 1902847289}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &304603783
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17891,7 +17896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7720856992508472205, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 240.6
+      value: 154.3
       objectReference: {fileID: 0}
     - target: {fileID: 7720856992508472205, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
       propertyPath: m_LocalPosition.y
@@ -17899,7 +17904,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7720856992508472205, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -301.3
+      value: -234.9
       objectReference: {fileID: 0}
     - target: {fileID: 7720856992508472205, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
       propertyPath: m_LocalRotation.w
@@ -21876,7 +21881,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c2c6726d0b802468ad5b5b660873e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
-  playerAnimator: {fileID: 1632815730}
+  playerAnimator: {fileID: 1902847291}
   playerText: {fileID: 1587024465}
 --- !u!4 &508268261
 Transform:
@@ -28313,7 +28318,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1951545377}
   resetOnExit: 0
-  isSequence: 0
+  isSequence: 1
   startSequence: 0
   observationTime: 0
 --- !u!65 &663212431
@@ -30739,6 +30744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
+  HasBeenObserved: 0
   observationPoints:
   - {fileID: 1800064450}
 --- !u!1001 &707867670
@@ -37294,7 +37300,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 1375476219}
+        - m_Target: {fileID: 508268260}
           m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
           m_MethodName: DisplayDialog
           m_Mode: 2
@@ -47354,6 +47360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
+  HasBeenObserved: 0
   observationPoints:
   - {fileID: 663212428}
 --- !u!1001 &1069666722
@@ -54105,12 +54112,24 @@ MonoBehaviour:
         m_MethodName: ChangeTarget
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1519013441}
+          m_ObjectArgument: {fileID: 533287642}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 1
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 707482260}
+        m_TargetAssemblyTypeName: FlashbackGuards, Assembly-CSharp
+        m_MethodName: MarkAsObserved
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
         m_CallState: 2
   dialogueEvents:
     _serializedList: []
@@ -54966,6 +54985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
+  HasBeenObserved: 0
   observationPoints:
   - {fileID: 1982209358}
   - {fileID: 858533868}
@@ -68535,7 +68555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bf9f01fb9bfa9940a4c7f6efa6e4217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
-  <data>k__BackingField: {fileID: 11400000, guid: 5df130968f7e21e4692c28e719f46678, type: 2}
+  <data>k__BackingField: {fileID: 11400000, guid: ad7d7616ebb932c4e9273255e8f260d9, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -68565,6 +68585,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 300854300}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1924943675}
         m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
         m_MethodName: ChangeTarget
@@ -68572,6 +68604,18 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 2046619777}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1258062313}
+        m_TargetAssemblyTypeName: FlashbackGuards, Assembly-CSharp
+        m_MethodName: MarkAsObserved
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -72532,6 +72576,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 14014663}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 1924943675}
         m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
         m_MethodName: ChangeTarget
@@ -72544,10 +72600,10 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 14014663}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 1069564434}
+        m_TargetAssemblyTypeName: FlashbackGuards, Assembly-CSharp
+        m_MethodName: MarkAsObserved
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -77048,7 +77104,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1519013441}
   resetOnExit: 0
-  isSequence: 0
+  isSequence: 1
   startSequence: 0
   observationTime: 0
 --- !u!65 &1800064452
@@ -81237,6 +81293,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6782939182602972050, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
   m_PrefabInstance: {fileID: 1902847289}
   m_PrefabAsset: {fileID: 0}
+--- !u!95 &1902847291 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 1328037337446057975, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 1902847289}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1902950202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -85251,7 +85312,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
-        - m_Target: {fileID: 1375476219}
+        - m_Target: {fileID: 508268260}
           m_TargetAssemblyTypeName: DialogDisplayer, Assembly-CSharp
           m_MethodName: DisplayDialog
           m_Mode: 2
