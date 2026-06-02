@@ -20,7 +20,7 @@ public class CrowdParticles : MonoBehaviour
             UnityEngine.ParticleSystem.EmissionModule emission = ps.emission;
 
             shape.shapeType = ParticleSystemShapeType.Box;
-            shape.box = new Vector3(size,1,1);
+            shape.scale = new Vector3(size,1,1);
             emission.rateOverTime = size;
         }
         foreach (ParticleSystem ps in badParticleSystems)
@@ -29,7 +29,7 @@ public class CrowdParticles : MonoBehaviour
             UnityEngine.ParticleSystem.EmissionModule emission = ps.emission;
 
             shape.shapeType = ParticleSystemShapeType.Box;
-            shape.box = new Vector3(size,1,1);
+            shape.scale = new Vector3(size,1,1);
             emission.rateOverTime = size;
         }
     }
