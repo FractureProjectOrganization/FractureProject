@@ -26,7 +26,7 @@ public class SceneManager : MonoBehaviour
     
     public void LoadNextScene()
     {
-        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1 > UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex + 1 >= UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings)
         {
             LoadMainMenu();
         }

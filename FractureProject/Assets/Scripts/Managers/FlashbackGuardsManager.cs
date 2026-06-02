@@ -19,6 +19,7 @@ public class FlashbackGuardsManager : MonoBehaviour
             if (!zone.HasBeenObserved) return;
         }
         
+        Debug.Log("All Zones have been Observed");
         TransitionManager.instance.FadeToBlack();
     }
 }
