@@ -2496,7 +2496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &110608128
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7659,7 +7659,7 @@ Transform:
   m_GameObject: {fileID: 287351716}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 50.18316, y: -0.09395027, z: -34.19381}
+  m_LocalPosition: {x: 49.18316, y: -0.09395027, z: -35.69381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22937,7 +22937,7 @@ PrefabInstance:
       objectReference: {fileID: -1369748539, guid: 8885ea21da9296046bcc870e4f09e719, type: 3}
     - target: {fileID: 8417045097806634456, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
       propertyPath: m_SortingOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -34528,6 +34528,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 728675500}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40719,6 +40723,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 1978986542}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
