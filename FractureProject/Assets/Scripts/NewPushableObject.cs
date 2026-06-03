@@ -19,8 +19,6 @@ public class NewPushableObject : MonoBehaviour
     private BoxCollider boxCol;
 
     public bool isPlayerNear = false, onX, onZ, inPlayed, outPlayed;
-
-    [SerializeField] private SpriteRenderer outline;
     
     private Vector3 safeObjectPosition;
     private Vector3 safePlayerPosition;
@@ -54,7 +52,6 @@ public class NewPushableObject : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            outline.color = new Color(outline.color.r, outline.color.g, outline.color.b, 1);
             
             if (isMoving) return;
             if (!inPlayed)
@@ -117,14 +114,6 @@ public class NewPushableObject : MonoBehaviour
     public SpriteRenderer spriteRenderer;
     private Sprite baseSprite;
     
-    [Space]
-    
-    [Header("Controller Vibration Settings")]
-    [Range(0f, 1f), Tooltip("Vibration lourde")]
-    public float lowFrequency;
-    [Range(0f, 1f), Tooltip("Vibration légere")]
-    public float highFrequency;
-
     private void TryPush(Vector3 direction)
     {
         Vector3 playerToObject = transform.position - Player.instance.transform.position;
@@ -185,9 +174,9 @@ public class NewPushableObject : MonoBehaviour
             rb.MovePosition(newPos); 
             Player.instance.rb.MovePosition(newPos - offset);
             
-            if (gamepad != null) 
-            { 
-                gamepad.SetMotorSpeeds(lowFrequency, highFrequency); 
+            if (gamepad != null)
+            {
+                StartCoroutine(HapticManager.instance.Push());
             }
             
             yield return new WaitForFixedUpdate(); 

@@ -17,26 +17,55 @@ public class Map : MonoBehaviour
     
     [Tooltip("Temps avant le reset de la caméra")]
     public float observationTime = 0f;
+
+    private bool changedCam;
+    private bool playerInside;
+    private Collider playerCollider;
     
-    [SerializeField] private SpriteRenderer outline;
-    
+    [SerializeField] private GameObject outlineTrigger;
+
+    private OutlineGradient outlineGradient;
+
+    private void Start()
+    {
+        outlineGradient = outlineTrigger.GetComponent<OutlineGradient>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            outline.color = new Color(outline.color.r, outline.color.g, outline.color.b, 1);
+            playerInside = true;
+            playerCollider = other;
+            outlineGradient.FillOutline(true);
+            StartCoroutine(HapticManager.instance.InteractionFeedback());
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1")))
+        if (other.CompareTag("Player"))
         {
-            ChangeCam(other);
+            playerInside = false;
+            playerCollider = null;
+            outlineGradient.FillOutline(false);
         }
-        else if (other.CompareTag("Player") && !Input.anyKey)
+    }
+
+    private void Update()
+    {
+        if (!playerInside || !playerCollider) return;
+
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
         {
-            ResetCam(other);
+            if (!changedCam)
+            {
+                ChangeCam(playerCollider);
+            }
+            else if (changedCam)
+            {
+                ResetCam(playerCollider);
+            }
         }
     }
 
@@ -59,6 +88,8 @@ public class Map : MonoBehaviour
                 StartCoroutine(BlockAndReleasePlayer(other.gameObject));
             }
         }
+        
+        changedCam = true;
     }
 
     private void ResetCam(Collider other)
@@ -77,6 +108,8 @@ public class Map : MonoBehaviour
         {
             IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
+        
+        changedCam = false;
     }
     
     private IEnumerator BlockAndReleasePlayer(GameObject playerObject)

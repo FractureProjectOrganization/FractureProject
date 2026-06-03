@@ -6,18 +6,12 @@ using UnityEngine.InputSystem;
 
 public class RotatingSign : MonoBehaviour
 {
-    [Header("Controller Vibration Settings")]
-    [Range(0f, 1f), Tooltip("Vibration lourde")]
-    public float lowFrequency;
-    [Range(0f, 1f), Tooltip("Vibration légere")]
-    public float highFrequency;
-    public float rumbleDuration;
-    public SpriteRenderer lineSignRenderer;
+    [SerializeField] private GameObject outlineTrigger;
 
+    private OutlineGradient outlineGradient;
     private RotatingPanneau visuel;
     
     [Space]
-
 
     public UnityEvent onInteraction;
 
@@ -25,6 +19,7 @@ public class RotatingSign : MonoBehaviour
     private void Start()
     {
         visuel = GetComponent<RotatingPanneau>();
+        outlineGradient = outlineTrigger.GetComponent<OutlineGradient>();
     }
 
     void OnTriggerEnter(Collider collision)
@@ -32,9 +27,9 @@ public class RotatingSign : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNear = true;
-            lineSignRenderer.color = new Color(1f, 1f, 1f, 1f);
+            outlineGradient.FillOutline(true);
             
-            StartCoroutine(Rumble());
+            StartCoroutine(HapticManager.instance.InteractionFeedback());
             SoundManager.PlaySound("Interact In");
         }
     }
@@ -45,8 +40,9 @@ public class RotatingSign : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             isPlayerNear = false;
+            outlineGradient.FillOutline(false);
+            
             SoundManager.PlaySound("Interact Out");
-
         }
 
     }
@@ -55,8 +51,6 @@ public class RotatingSign : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            lineSignRenderer.color = new Color(1f, 1f, 1f, 1f);
-            
             if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
             {
                 if (cooldown) return;
@@ -73,18 +67,6 @@ public class RotatingSign : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         {
             cooldown = false;
-        }
-    }
-
-    private IEnumerator Rumble()
-    {
-        Gamepad gamepad = Gamepad.current;
-
-        if (gamepad != null)
-        {
-            gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
-            yield return new WaitForSeconds(rumbleDuration);
-            gamepad.PauseHaptics();
         }
     }
 }
