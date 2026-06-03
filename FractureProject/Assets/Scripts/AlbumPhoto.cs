@@ -11,6 +11,7 @@ public class AlbumPhoto : MonoBehaviour
     public RectTransform[] marquePages;
     private int index =0;
     public float timeBforeTurn, marquePageDeformation;
+    public GameObject leftArow, rightArrow;
     
     public void Start()
     {
@@ -73,7 +74,26 @@ public class AlbumPhoto : MonoBehaviour
     void TurnPage(int movement)
     {
         if (close) return;
-        
+
+        switch (index)
+        {
+            case 0:
+                leftArow.SetActive(false);
+                rightArrow.SetActive(true);
+                break;
+            case 1:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(true);
+                break;
+            case 2:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(false);
+                break;
+            default:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(true);
+                break;
+        }
         for (int i=0; i<3; i++ )
         {
             GameObject image = images[i];

@@ -11336,6 +11336,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2408848689274293997, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
+      propertyPath: outlineTrigger
+      value: 
+      objectReference: {fileID: 524481856}
+    - target: {fileID: 2408848689274293997, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
       propertyPath: onInteraction.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1435695175}
@@ -11356,6 +11360,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
+--- !u!1 &524481856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1770452889403759788, guid: c20d3abaa01894445b60e5e26d8d81f1, type: 3}
+  m_PrefabInstance: {fileID: 524481855}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &527407803
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13774,6 +13783,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8994723523624407109, guid: 41c9f32658089094495188283c1f53a8, type: 3}
+      propertyPath: cameraTargetPoint
+      value: 
+      objectReference: {fileID: 1220552243}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -30349,6 +30362,10 @@ PrefabInstance:
       propertyPath: characterCount
       value: 350
       objectReference: {fileID: 0}
+    - target: {fileID: 1889129583976531844, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2011734990349457930, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
       propertyPath: m_LocalPosition.z
       value: 216.68964
@@ -40384,7 +40401,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 711417734}
         m_TargetAssemblyTypeName: TransitionManager, Assembly-CSharp
         m_MethodName: StartCinematic
         m_Mode: 1
