@@ -4,10 +4,20 @@ using UnityEngine.EventSystems;
 
 public class UIManager : MonoBehaviour
 {
-    public static UIManager instance { get; private set; }
-
+    
     [SerializeField] private GameObject firstPauseButton;
     [SerializeField] private GameObject firstPhotoButton;
+    
+    public static UIManager instance { get; private set; }
+
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+
+    static void Init()
+    {
+        GameObject obj = new GameObject("UIManager");
+        instance = obj.AddComponent<UIManager>();
+        DontDestroyOnLoad(obj);
+    }
     
     private void Awake()
     {
@@ -16,7 +26,6 @@ public class UIManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-
         instance = this;
     }
 
