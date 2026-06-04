@@ -7,52 +7,40 @@ public class AnimatorController : MonoBehaviour
     private static readonly int IsMovingHash = Animator.StringToHash("isMoving");
     private static readonly int IsTransportedHash = Animator.StringToHash("isTransported");
     private static readonly int IsPushingHash = Animator.StringToHash("isPushing");//Nico
-    private static readonly int IsAttacking = Animator.StringToHash("isAttacking");
+    private static readonly int Attack = Animator.StringToHash("Attack");
     private static readonly int Hit = Animator.StringToHash("Hit");
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
     private static readonly int MoveYHash = Animator.StringToHash("MoveY");
     private static readonly int IsDown = Animator.StringToHash("isDown"); //Stoian
-    private static readonly int InCombat = Animator.StringToHash("inCombat"); //Stoian
+    private static readonly int FightFactor = Animator.StringToHash("FightFactor"); //Stoian
     
-    private bool hasIsAttackingParam;
-    
-    void Start()
-    {
-        foreach (AnimatorControllerParameter param in animator.parameters)
-        {
-            if (param.nameHash == IsAttacking)
-            {
-                hasIsAttackingParam = true;
-                break;
-            }
-        }
-    }
+    public bool isForFighting;
 
     public void OnStateChanged(Player.States newState)
     {
-        if (hasIsAttackingParam && newState == Player.States.Hit)
+        if (isForFighting && newState == Player.States.Hit)
         {
             animator.SetTrigger(Hit);
         }
 
-        if (hasIsAttackingParam && newState == Player.States.Down)
+        else if (isForFighting && newState == Player.States.Down)
         {
             animator.SetTrigger(IsDown);
+        }
+        
+        else if (isForFighting && newState == Player.States.Attacking)
+        {
+            animator.SetTrigger(Attack);
         }
         
         animator.SetBool(IsMovingHash, newState == Player.States.Walking);
         animator.SetBool(IsTransportedHash, newState == Player.States.Transported);
         animator.SetBool(IsPushingHash,newState == Player.States.Pushing);//Nico
-        
-        if (hasIsAttackingParam)
-        {
-            animator.SetBool(IsAttacking, newState == Player.States.Attacking);
-        }
     }
     
-    public void SetInCombat(bool value)
+    public void SetInCombat(bool state)
     {
-        animator.SetBool(InCombat, value);
+        animator.SetFloat(FightFactor, state ? 1f : 0f);
     }
 
     public void UpdateMoveDirection(float dirX, float dirY)

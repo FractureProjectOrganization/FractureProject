@@ -1,6 +1,7 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
@@ -16,6 +17,7 @@ public class MainMenu : MonoBehaviour
     [SerializeField] private GameObject skipText;
     
     public VideoPlayer videoPlayer;
+    public UnityEvent OnVideoEndEvent;
 
     private bool isDezoomed;
 
@@ -38,7 +40,7 @@ public class MainMenu : MonoBehaviour
     void OnVideoEnd(VideoPlayer vp)
     {
         if (isDezoomed) return;
-        
+        OnVideoEndEvent.Invoke();
         animator.SetBool(Dezoom, true);
         isDezoomed = true;
         skipText.SetActive(false);
