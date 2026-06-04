@@ -9,7 +9,7 @@ public class PhotoHandler : MonoBehaviour
 
     private void Start()
     {
-        uiPhoto = GameObject.Find("UI Photo").GetComponent<UIPhoto>();
+        //uiPhoto = GameObject.Find("UI Photo").GetComponent<UIPhoto>();
     }
 
     private void Update()
