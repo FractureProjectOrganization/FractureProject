@@ -17761,11 +17761,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 757757362}
-  - component: {fileID: 757757361}
   - component: {fileID: 757757360}
+  - component: {fileID: 757757363}
   m_Layer: 0
   m_Name: PNJ_Test
-  m_TagString: Untagged
+  m_TagString: PNJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17829,29 +17829,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!136 &757757361
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 757757359}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.79258585
-  m_Height: 3.2322643
-  m_Direction: 1
-  m_Center: {x: 0.0058742673, y: -0.21412739, z: -0.0031899489}
 --- !u!4 &757757362
 Transform:
   m_ObjectHideFlags: 0
@@ -17868,6 +17845,27 @@ Transform:
   - {fileID: 628683375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &757757363
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 757757359}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4.0896235, y: 3.71, z: 4.7555075}
+  m_Center: {x: -0.014950313, y: 0, z: -0.096682034}
 --- !u!1001 &759040085
 PrefabInstance:
   m_ObjectHideFlags: 0
