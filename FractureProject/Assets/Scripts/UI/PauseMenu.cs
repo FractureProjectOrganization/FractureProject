@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
         
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
         
@@ -84,7 +85,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
         
-        Time.timeScale = 1;
+        //Time.timeScale = 1;
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
         
@@ -96,10 +97,16 @@ public class PauseMenu : MonoBehaviour
     public void OpenSettings()
     {
         if (!pauseMenuPanel) return;
-        
         animator.SetTrigger(TrOuvertureSetting);
+        StartCoroutine(WaitForSettings());
     }
 
+    private IEnumerator WaitForSettings()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        UIManager.instance.SetSettingsButton();
+
+    }
     public void CloseSettings()
     {
         if (!pauseMenuPanel) return;

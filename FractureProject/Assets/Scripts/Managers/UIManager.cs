@@ -6,23 +6,25 @@ public class UIManager : MonoBehaviour
 {
     
     [SerializeField] private GameObject firstPauseButton;
-    [SerializeField] private GameObject firstPhotoButton;
-    
-    public static UIManager instance { get; private set; }
+    [SerializeField] private GameObject firstSettingsButton;
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    public static UIManager instance { get; private set; } = null;
+
+    /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 
     static void Init()
     {
-        GameObject obj = new GameObject("UIManager");
-        instance = obj.AddComponent<UIManager>();
-        DontDestroyOnLoad(obj);
-    }
+        
+        //GameObject obj = new GameObject("UIManager");
+        //instance = obj.AddComponent<UIManager>();
+        //DontDestroyOnLoad(obj);
+    }*/
     
     private void Awake()
     {
         if (instance != null && instance != this)
         {
+            Debug.LogWarning(instance.name);
             Destroy(gameObject);
             return;
         }
@@ -41,11 +43,11 @@ public class UIManager : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(firstPauseButton);
     }
 
-    public void SetPhotoButton()
+    public void SetSettingsButton()
     {
-        if (!firstPhotoButton) return;
+        if (!firstSettingsButton) return;
         
-        EventSystem.current.SetSelectedGameObject(firstPhotoButton);
+        EventSystem.current.SetSelectedGameObject(firstSettingsButton);
     }
 
     public void RemoveFirstSelectedButton()
