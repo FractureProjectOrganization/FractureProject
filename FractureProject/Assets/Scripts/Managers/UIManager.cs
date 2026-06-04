@@ -7,8 +7,14 @@ public class UIManager : MonoBehaviour
     
     [SerializeField] private GameObject firstPauseButton;
     [SerializeField] private GameObject firstSettingsButton;
+    [SerializeField] private GameObject firstMainMenuButton;
+
 
     public static UIManager instance { get; private set; } = null;
+    
+    public bool isMainMenu = false;
+    
+    public bool DestroyOnLoad = false;
 
     /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
 
@@ -29,12 +35,13 @@ public class UIManager : MonoBehaviour
             return;
         }
         instance = this;
-        DontDestroyOnLoad(gameObject);
+        if(!DestroyOnLoad) DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
         EventSystem.current.SetSelectedGameObject(null);
+        if(isMainMenu) EventSystem.current.SetSelectedGameObject(firstMainMenuButton);
     }
 
     public void SetPauseButton()
@@ -49,6 +56,12 @@ public class UIManager : MonoBehaviour
         if (!firstSettingsButton) return;
         
         EventSystem.current.SetSelectedGameObject(firstSettingsButton);
+    }
+    
+    public void SetMainMenuButton()
+    {
+        if (!firstMainMenuButton) return;
+        EventSystem.current.SetSelectedGameObject(firstMainMenuButton);
     }
 
     public void RemoveFirstSelectedButton()
