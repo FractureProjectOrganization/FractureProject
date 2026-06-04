@@ -22,7 +22,6 @@ public class TriggerEvent : MonoBehaviour
         if (other.CompareTag(targetTag))
         {
             if (once && doneOnce) return;
-            if (once) doneOnce = true;
             onTriggerEnterAction?.Invoke();
             isTalking = true;
             
@@ -46,6 +45,7 @@ public class TriggerEvent : MonoBehaviour
         if (other.CompareTag(targetTag))
         {
             if (once && doneOnce) return;
+            if (once) doneOnce = true;
             
             onTriggerExitAction?.Invoke();
             isTalking = false;
