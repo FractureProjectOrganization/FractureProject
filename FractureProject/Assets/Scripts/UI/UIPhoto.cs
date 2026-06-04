@@ -22,7 +22,6 @@ public class UIPhoto : MonoBehaviour
         {
             panel.SetActive(true);
             Player.instance.locked = true;
-            UIManager.instance.SetPhotoButton();
         }
         else
         {
