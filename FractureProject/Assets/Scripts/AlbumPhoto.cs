@@ -10,7 +10,7 @@ public class AlbumPhoto : MonoBehaviour
     public GameObject[] images = new  GameObject[3];
     public RectTransform[] marquePages;
     private int index =0;
-    private int pageUnlocked = 0;
+    private int pageUnlocked = 1;
     public float timeBforeTurn, marquePageDeformation;
     public GameObject leftArow, rightArrow;
 
@@ -93,14 +93,13 @@ public class AlbumPhoto : MonoBehaviour
         {
             case 0:
                 leftArow.SetActive(false);
-                if (pageUnlocked != 0)
-                    rightArrow.SetActive(true);
-                else rightArrow.SetActive(false);
+                rightArrow.SetActive(true);
                 break;
             case 1:
                 leftArow.SetActive(true);
-                if (pageUnlocked >1)
+                if (pageUnlocked>1)
                 rightArrow.SetActive(true);
+                else rightArrow.SetActive(false);
                 break;
             case 2:
                 leftArow.SetActive(true);

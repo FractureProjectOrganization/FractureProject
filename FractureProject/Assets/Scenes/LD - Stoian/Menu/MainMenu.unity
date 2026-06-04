@@ -175,6 +175,9 @@ MonoBehaviour:
   animator: {fileID: 1850859410}
   skipText: {fileID: 406341614}
   videoPlayer: {fileID: 1296290169}
+  OnVideoEndEvent:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &14189102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,18 +793,12 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 3151974801184362726, guid: ca9cdad549e25af43bc8ce99ead53b2c, type: 3}
   m_PrefabInstance: {fileID: 284407128}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &986093183 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7791064841781899049, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
+--- !u!114 &986093187 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 138529884662102413, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
   m_PrefabInstance: {fileID: 763140467836858572}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &986093187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 986093183}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20dbae551cfc7ca48ac49079932f4626, type: 3}
@@ -2379,10 +2376,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7791064841781899049, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 986093187}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
 --- !u!114 &980950475575176049
 MonoBehaviour:

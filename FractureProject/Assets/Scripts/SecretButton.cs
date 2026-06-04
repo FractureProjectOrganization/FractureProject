@@ -9,12 +9,15 @@ public class SecretButton : MonoBehaviour
     public UnityEvent onOn, onOff;
     public string onString, the_offSpring;
     public bool disabled;
+    public GameObject onGO, offGO;
     
     public void OnClick()
     {
         if (disabled) return;
         active = !active;
-        text.text = active? onString : the_offSpring;
+        if(text)text.text = active? onString : the_offSpring;
+        if(onGO)onGO.SetActive(active);
+        if(offGO)offGO.SetActive(!active);
         if(active) onOn.Invoke(); else onOff.Invoke();
     }
 }
