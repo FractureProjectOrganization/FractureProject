@@ -9,7 +9,7 @@ public class SliderAdditional : MonoBehaviour, ISelectHandler, IDeselectHandler
     public Sprite def, highlight;
     public Image TargetGraphic;
     
-    private void Start()
+    private void Awake()
     {
         slider = GetComponent<Slider>();
     }

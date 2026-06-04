@@ -634,6 +634,7 @@ GameObject:
   - component: {fileID: 9086663769009967194}
   - component: {fileID: 3697320637021092360}
   - component: {fileID: 1904550320960115706}
+  - component: {fileID: 7920611202175405402}
   m_Layer: 5
   m_Name: AlbumController
   m_TagString: Untagged
@@ -690,6 +691,8 @@ MonoBehaviour:
   - {fileID: 9160948955588824664}
   timeBforeTurn: 0.1
   marquePageDeformation: 0.2
+  leftArow: {fileID: 7266427133663280004}
+  rightArrow: {fileID: 4530782823214988527}
 --- !u!212 &1904550320960115706
 SpriteRenderer:
   serializedVersion: 2
@@ -749,6 +752,28 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+--- !u!95 &7920611202175405402
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502353565584893705}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: b949090afce59f24c8b9d813021172d6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7266427133663280004
 GameObject:
   m_ObjectHideFlags: 0
