@@ -15,10 +15,11 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuPanel;
     
-    private InputAction pauseAction;
+    private InputAction pauseAction, apanyanAction;
     private Animator animator;
 
     private bool isPaused;
+    public bool isMainMenu;
     
     private void Awake()
     {
@@ -30,17 +31,22 @@ public class PauseMenu : MonoBehaviour
         instance = this;
 
         pauseAction = GetComponent<PlayerInput>().actions["Pause"];
+        apanyanAction = GetComponent<PlayerInput>().actions["Crouch"];
+
         pauseAction.actionMap.Enable();
+        apanyanAction.actionMap.Enable();
     }
 
     private void OnEnable()
     {
         pauseAction.performed += OnPauseButtonPress;
+        apanyanAction.performed += OnApanyanAction;
     }
 
     private void OnDisable()
     {
         pauseAction.performed -= OnPauseButtonPress;
+        apanyanAction.performed -= OnApanyanAction;
     }
     
     private void Start()
@@ -68,12 +74,26 @@ public class PauseMenu : MonoBehaviour
         }
     }
     
+    private void OnApanyanAction(InputAction.CallbackContext context)
+    {
+        if (!pauseMenuPanel) return;
+
+        if (isPaused)
+        {
+            
+        }
+        else if (!isPaused)
+        {
+            CloseSettings();
+        }
+    }
+    
     private void OnPause()
     {
         if (!pauseMenuPanel) return;
         
         //Time.timeScale = 0;
-        Player.instance.locked = true;
+        if(Player.instance)Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
         
         animator.SetTrigger(TrOuvertureMenuPause);
@@ -89,16 +109,33 @@ public class PauseMenu : MonoBehaviour
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
         
-        Player.instance.locked = false;
+        if(Player.instance)Player.instance.locked = false;
 
         isPaused = false;
     }
+    
+    
 
     public void OpenSettings()
     {
         if (!pauseMenuPanel) return;
-        animator.SetTrigger(TrOuvertureSetting);
+        if(!isMainMenu)animator.SetTrigger(TrOuvertureSetting);
+        else animator.SetTrigger("Tr_OuvSettingMainMenu");
+        
         StartCoroutine(WaitForSettings());
+    }
+    
+    public void CloseSettings()
+    {
+        if (!pauseMenuPanel) return;
+        if(!isMainMenu)animator.SetTrigger(TrFermetureSetting);
+        else
+        {
+            animator.SetTrigger("Tr_FerSettingMainMenu");
+            UIManager.instance.SetMainMenuButton();
+        }
+
+        
     }
 
     private IEnumerator WaitForSettings()
@@ -107,12 +144,7 @@ public class PauseMenu : MonoBehaviour
         UIManager.instance.SetSettingsButton();
 
     }
-    public void CloseSettings()
-    {
-        if (!pauseMenuPanel) return;
-        
-        animator.SetTrigger(TrFermetureSetting);
-    }
+
 
     public void Quit()
     {
