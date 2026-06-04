@@ -10,9 +10,23 @@ public class AlbumPhoto : MonoBehaviour
     public GameObject[] images = new  GameObject[3];
     public RectTransform[] marquePages;
     private int index =0;
+    private int pageUnlocked = 0;
     public float timeBforeTurn, marquePageDeformation;
     public GameObject leftArow, rightArrow;
-    
+
+    public static AlbumPhoto instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        instance = this;
+    }
+
     public void Start()
     {
         anim = GetComponent<Animator>();
@@ -79,10 +93,13 @@ public class AlbumPhoto : MonoBehaviour
         {
             case 0:
                 leftArow.SetActive(false);
-                rightArrow.SetActive(true);
+                if (pageUnlocked != 0)
+                    rightArrow.SetActive(true);
+                else rightArrow.SetActive(false);
                 break;
             case 1:
                 leftArow.SetActive(true);
+                if (pageUnlocked >1)
                 rightArrow.SetActive(true);
                 break;
             case 2:
@@ -105,12 +122,12 @@ public class AlbumPhoto : MonoBehaviour
     private IEnumerator TurningPageCoroutine(int movement)
     {
         index += movement;
-        index = Mathf.Clamp(index ,0, 2);
+        index = Mathf.Clamp(index ,0, pageUnlocked);
         float timer = 0f;
         while (timer < timeBforeTurn)
         {
             timer += Time.deltaTime;
-            for (int i=0; i<3; i++ )
+            for (int i=0; i<pageUnlocked+1; i++ )
             {
                 RectTransform mp = marquePages[i];
                 float zoom = 0;
@@ -122,5 +139,10 @@ public class AlbumPhoto : MonoBehaviour
         }
         TurnPage(movement);
         
+    }
+
+    public static void AddPage()
+    {
+        instance.pageUnlocked++;
     }
 }
