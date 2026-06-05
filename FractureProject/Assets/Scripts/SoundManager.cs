@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class SoundManager : MonoBehaviour
     
     public AudioSource[] loopSources = new AudioSource[3];
     public bool[] loopBools = new bool[3];
+
     
     private void Awake()
     {
@@ -88,7 +90,7 @@ public class SoundManager : MonoBehaviour
         Instance.loopSources[i].Stop();
     }
 
-    public IEnumerator MusicTransition(AudioClip newMusic, float time =2f)
+    public IEnumerator MusicTransition(AudioClip newMusic, float time =3f)
     {
         AudioSource currentSource = musicSource0;
         AudioSource otherSource = musicSource1;
@@ -105,5 +107,7 @@ public class SoundManager : MonoBehaviour
             yield return null;
         }
         currentSource.Stop();
+
+        musicTransition = null;
     }
 }

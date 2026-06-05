@@ -39,6 +39,8 @@ public class CrowdDisplayer : MonoBehaviour
     private float globalOffset = 0f;
     private MaterialPropertyBlock propertyBlock;
     
+    private Material runtimeMaterial; 
+    
     private Sprite[] characters;
     private int currentWaypointCount = 0;
     
@@ -78,7 +80,6 @@ public class CrowdDisplayer : MonoBehaviour
         crowdBuffer = new ComputeBuffer(characterCount, 32);
         crowdBuffer.SetData(cpuData);
         propertyBlock.SetBuffer("_CrowdBuffer", crowdBuffer);
-        if (characters.Length > 0 && characters[0] != null) propertyBlock.SetTexture("_MainTex", characters[0].texture);
 
         int maxPossibleNodes = targetCrowd.allNodes.Length;
         waypointPositions = new Vector4[maxPossibleNodes];
@@ -90,6 +91,19 @@ public class CrowdDisplayer : MonoBehaviour
         argsBuffer.SetData(new uint[5] { characterMesh.GetIndexCount(0), (uint)characterCount, 0, 0, 0 });
         
         propertyBlock.SetFloat("_RotationY", characterRotationY);
+
+        if (crowdMaterialTemplate != null)
+        {
+            runtimeMaterial = new Material(crowdMaterialTemplate);
+            runtimeMaterial.SetBuffer("_CrowdBuffer", crowdBuffer);
+            runtimeMaterial.SetBuffer("_WaypointBuffer", waypointBuffer);
+            
+            if (characters.Length > 0 && characters[0] != null) 
+            {
+                propertyBlock.SetTexture("_MainTex", characters[0].texture);
+                runtimeMaterial.SetTexture("_MainTex", characters[0].texture);
+            }
+        }
     }
 
     private void UpdatePathData()
@@ -217,13 +231,13 @@ public class CrowdDisplayer : MonoBehaviour
             
             Texture tex = (characters != null && characters.Length > 0) ? characters[0].texture : null;
             
-            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, refNode, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, targetCrowd, dispersionDelay, dispersionDuration, dispersionDistance, characterRotationY);
+            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, dispersionDelay, dispersionDuration, dispersionDistance, characterRotationY);
         }
     }
 
     void Update()
     {
-        if (propertyBlock == null || crowdMaterialTemplate == null || targetCrowd.rootNode == null || currentWaypointCount < 2) return;
+        if (propertyBlock == null || runtimeMaterial == null || targetCrowd.rootNode == null || currentWaypointCount < 2) return;
 
         bool isFlowing = targetCrowd.rootNode.state == CrowdState.Flowing;
         float currentSpeed = (isFlowing && hasStartedLooping) ? moveSpeed : catchUpSpeed;
@@ -295,7 +309,7 @@ public class CrowdDisplayer : MonoBehaviour
 
         propertyBlock.SetFloat("_GlobalOffset", globalOffset);
         
-        Graphics.DrawMeshInstancedIndirect(characterMesh, 0, crowdMaterialTemplate, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
+        Graphics.DrawMeshInstancedIndirect(characterMesh, 0, runtimeMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
     }
     
     void RescaleAbsoluteDistances(float oldLength, float cutLength, float trueNewLength)
@@ -379,5 +393,11 @@ public class CrowdDisplayer : MonoBehaviour
         if (crowdBuffer != null) crowdBuffer.Release();
         if (argsBuffer != null) argsBuffer.Release();
         if (waypointBuffer != null) waypointBuffer.Release(); 
+        
+        if (runtimeMaterial != null) 
+        {
+            Destroy(runtimeMaterial);
+            runtimeMaterial = null;
+        }
     }
 }

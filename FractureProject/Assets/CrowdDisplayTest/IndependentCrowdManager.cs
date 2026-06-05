@@ -3,9 +3,7 @@ using UnityEngine;
 public class IndependentCrowdManager : MonoBehaviour
 {
     private CrowdDisplayer.CharacterData[] cpuData;
-    private CrowdNode referenceNode;
-    private CrowdNode[] currentPathNodes; 
-    private Crowd targetCrowd; 
+    private CrowdNode[] currentPathNodes;
     
     private ComputeBuffer crowdBuffer;
     private ComputeBuffer argsBuffer;
@@ -14,7 +12,6 @@ public class IndependentCrowdManager : MonoBehaviour
     private Vector4[] waypointPositions; 
     
     private Mesh characterMesh;
-    private Material materialTemplate;
     private Material materialInstance;
     
     private int currentWaypointCount; 
@@ -35,13 +32,11 @@ public class IndependentCrowdManager : MonoBehaviour
         Vector4[] pathWaypoints, 
         CrowdNode[] pathNodes, 
         int waypointCount, 
-        float pathLength, 
-        CrowdNode refNode, 
+        float pathLength,
         Mesh mesh, 
         Material matTemplate, 
         Texture mainTex, 
         float speed,
-        Crowd parentCrowd,
         float dispDelay,
         float dispDuration,
         float dispDist,
@@ -49,8 +44,6 @@ public class IndependentCrowdManager : MonoBehaviour
     {
         cpuData = characters;
         characterCount = characters.Length;
-        referenceNode = refNode;
-        targetCrowd = parentCrowd;
         
         currentPathNodes = new CrowdNode[pathNodes.Length];
         System.Array.Copy(pathNodes, currentPathNodes, pathNodes.Length);
@@ -62,7 +55,6 @@ public class IndependentCrowdManager : MonoBehaviour
         totalPathLength = pathLength;
         
         characterMesh = mesh;
-        materialTemplate = matTemplate;
         materialInstance = new Material(matTemplate);
         moveSpeed = speed;
 
@@ -71,15 +63,22 @@ public class IndependentCrowdManager : MonoBehaviour
         dispersionDistance = dispDist;
 
         propertyBlock = new MaterialPropertyBlock();
-        if (mainTex != null) propertyBlock.SetTexture("_MainTex", mainTex);
+        
+        if (mainTex != null) 
+        {
+            propertyBlock.SetTexture("_MainTex", mainTex);
+            materialInstance.SetTexture("_MainTex", mainTex);
+        }
 
         crowdBuffer = new ComputeBuffer(characterCount, 32);
         crowdBuffer.SetData(cpuData);
         propertyBlock.SetBuffer("_CrowdBuffer", crowdBuffer);
+        materialInstance.SetBuffer("_CrowdBuffer", crowdBuffer);
 
         waypointBuffer = new ComputeBuffer(waypointPositions.Length, 16);
         waypointBuffer.SetData(waypointPositions);
         propertyBlock.SetBuffer("_WaypointBuffer", waypointBuffer);
+        materialInstance.SetBuffer("_WaypointBuffer", waypointBuffer);
 
         propertyBlock.SetInt("_WaypointCount", currentWaypointCount);
         propertyBlock.SetFloat("_TotalPathLength", totalPathLength);
@@ -189,7 +188,7 @@ public class IndependentCrowdManager : MonoBehaviour
         Graphics.DrawMeshInstancedIndirect(characterMesh, 0, materialInstance, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
     }
 
-    void OnDisable()
+    void OnDestroy()
     {
         if (crowdBuffer != null) crowdBuffer.Release();
         if (argsBuffer != null) argsBuffer.Release();
