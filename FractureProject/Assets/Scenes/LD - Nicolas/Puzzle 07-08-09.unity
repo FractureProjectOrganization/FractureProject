@@ -2510,6 +2510,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorController
   animator: {fileID: 110608129}
+  isForFighting: 0
 --- !u!95 &110608129
 Animator:
   serializedVersion: 7
@@ -32625,6 +32626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorController
   animator: {fileID: 1243960491}
+  isForFighting: 0
 --- !u!95 &1243960491
 Animator:
   serializedVersion: 7
@@ -47605,7 +47607,7 @@ PrefabInstance:
     - target: {fileID: 5324450179315292580, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
       propertyPath: music
       value: 
-      objectReference: {fileID: 8300000, guid: 0a342b9e1b3a13f4fa382354db16dce5, type: 3}
+      objectReference: {fileID: 8300000, guid: 6876dc8e6155eba41a22331210a20cf4, type: 3}
     - target: {fileID: 5324450179315292580, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
       propertyPath: onAwake
       value: 1
@@ -53695,6 +53697,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuPanel: {fileID: 222757550}
+  isMainMenu: 0
 --- !u!114 &2008466843
 MonoBehaviour:
   m_ObjectHideFlags: 0

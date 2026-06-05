@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -17,6 +19,9 @@ public class PlayerAttack : MonoBehaviour
 
     private float nextAttackTime = 0f;
     private Player playerMovement;
+
+    public Volume vignetteVolume;
+    public AudioSource walterHurt;
 
     void Start()
     {
@@ -41,6 +46,7 @@ public class PlayerAttack : MonoBehaviour
         Player.instance.locked = true;
         
         playerMovement.ChangeState(Player.States.Attacking);
+        SoundManager.PlaySound("Attack",0.2f);
         nextAttackTime = Time.time + attackCooldown;
         
         Vector3 hitCenter = transform.position + (playerMovement.lastFacingDirection * attackRange);
@@ -54,6 +60,7 @@ public class PlayerAttack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(attackDamage, transform.position); 
+                SoundManager.PlaySound("Punch3",0.2f);
             }
         }
 
@@ -67,6 +74,9 @@ public class PlayerAttack : MonoBehaviour
     {
         currentHealth -= damage;
         Debug.Log("Le joueur a pris " + damage + " dégâts ! Vie : " + currentHealth);
+        
+        vignetteVolume.weight= 1f-((float) currentHealth/ (float) maxHealth);
+        walterHurt.volume = 1f - ((float)currentHealth / (float)maxHealth);
         
         Player.instance.locked = true;
 
@@ -95,6 +105,7 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("GAME OVER : Le joueur est mort !");
         playerMovement.ChangeState(Player.States.Down);
         Player.instance.locked = true;
+        SceneManager.instance.ReloadScene();
     }
 
     private void EndAttack()
