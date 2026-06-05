@@ -156,6 +156,8 @@ public class EnemyController : MonoBehaviour
         SetState(EnemyState.Attacking);
         rb.linearVelocity = new Vector3(0, rb.linearVelocity.y, 0); 
         
+        SoundManager.PlaySound("Attack",0.2f);
+        
         Invoke(nameof(ExecuteAttackDamage), attackDelay);
         Invoke(nameof(EndAttack), attackDuration);
     }
@@ -175,6 +177,8 @@ public class EnemyController : MonoBehaviour
             if (playerStats != null)
             {
                 playerStats.TakeDamage(attackDamage, transform.position);
+                SoundManager.PlaySound("Punch2",0.2f);
+
             }
         }
     }

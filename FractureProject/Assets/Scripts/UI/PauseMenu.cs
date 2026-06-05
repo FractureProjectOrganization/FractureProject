@@ -18,7 +18,7 @@ public class PauseMenu : MonoBehaviour
     private InputAction pauseAction, apanyanAction;
     private Animator animator;
 
-    private bool isPaused;
+    private bool isPaused, isSettingOpen;
     public bool isMainMenu;
     
     private void Awake()
@@ -66,7 +66,8 @@ public class PauseMenu : MonoBehaviour
         
         if (isPaused)
         {
-            Resume();
+            if(isSettingOpen) CloseSettings();
+            else Resume();
         }
         else if (!isPaused)
         {
@@ -78,13 +79,18 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
 
-        if (isPaused)
-        {
-            
-        }
-        else if (!isPaused)
+        if (isMainMenu)
         {
             CloseSettings();
+            return;
+        }
+        if (isPaused && isSettingOpen)
+        {
+            CloseSettings();
+        }
+        else if (isPaused && !isSettingOpen)
+        {
+            Resume();
         }
     }
     
@@ -106,12 +112,12 @@ public class PauseMenu : MonoBehaviour
         if (!pauseMenuPanel) return;
         
         //Time.timeScale = 1;
+        isPaused = false;
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
         
         if(Player.instance)Player.instance.locked = false;
 
-        isPaused = false;
     }
     
     
@@ -122,18 +128,26 @@ public class PauseMenu : MonoBehaviour
         if(!isMainMenu)animator.SetTrigger(TrOuvertureSetting);
         else animator.SetTrigger("Tr_OuvSettingMainMenu");
         
+        isSettingOpen = true;
+        
         StartCoroutine(WaitForSettings());
     }
     
     public void CloseSettings()
     {
         if (!pauseMenuPanel) return;
-        if(!isMainMenu)animator.SetTrigger(TrFermetureSetting);
+        if (!isMainMenu)
+        {
+            animator.SetTrigger(TrFermetureSetting);
+            UIManager.instance.SetPauseButton();
+
+        }
         else
         {
             animator.SetTrigger("Tr_FerSettingMainMenu");
             UIManager.instance.SetMainMenuButton();
         }
+        isSettingOpen = false;
 
         
     }

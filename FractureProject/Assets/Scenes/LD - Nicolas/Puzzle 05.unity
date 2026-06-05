@@ -9302,6 +9302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorController
   animator: {fileID: 453388577}
+  isForFighting: 0
 --- !u!95 &453388577
 Animator:
   serializedVersion: 7
@@ -24014,6 +24015,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuPanel: {fileID: 1411386138}
+  isMainMenu: 0
 --- !u!114 &1190417050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34964,6 +34966,71 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6951624978914479800, guid: 756356af3f1f2464cb713e9cc60c8d90, type: 3}
   m_PrefabInstance: {fileID: 1629586172}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1632168959
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5324450179315292580, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: music
+      value: 
+      objectReference: {fileID: 8300000, guid: 6876dc8e6155eba41a22331210a20cf4, type: 3}
+    - target: {fileID: 5324450179315292580, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: onAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 134.20384
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 7.19951
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -400.42618
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8268486194894862491, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601554003832814893, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
+      propertyPath: m_Name
+      value: MusicStarter
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: aa30645dec3f0ee4587e7d0f0bc45f88, type: 3}
 --- !u!1001 &1634020600
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -38618,6 +38685,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AnimatorController
   animator: {fileID: 1854931153}
+  isForFighting: 0
 --- !u!95 &1854931153
 Animator:
   serializedVersion: 7
@@ -45017,3 +45085,4 @@ SceneRoots:
   - {fileID: 1929454853}
   - {fileID: 687872999}
   - {fileID: 71014501}
+  - {fileID: 1632168959}
