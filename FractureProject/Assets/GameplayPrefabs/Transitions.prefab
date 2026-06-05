@@ -114,7 +114,19 @@ MonoBehaviour:
   fadeToBlackAnimator: {fileID: 3045768982238192877}
   whenFaded:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3045768982238192877}
+        m_TargetAssemblyTypeName: UnityEngine.Animator, UnityEngine
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Flash
+          m_BoolArgument: 0
+        m_CallState: 2
   TimeBforeSceneSwitch: 2
 --- !u!1 &5469011749527235707
 GameObject:
@@ -353,6 +365,7 @@ GameObject:
   - component: {fileID: 349334983569498751}
   - component: {fileID: 6977039817047754707}
   - component: {fileID: 3045768982238192877}
+  - component: {fileID: 5774818668142690039}
   m_Layer: 5
   m_Name: BlackScreen
   m_TagString: Untagged
@@ -378,7 +391,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &349334983569498751
 CanvasRenderer:
@@ -440,3 +453,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5774818668142690039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9016995578641265865}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe61d9b00b3f20e4e8dce817a5f9cda4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
