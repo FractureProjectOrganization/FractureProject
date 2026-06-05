@@ -78,6 +78,21 @@ public class CrowdDisplayer : MonoBehaviour
     private bool wasMoving = false;
     private bool wasCruising = false;
     
+    [Header("Wall Settings")]
+    public float pathWidth = 3f;
+    public float wallHeight = 1f;
+    public float textureWorldLength = 2f;
+    public Material wallMaterial;
+    
+    private GameObject wallGameObject;
+    private MeshFilter wallMeshFilter;
+    private MeshRenderer wallRenderer;
+    private Mesh wallMesh;
+    
+    private System.Collections.Generic.List<Vector3> wallVertices = new System.Collections.Generic.List<Vector3>();
+    private System.Collections.Generic.List<Vector2> wallUVs = new System.Collections.Generic.List<Vector2>();
+    private System.Collections.Generic.List<int> wallTriangles = new System.Collections.Generic.List<int>();
+    
 
     void Start()
     {
@@ -187,7 +202,21 @@ public class CrowdDisplayer : MonoBehaviour
 
             runtimeSymbolMaterial = new Material(symbolMaterialTemplate);
             runtimeSymbolMaterial.SetBuffer("_WaypointBuffer", waypointBuffer);
+            
+            runtimeSymbolMaterial.SetBuffer("_SymbolBuffer", symbolBuffer);
         }
+        
+        wallGameObject = new GameObject("PathWalls");
+        wallGameObject.transform.SetParent(this.transform); 
+        
+        wallMeshFilter = wallGameObject.AddComponent<MeshFilter>();
+        wallRenderer = wallGameObject.AddComponent<MeshRenderer>();
+        wallRenderer.material = wallMaterial;
+        
+        wallMesh = new Mesh();
+        wallMesh.name = "ProceduralWallMesh";
+        wallMesh.MarkDynamic();
+        wallMeshFilter.mesh = wallMesh;
     }
 
     private void UpdatePathData()
@@ -281,6 +310,8 @@ public class CrowdDisplayer : MonoBehaviour
         waypointBuffer.SetData(waypointPositions);
         propertyBlock.SetInt("_WaypointCount", currentWaypointCount);
         propertyBlock.SetFloat("_TotalPathLength", currentPathLength);
+        
+        GenerateWallMesh();
     }
     
     void ExtractCutCharacters(float oldLength, float cutLength, CrowdNode refNode)
@@ -425,22 +456,51 @@ public class CrowdDisplayer : MonoBehaviour
             {
                 symbolPropertyBlock.SetTexture("_MainTex", activeTexture);
                 symbolPropertyBlock.SetBuffer("_SymbolBuffer", activeBuffer);
+
+                symbolPropertyBlock.SetInt("_WaypointCount", currentWaypointCount);
+                symbolPropertyBlock.SetFloat("_TotalPathLength", currentPathLength);
+                symbolPropertyBlock.SetFloat("_ResumeTime", resumeTime);
+
+                Graphics.DrawMeshInstancedIndirect(
+                    symbolMesh, 
+                    0, 
+                    runtimeSymbolMaterial, 
+                    new Bounds(Vector3.zero, Vector3.one * 1000), 
+                    symbolArgsBuffer, 
+                    0, 
+                    symbolPropertyBlock
+                );
             }
+        }
+        
+        if (wallRenderer != null)
+        {
+            if (isFlowing)
+            {
+                wallRenderer.enabled = false;
+            }
+            else
+            {
+                wallRenderer.enabled = true;
 
-            symbolPropertyBlock.SetInt("_WaypointCount", currentWaypointCount);
-            symbolPropertyBlock.SetFloat("_TotalPathLength", currentPathLength);
-            
-            symbolPropertyBlock.SetFloat("_ResumeTime", resumeTime);
+                if (Player.instance != null)
+                {
+                    wallRenderer.material.SetVector("_PlayerPos", Player.instance.transform.position);
+                }
 
-            Graphics.DrawMeshInstancedIndirect(
-                symbolMesh, 
-                0, 
-                runtimeSymbolMaterial, 
-                new Bounds(Vector3.zero, Vector3.one * 1000), 
-                symbolArgsBuffer, 
-                0, 
-                symbolPropertyBlock
-            );
+                float headDist = -float.MaxValue;
+                float tailDist = float.MaxValue;
+
+                for (int i = 0; i < characterCount; i++) 
+                {
+                    float currentPos = cpuData[i].absoluteDistance + globalOffset;
+                    if (currentPos > headDist) headDist = currentPos;
+                    if (currentPos < tailDist) tailDist = currentPos;
+                }
+
+                wallRenderer.material.SetFloat("_CrowdHeadDist", headDist / textureWorldLength);
+                wallRenderer.material.SetFloat("_CrowdTailDist", tailDist / textureWorldLength);
+            }
         }
     }
     
@@ -518,6 +578,96 @@ public class CrowdDisplayer : MonoBehaviour
         }
         return total;
     }
+    
+    void GenerateWallMesh()
+    {
+        if (currentWaypointCount < 2 || wallMesh == null) return;
+
+        wallVertices.Clear();
+        wallUVs.Clear();
+        wallTriangles.Clear();
+
+        for (int i = 0; i < currentWaypointCount; i++)
+        {
+            Vector3 currentPos = waypointPositions[i];
+            float currentDist = waypointPositions[i].w;
+
+            Vector3 miterNormal;
+            float widthFactor = 1f;
+
+            if (i == 0)
+            {
+                Vector3 forward = ((Vector3)waypointPositions[1] - currentPos).normalized;
+                miterNormal = Vector3.Cross(Vector3.up, forward).normalized;
+            }
+            else if (i == currentWaypointCount - 1)
+            {
+                Vector3 forward = (currentPos - (Vector3)waypointPositions[i - 1]).normalized;
+                miterNormal = Vector3.Cross(Vector3.up, forward).normalized;
+            }
+            else
+            {
+                Vector3 dirBefore = (currentPos - (Vector3)waypointPositions[i - 1]).normalized;
+                Vector3 dirAfter = ((Vector3)waypointPositions[i + 1] - currentPos).normalized;
+
+                Vector3 normalBefore = Vector3.Cross(Vector3.up, dirBefore).normalized;
+                Vector3 normalAfter = Vector3.Cross(Vector3.up, dirAfter).normalized;
+
+                miterNormal = (normalBefore + normalAfter).normalized;
+
+                float dot = Vector3.Dot(miterNormal, normalBefore);
+                if (dot > 0.001f)
+                {
+                    widthFactor = 1f / dot;
+                }
+                
+                widthFactor = Mathf.Min(widthFactor, 2.5f);
+            }
+
+            Vector3 leftBottom = currentPos - miterNormal * (pathWidth / 2f) * widthFactor;
+            Vector3 leftTop = leftBottom + Vector3.up * wallHeight;
+            Vector3 rightBottom = currentPos + miterNormal * (pathWidth / 2f) * widthFactor;
+            Vector3 rightTop = rightBottom + Vector3.up * wallHeight;
+
+            int vIndex = wallVertices.Count;
+
+            wallVertices.Add(leftBottom);
+            wallVertices.Add(leftTop);
+            wallVertices.Add(rightBottom);
+            wallVertices.Add(rightTop);
+
+            float uvX = currentDist / textureWorldLength;
+            wallUVs.Add(new Vector2(uvX, 0));
+            wallUVs.Add(new Vector2(uvX, 1));
+            wallUVs.Add(new Vector2(uvX, 0));
+            wallUVs.Add(new Vector2(uvX, 1));
+
+            if (i < currentWaypointCount - 1)
+            {
+                wallTriangles.Add(vIndex);
+                wallTriangles.Add(vIndex + 1);
+                wallTriangles.Add(vIndex + 5);
+
+                wallTriangles.Add(vIndex);
+                wallTriangles.Add(vIndex + 5);
+                wallTriangles.Add(vIndex + 4);
+
+                wallTriangles.Add(vIndex + 2);
+                wallTriangles.Add(vIndex + 7);
+                wallTriangles.Add(vIndex + 6);
+
+                wallTriangles.Add(vIndex + 2);
+                wallTriangles.Add(vIndex + 3);
+                wallTriangles.Add(vIndex + 7);
+            }
+        }
+
+        wallMesh.Clear();
+        wallMesh.SetVertices(wallVertices);
+        wallMesh.SetUVs(0, wallUVs);
+        wallMesh.SetTriangles(wallTriangles, 0);
+        wallMesh.RecalculateNormals();
+    }
 
     void OnDisable() 
     {
@@ -536,5 +686,8 @@ public class CrowdDisplayer : MonoBehaviour
         if (symbolJoyBuffer != null) symbolJoyBuffer.Release();
         if (symbolArgsBuffer != null) symbolArgsBuffer.Release();
         if (runtimeSymbolMaterial != null) { Destroy(runtimeSymbolMaterial); runtimeSymbolMaterial = null; }
+        
+        if (wallMesh != null) Destroy(wallMesh);
+        if (wallGameObject != null) Destroy(wallGameObject);
     }
 }
