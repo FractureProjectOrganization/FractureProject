@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
@@ -22,6 +23,7 @@ public class SoundManager : MonoBehaviour
     
     public AudioSource[] loopSources = new AudioSource[3];
     public bool[] loopBools = new bool[3];
+
     
     private void Awake()
     {
