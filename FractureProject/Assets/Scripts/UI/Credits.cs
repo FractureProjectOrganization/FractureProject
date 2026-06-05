@@ -8,7 +8,7 @@ public class Credits : MonoBehaviour
     {
         if (Input.anyKey)
         {
-            SceneManager.instance.LoadMainMenu();
+            TransitionManager.instance.FadeToBlack();
         }
     }
 
