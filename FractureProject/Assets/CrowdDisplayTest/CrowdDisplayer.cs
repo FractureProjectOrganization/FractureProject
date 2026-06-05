@@ -84,6 +84,13 @@ public class CrowdDisplayer : MonoBehaviour
     public float textureWorldLength = 2f;
     public Material wallMaterial;
     
+    [Header("Wall Fade Settings")]
+    public float wallFadeDuration = 1.0f;
+    private float currentFadeTimer = 0f;
+    private bool needsFadeIn = false;
+    private Color originalBaseColor;
+    private Color originalGlowColor;
+    
     private GameObject wallGameObject;
     private MeshFilter wallMeshFilter;
     private MeshRenderer wallRenderer;
@@ -217,6 +224,12 @@ public class CrowdDisplayer : MonoBehaviour
         wallMesh.name = "ProceduralWallMesh";
         wallMesh.MarkDynamic();
         wallMeshFilter.mesh = wallMesh;
+        
+        if (wallMaterial != null) 
+        {
+            originalBaseColor = wallMaterial.GetColor("_BaseColor");
+            originalGlowColor = wallMaterial.GetColor("_GlowColor");
+        }
     }
 
     private void UpdatePathData()
@@ -312,6 +325,9 @@ public class CrowdDisplayer : MonoBehaviour
         propertyBlock.SetFloat("_TotalPathLength", currentPathLength);
         
         GenerateWallMesh();
+        
+        currentFadeTimer = 0f;
+        needsFadeIn = true;
     }
     
     void ExtractCutCharacters(float oldLength, float cutLength, CrowdNode refNode)
@@ -482,6 +498,26 @@ public class CrowdDisplayer : MonoBehaviour
             else
             {
                 wallRenderer.enabled = true;
+
+                if (needsFadeIn)
+                {
+                    currentFadeTimer += Time.deltaTime;
+                    float fadeProgress = Mathf.Clamp01(currentFadeTimer / wallFadeDuration);
+
+                    Color currentBase = originalBaseColor;
+                    currentBase.a *= fadeProgress;
+
+                    Color currentGlow = originalGlowColor;
+                    currentGlow.a *= fadeProgress;
+
+                    wallRenderer.material.SetColor("_BaseColor", currentBase);
+                    wallRenderer.material.SetColor("_GlowColor", currentGlow);
+
+                    if (fadeProgress >= 1f)
+                    {
+                        needsFadeIn = false;
+                    }
+                }
 
                 if (Player.instance != null)
                 {
