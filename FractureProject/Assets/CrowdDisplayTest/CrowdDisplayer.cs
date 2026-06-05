@@ -8,6 +8,12 @@ public class CrowdDisplayer : MonoBehaviour
         public float absoluteDistance;
         public Vector4 uvRect;
     }
+    
+    public struct SymbolData {
+        public Vector3 randomOffset; 
+        public float absoluteDistance;
+        public Vector4 uvRect;
+    }
 
     public Crowd targetCrowd; 
     public SpriteAtlas atlas;
@@ -26,6 +32,24 @@ public class CrowdDisplayer : MonoBehaviour
 
     [Header("Density Smoothing")]
     public float densitySmoothSpeed = 1f;
+    
+    [Header("Symbol Settings")]
+    public SpriteAtlas symbolAtlas;
+    public Mesh symbolMesh;
+    public Material symbolMaterialTemplate;
+    public int symbolCount = 20;
+    
+    [Header("Symbol Settings (Joie)")]
+    public SpriteAtlas symbolJoyAtlas;
+
+    private ComputeBuffer symbolBuffer;
+    private ComputeBuffer symbolJoyBuffer;
+    private Texture2D angerTexture;
+    private Texture2D joyTexture;
+
+    private ComputeBuffer symbolArgsBuffer;
+    private Material runtimeSymbolMaterial;
+    private SymbolData[] symbolCpuData;
     
     private float[] targetDistances;
     private bool isSmoothingDensity = false;
@@ -47,6 +71,13 @@ public class CrowdDisplayer : MonoBehaviour
     private float currentPathLength = 0f; 
     private CharacterData[] cpuData;
     private bool hasStartedLooping = false;
+    
+    private MaterialPropertyBlock symbolPropertyBlock;
+    
+    private float resumeTime = 0f;
+    private bool wasMoving = false;
+    private bool wasCruising = false;
+    
 
     void Start()
     {
@@ -103,6 +134,59 @@ public class CrowdDisplayer : MonoBehaviour
                 propertyBlock.SetTexture("_MainTex", characters[0].texture);
                 runtimeMaterial.SetTexture("_MainTex", characters[0].texture);
             }
+        }
+        
+        if (symbolMaterialTemplate != null && symbolAtlas != null && symbolCount > 0)
+        {
+            float symbolSpacing = initialLength / Mathf.Max(1, symbolCount);
+            
+            Sprite[] symbolSprites = new Sprite[symbolAtlas.spriteCount]; 
+            symbolAtlas.GetSprites(symbolSprites);
+            if (symbolSprites.Length > 0 && symbolSprites[0] != null) angerTexture = symbolSprites[0].texture;
+    
+            symbolCpuData = new SymbolData[symbolCount];
+            for (int i = 0; i < symbolCount; i++)
+            {
+                Sprite s = symbolSprites[Random.Range(0, symbolSprites.Length)];
+                Rect r = s.textureRect;
+                symbolCpuData[i] = new SymbolData {
+                    randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(1.5f, 3f), Random.Range(0f, 100f)),
+                    absoluteDistance = (i * symbolSpacing) + Random.Range(-symbolSpacing * 0.2f, symbolSpacing * 0.2f),
+                    uvRect = new Vector4(r.x / s.texture.width, r.y / s.texture.height, r.width / s.texture.width, r.height / s.texture.height)
+                };
+            }
+            symbolBuffer = new ComputeBuffer(symbolCount, 32);
+            symbolBuffer.SetData(symbolCpuData);
+
+            if (symbolJoyAtlas != null)
+            {
+                Sprite[] joySprites = new Sprite[symbolJoyAtlas.spriteCount];
+                symbolJoyAtlas.GetSprites(joySprites);
+                if (joySprites.Length > 0 && joySprites[0] != null) joyTexture = joySprites[0].texture;
+
+                SymbolData[] symbolJoyCpuData = new SymbolData[symbolCount];
+                for (int i = 0; i < symbolCount; i++)
+                {
+                    Sprite s = joySprites[Random.Range(0, joySprites.Length)];
+                    Rect r = s.textureRect;
+                    symbolJoyCpuData[i] = new SymbolData {
+                        randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(1.5f, 3f), Random.Range(0f, 100f)),
+                        absoluteDistance = (i * symbolSpacing) + Random.Range(-symbolSpacing * 0.2f, symbolSpacing * 0.2f),
+                        uvRect = new Vector4(r.x / s.texture.width, r.y / s.texture.height, r.width / s.texture.width, r.height / s.texture.height)
+                    };
+                }
+                symbolJoyBuffer = new ComputeBuffer(symbolCount, 32);
+                symbolJoyBuffer.SetData(symbolJoyCpuData);
+            }
+
+            symbolArgsBuffer = new ComputeBuffer(1, 5 * sizeof(uint), ComputeBufferType.IndirectArguments);
+            symbolArgsBuffer.SetData(new uint[5] { symbolMesh.GetIndexCount(0), (uint)symbolCount, 0, 0, 0 });
+
+            symbolPropertyBlock = new MaterialPropertyBlock();
+            symbolPropertyBlock.SetFloat("_RotationY", characterRotationY);
+
+            runtimeSymbolMaterial = new Material(symbolMaterialTemplate);
+            runtimeSymbolMaterial.SetBuffer("_WaypointBuffer", waypointBuffer);
         }
     }
 
@@ -240,10 +324,15 @@ public class CrowdDisplayer : MonoBehaviour
         if (propertyBlock == null || runtimeMaterial == null || targetCrowd.rootNode == null || currentWaypointCount < 2) return;
 
         bool isFlowing = targetCrowd.rootNode.state == CrowdState.Flowing;
-        float currentSpeed = (isFlowing && hasStartedLooping) ? moveSpeed : catchUpSpeed;
+        
+        bool isCruising = isFlowing && hasStartedLooping; 
+        
+        float currentSpeed = isCruising ? moveSpeed : catchUpSpeed;
         
         bool canMove = true;
         bool bufferDirty = false;
+        
+        bool isVisuallyMoving = false;
 
         if (!isFlowing) 
         {
@@ -259,7 +348,23 @@ public class CrowdDisplayer : MonoBehaviour
             if (!canMove && distanceToEnd > 0) globalOffset += distanceToEnd;
         }
 
-        if (canMove) globalOffset += Time.deltaTime * currentSpeed; 
+        if (canMove)
+        {
+            globalOffset += Time.deltaTime * currentSpeed;
+            isVisuallyMoving = true;
+        } 
+        
+        if (!isVisuallyMoving && wasMoving) 
+        {
+            resumeTime = Time.time;
+        }
+        wasMoving = isVisuallyMoving;
+
+        if (isCruising && !wasCruising)
+        {
+            resumeTime = Time.time;
+        }
+        wasCruising = isCruising;
 
         if (isSmoothingDensity && canMove)
         {
@@ -310,6 +415,33 @@ public class CrowdDisplayer : MonoBehaviour
         propertyBlock.SetFloat("_GlobalOffset", globalOffset);
         
         Graphics.DrawMeshInstancedIndirect(characterMesh, 0, runtimeMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
+        
+        if ((isCruising || !isVisuallyMoving) && runtimeSymbolMaterial != null && symbolArgsBuffer != null && symbolPropertyBlock != null)
+        {
+            Texture2D activeTexture = isCruising ? joyTexture : angerTexture;
+            ComputeBuffer activeBuffer = isCruising ? symbolJoyBuffer : symbolBuffer;
+
+            if (activeTexture != null && activeBuffer != null)
+            {
+                symbolPropertyBlock.SetTexture("_MainTex", activeTexture);
+                symbolPropertyBlock.SetBuffer("_SymbolBuffer", activeBuffer);
+            }
+
+            symbolPropertyBlock.SetInt("_WaypointCount", currentWaypointCount);
+            symbolPropertyBlock.SetFloat("_TotalPathLength", currentPathLength);
+            
+            symbolPropertyBlock.SetFloat("_ResumeTime", resumeTime);
+
+            Graphics.DrawMeshInstancedIndirect(
+                symbolMesh, 
+                0, 
+                runtimeSymbolMaterial, 
+                new Bounds(Vector3.zero, Vector3.one * 1000), 
+                symbolArgsBuffer, 
+                0, 
+                symbolPropertyBlock
+            );
+        }
     }
     
     void RescaleAbsoluteDistances(float oldLength, float cutLength, float trueNewLength)
@@ -399,5 +531,10 @@ public class CrowdDisplayer : MonoBehaviour
             Destroy(runtimeMaterial);
             runtimeMaterial = null;
         }
+        
+        if (symbolBuffer != null) symbolBuffer.Release();
+        if (symbolJoyBuffer != null) symbolJoyBuffer.Release();
+        if (symbolArgsBuffer != null) symbolArgsBuffer.Release();
+        if (runtimeSymbolMaterial != null) { Destroy(runtimeSymbolMaterial); runtimeSymbolMaterial = null; }
     }
 }
