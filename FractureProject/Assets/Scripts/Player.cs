@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class Player : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class Player : MonoBehaviour
     public bool inCombat;
 
     public AudioSource footsteps;
-    public float stepTime= 0.5f;
+    public float stepTime = 0.5f;
     private Coroutine stepCoroutine;
     
     [HideInInspector] public NewPushableObject currentPushable;
@@ -22,7 +23,7 @@ public class Player : MonoBehaviour
         Walking,
         Transported,
         Ejected,
-        Pushing, //Nico
+        Pushing,
         Attacking,
         Hit,
         Down
@@ -32,6 +33,8 @@ public class Player : MonoBehaviour
 
     [HideInInspector] 
     public Vector3 lastFacingDirection = new Vector3(1, 0, 1).normalized;
+    
+    private InputAction moveAction;
 
     private void Awake()
     {
@@ -39,6 +42,24 @@ public class Player : MonoBehaviour
             throw new Exception("Multiple players in scene");
         
         instance = this;
+        
+        var inputActions = new InputSystem_Actions();
+        moveAction = inputActions.Player.Move;
+        inputActions.Player.Enable();
+    }
+    
+    void OnEnable()
+    {
+        if (moveAction == null) return;
+        moveAction.performed += OnMove;
+        moveAction.canceled += OnMove;
+    }
+
+    void OnDisable()
+    {
+        if (moveAction == null) return;
+        moveAction.performed -= OnMove;
+        moveAction.canceled -= OnMove;
     }
 
     private void Start()
@@ -75,16 +96,18 @@ public class Player : MonoBehaviour
                 ChangeState(States.Idle);
             return;
         }
-        
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        
-        direction = new Vector3(h, 0, v).normalized;
-        
+    }
+
+    void OnMove(InputAction.CallbackContext context)
+    {
+        Vector2 input = context.ReadValue<Vector2>();
+    
+        direction = new Vector3(input.x, 0, input.y).normalized;
+    
         if (direction.magnitude > 0.1f)
         {
             Vector3 snappedInput;
-            
+        
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.z))
             {
                 snappedInput = new Vector3(Mathf.Sign(direction.x), 0, 0); 
@@ -96,17 +119,18 @@ public class Player : MonoBehaviour
 
             lastFacingDirection = Quaternion.Euler(0, 45, 0) * snappedInput;
         }
-        
-        if (currentState != States.Transported && currentState != States.Ejected && currentState != States.Pushing && currentState != States.Attacking && currentState != States.Hit)
+    
+        if (currentState != States.Transported && currentState != States.Ejected && 
+            currentState != States.Pushing && currentState != States.Attacking && 
+            currentState != States.Hit)
         {
             ChangeState(direction.magnitude > 0.1f ? States.Walking : States.Idle);
         }
-        
+    
         if (currentState == States.Walking)
         {
             animatorController.UpdateMoveDirection(direction.x, direction.z);
         }
-        
     }
     
     void FixedUpdate()
@@ -131,11 +155,9 @@ public class Player : MonoBehaviour
             case States.Ejected:
                 ApplyEjection();
                 break;
-            //Stoian
             case States.Pushing:
                 Move();
                 break;
-            //Stoian
         }
     }
 
@@ -156,15 +178,13 @@ public class Player : MonoBehaviour
         currentState = newState;
         if (currentState == States.Pushing || currentState == States.Walking)
         {
-            if(stepCoroutine != null) StopCoroutine(stepCoroutine);
+            if (stepCoroutine != null) StopCoroutine(stepCoroutine);
             stepCoroutine = StartCoroutine(FootstepsCoroutine());
         }
         else
         {
             if (stepCoroutine != null)
-            {
                 StopCoroutine(stepCoroutine);
-            }
         }
 
         animatorController.OnStateChanged(newState);
@@ -174,7 +194,6 @@ public class Player : MonoBehaviour
     {
         if (locked) return;
         skewedDirection = Quaternion.Euler(0, 45, 0) * direction;
-
         rb.linearVelocity = new Vector3(skewedDirection.x * moveSpeed, rb.linearVelocity.y, skewedDirection.z * moveSpeed);
     }
     
@@ -229,9 +248,7 @@ public class Player : MonoBehaviour
         rb.MovePosition(newPos);
         
         if (Vector3.Distance(rb.position, flatEjectionTarget) < 0.01f)
-        {
             ChangeState(States.Idle);
-        }
     }
 
     public void SetCrowdToFollow(CrowdNode startNode)
@@ -256,9 +273,7 @@ public class Player : MonoBehaviour
         Vector3 targetPos = lastPositionAllowed;
     
         if (skewedDirection.magnitude > 0.01f)
-        {
             targetPos -= skewedDirection * 0.02f;
-        }
     
         rb.MovePosition(targetPos);
     }
@@ -266,9 +281,7 @@ public class Player : MonoBehaviour
     public Vector3 GetPushDirection()
     {
         if (skewedDirection.magnitude > 0.1f)
-        {
             return skewedDirection.normalized;
-        }
         return Vector3.zero;
     }
 
@@ -284,7 +297,7 @@ public class Player : MonoBehaviour
 
     public IEnumerator FootstepsCoroutine()
     {
-        if(!footsteps) yield break;
+        if (!footsteps) yield break;
         while (currentState == States.Walking)
         {
             float timer = stepTime;

@@ -51,7 +51,7 @@ public class RotatingSign : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
+            if (InputManager.Instance.Interact.WasPressedThisFrame())
             {
                 if (cooldown) return;
                 cooldown = true;

@@ -61,7 +61,7 @@ public class NewPushableObject : MonoBehaviour
                 SoundManager.PlaySound("Interact In");
             }
             
-            if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
+            if (InputManager.Instance.Interact.IsPressed())
             {
                 
                 Player.instance.locked = true;

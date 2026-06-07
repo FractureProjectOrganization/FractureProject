@@ -1,5 +1,4 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -15,9 +14,7 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuPanel;
     
-    private InputAction pauseAction, apanyanAction;
     private Animator animator;
-
     private bool isPaused, isSettingOpen;
     public bool isMainMenu;
     
@@ -29,24 +26,6 @@ public class PauseMenu : MonoBehaviour
             return;
         }
         instance = this;
-
-        pauseAction = GetComponent<PlayerInput>().actions["Pause"];
-        apanyanAction = GetComponent<PlayerInput>().actions["Crouch"];
-
-        pauseAction.actionMap.Enable();
-        apanyanAction.actionMap.Enable();
-    }
-
-    private void OnEnable()
-    {
-        pauseAction.performed += OnPauseButtonPress;
-        apanyanAction.performed += OnApanyanAction;
-    }
-
-    private void OnDisable()
-    {
-        pauseAction.performed -= OnPauseButtonPress;
-        apanyanAction.performed -= OnApanyanAction;
     }
     
     private void Start()
@@ -59,24 +38,26 @@ public class PauseMenu : MonoBehaviour
             anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         }
     }
-
-    private void OnPauseButtonPress(InputAction.CallbackContext context)
+    
+    public void OnPauseButtonPress(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
         if (!pauseMenuPanel) return;
         
         if (isPaused)
         {
-            if(isSettingOpen) CloseSettings();
+            if (isSettingOpen) CloseSettings();
             else Resume();
         }
-        else if (!isPaused)
+        else
         {
             OnPause();
         }
     }
     
-    private void OnApanyanAction(InputAction.CallbackContext context)
+    public void OnApanyanAction(InputAction.CallbackContext context)
     {
+        if (!context.performed) return;
         if (!pauseMenuPanel) return;
 
         if (isMainMenu)
@@ -84,26 +65,17 @@ public class PauseMenu : MonoBehaviour
             CloseSettings();
             return;
         }
-        if (isPaused && isSettingOpen)
-        {
-            CloseSettings();
-        }
-        else if (isPaused && !isSettingOpen)
-        {
-            Resume();
-        }
+        if (isPaused && isSettingOpen) CloseSettings();
+        else if (isPaused && !isSettingOpen) Resume();
     }
     
     private void OnPause()
     {
         if (!pauseMenuPanel) return;
         
-        //Time.timeScale = 0;
-        if(Player.instance)Player.instance.locked = true;
+        if (Player.instance) Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
-        
         animator.SetTrigger(TrOuvertureMenuPause);
-
         isPaused = true;
     }
 
@@ -111,25 +83,19 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
         
-        //Time.timeScale = 1;
         isPaused = false;
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
-        
-        if(Player.instance)Player.instance.locked = false;
-
+        if (Player.instance) Player.instance.locked = false;
     }
-    
-    
 
     public void OpenSettings()
     {
         if (!pauseMenuPanel) return;
-        if(!isMainMenu)animator.SetTrigger(TrOuvertureSetting);
+        if (!isMainMenu) animator.SetTrigger(TrOuvertureSetting);
         else animator.SetTrigger("Tr_OuvSettingMainMenu");
         
         isSettingOpen = true;
-        
         StartCoroutine(WaitForSettings());
     }
     
@@ -140,7 +106,6 @@ public class PauseMenu : MonoBehaviour
         {
             animator.SetTrigger(TrFermetureSetting);
             UIManager.instance.SetPauseButton();
-
         }
         else
         {
@@ -148,17 +113,13 @@ public class PauseMenu : MonoBehaviour
             UIManager.instance.SetMainMenuButton();
         }
         isSettingOpen = false;
-
-        
     }
 
     private IEnumerator WaitForSettings()
     {
         yield return new WaitForSecondsRealtime(0.2f);
         UIManager.instance.SetSettingsButton();
-
     }
-
 
     public void Quit()
     {

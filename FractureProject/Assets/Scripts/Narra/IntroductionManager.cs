@@ -35,7 +35,7 @@ public class IntroductionManager : MonoBehaviour
             NextStep();
         }
         
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (InputManager.Instance.Interact.WasPressedThisFrame())
         {
             NextStep();
         }

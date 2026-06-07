@@ -1,8 +1,10 @@
 using System;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
@@ -30,7 +32,8 @@ public class MainMenu : MonoBehaviour
     {
         if (isDezoomed) return;
         
-        if (Input.anyKey)
+        if (InputSystem.devices.Any(d => d.wasUpdatedThisFrame && d.allControls.Any(c => c is ButtonControl btn && 
+                btn.wasPressedThisFrame)))
         {
             OnVideoEnd(videoPlayer);
         }
