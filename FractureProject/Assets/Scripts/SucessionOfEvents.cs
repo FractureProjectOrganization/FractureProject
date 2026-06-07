@@ -11,6 +11,8 @@ public class SucessionOfEvents : MonoBehaviour
     [SerializeField] public List<TimedEvent> events;
     private Coroutine eventsCoroutine;
     public bool noInteruption;
+    
+    [SerializeField] private bool destroyWhenFinished; //François
 
     public void PlayEvents()
     {
@@ -31,7 +33,18 @@ public class SucessionOfEvents : MonoBehaviour
                 yield return null;
             }
         }
-        yield return null;
+        //yield return null;
+        
+        //François
+        if (destroyWhenFinished)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            eventsCoroutine = null;
+        }
+        //François
     }
     #region triggers
     private void Awake()

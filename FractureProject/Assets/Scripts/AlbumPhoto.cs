@@ -1,44 +1,143 @@
+using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class AlbumPhoto : MonoBehaviour
 {
-    bool Open,Close = true;
+    bool open, close = true, turned;
     Animator anim;
     public Player player;
+    public GameObject[] images = new GameObject[3];
+    public RectTransform[] marquePages;
+    private int index = 0;
+    private int pageUnlocked = 1;
+    public float timeBforeTurn, marquePageDeformation;
+    public GameObject leftArow, rightArrow;
+
+    public static AlbumPhoto instance;
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+    }
 
     public void Start()
     {
         anim = GetComponent<Animator>();
+        player = Player.instance;
+        marquePages[0].localScale = new Vector3(1 + marquePageDeformation, 1 + marquePageDeformation, 1 + marquePageDeformation);
     }
+
     void Update()
     {
-        if(Input.GetKeyDown("e") || Input.GetButtonDown("Fire3"))
+        if (InputManager.Instance != null && InputManager.Instance.Album.WasPressedThisFrame())
         {
             if (player && player.locked) return;
-            if (!Open)
+            if (!open)
             {
-                Open = true;
-                Close = false;
+                open = true;
+                close = false;
                 anim.SetTrigger("Open");
-                if (player)
-                {
-                    player.LockPlayer(true);
-                }
+                if (player) player.LockPlayer(true);
             }
         }
 
-        if (!Input.GetKey("e") && !Input.GetButton("Fire3"))
+        if (InputManager.Instance != null && !InputManager.Instance.Album.IsPressed())
         {
-            if (!Close)
+            if (!close)
             {
-                Open = false;
-                Close = true;
+                open = false;
+                close = true;
                 anim.SetTrigger("Close");
-                if (player)
-                {
-                    player.LockPlayer(false);
-                }
+                if (player) player.LockPlayer(false);
             }
         }
+
+        if (open)
+        {
+            var gamepad = Gamepad.current;
+            float horizontal = Keyboard.current != null
+                ? (Keyboard.current.leftArrowKey.isPressed ? -1f : Keyboard.current.rightArrowKey.isPressed ? 1f : 0f)
+                : 0f;
+
+            if (gamepad != null && horizontal == 0f)
+                horizontal = gamepad.leftStick.ReadValue().x;
+
+            int dir = Mathf.RoundToInt(horizontal);
+            if (dir != 0)
+            {
+                if (!turned)
+                {
+                    StartCoroutine(TurningPageCoroutine(dir));
+                    turned = true;
+                }
+            }
+            else
+            {
+                turned = false;
+            }
+        }
+    }
+
+    void TurnPage(int movement)
+    {
+        if (close) return;
+
+        switch (index)
+        {
+            case 0:
+                leftArow.SetActive(false);
+                rightArrow.SetActive(true);
+                break;
+            case 1:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(pageUnlocked > 1);
+                break;
+            case 2:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(false);
+                break;
+            default:
+                leftArow.SetActive(true);
+                rightArrow.SetActive(true);
+                break;
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            images[i].SetActive(i == index);
+        }
+    }
+
+    private IEnumerator TurningPageCoroutine(int movement)
+    {
+        index += movement;
+        index = Mathf.Clamp(index, 0, pageUnlocked);
+        float timer = 0f;
+        while (timer < timeBforeTurn)
+        {
+            timer += Time.deltaTime;
+            for (int i = 0; i < pageUnlocked + 1; i++)
+            {
+                RectTransform mp = marquePages[i];
+                float zoom = i == index
+                    ? 1 + (marquePageDeformation * (timer / timeBforeTurn))
+                    : Mathf.Lerp(mp.localScale.x, 1, timer / timeBforeTurn);
+                mp.localScale = new Vector3(zoom, zoom, zoom);
+            }
+            yield return null;
+        }
+        TurnPage(movement);
+    }
+
+    public static void AddPage()
+    {
+        instance.pageUnlocked++;
     }
 }

@@ -1234,6 +1234,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 238048038}
+    - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 565467753}
     - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
@@ -1266,7 +1269,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
-  HasBeenObserved: 0
   observationPoints:
   - {fileID: 565467752}
   - {fileID: 2131074465}
@@ -5313,6 +5315,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 2019737471}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &172327523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7042,6 +7046,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 161742413}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &214484723
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7993,6 +7999,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6391215666148015017, guid: c3b5519ab32e7e54285932889e450678, type: 3}
   m_PrefabInstance: {fileID: 236744007}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &238048037
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 238048038}
+  m_Layer: 0
+  m_Name: Target (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &238048038
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238048037}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -1, z: -0, w: -0.00017723814}
+  m_LocalPosition: {x: -1.14, y: -1.51, z: -0.37}
+  m_LocalScale: {x: 0.14277144, y: 0.1818215, z: 0.1250256}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 42788156}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &244262312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8242,6 +8279,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1683122000}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &246801555
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10337,10 +10376,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 348703737}
-  - component: {fileID: 348703741}
   - component: {fileID: 348703740}
   - component: {fileID: 348703739}
   - component: {fileID: 348703738}
+  - component: {fileID: 348703742}
   m_Layer: 0
   m_Name: ObservationZone (3)
   m_TagString: Untagged
@@ -10441,7 +10480,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 348703736}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &348703741
+--- !u!114 &348703742
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -10450,10 +10489,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 348703736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObservationPoint
-  guardsZone: {fileID: 1383442989}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 1332869259}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!1001 &348973922
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11757,6 +11799,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6698346818082700425, guid: dd3c37723dff87b41915d720a87993d7, type: 3}
   m_PrefabInstance: {fileID: 379468011}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &384473311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 384473312}
+  m_Layer: 0
+  m_Name: Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &384473312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384473311}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.72481036, z: -0, w: -0.68894845}
+  m_LocalPosition: {x: 1.178, y: -1.51, z: -1.171}
+  m_LocalScale: {x: 0.1250656, y: 0.1818215, z: 0.14271939}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1867040204}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &387914040
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12455,6 +12528,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 289460530}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &402178995
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13878,6 +13953,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1285416638}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &445778170
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15248,17 +15325,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6951624978914479800, guid: 756356af3f1f2464cb713e9cc60c8d90, type: 3}
   m_PrefabInstance: {fileID: 481717742}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &481928699 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 303594327627925373, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62dbe8b496393d44c9cf489cfb041a19, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::IsometricCameraFollow
 --- !u!1001 &482347728
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15705,6 +15771,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 521842467}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &490411686
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17456,10 +17524,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 565467753}
-  - component: {fileID: 565467757}
   - component: {fileID: 565467756}
   - component: {fileID: 565467755}
   - component: {fileID: 565467754}
+  - component: {fileID: 565467758}
   m_Layer: 0
   m_Name: ObservationZone
   m_TagString: Untagged
@@ -17560,7 +17628,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 565467752}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &565467757
+--- !u!114 &565467758
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -17569,10 +17637,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 565467752}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObservationPoint
-  guardsZone: {fileID: 42788158}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 238048038}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!1001 &567561171
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22236,6 +22307,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1533613762}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &712942629
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23358,6 +23431,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 533287642}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &757317797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24135,6 +24210,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1615165356}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &780228572
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24614,6 +24691,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 2019737471}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &792363849
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -24945,6 +25024,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 533287642}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &804902106
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27368,6 +27449,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 533287642}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &875774350
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29606,6 +29689,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1615165356}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &963241952
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -31493,10 +31578,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1011167930}
-  - component: {fileID: 1011167934}
   - component: {fileID: 1011167933}
   - component: {fileID: 1011167932}
   - component: {fileID: 1011167931}
+  - component: {fileID: 1011167935}
   m_Layer: 0
   m_Name: ObservationZone (2)
   m_TagString: Untagged
@@ -31597,7 +31682,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1011167929}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1011167934
+--- !u!114 &1011167935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31606,10 +31691,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1011167929}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: '::'
-  guardsZone: {fileID: 1383442989}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 1332869259}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!1001 &1011787986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32435,11 +32523,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5841993254175329819, guid: 5300749adfdaad8429a7d4d685a6858b, type: 3}
   m_PrefabInstance: {fileID: 1033260905}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1035136954 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 323866385646690115, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1041231808
 PrefabInstance:
@@ -33418,19 +33501,19 @@ MonoBehaviour:
   onTriggerEnterAction:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 481928699}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
         m_MethodName: ChangeTarget
         m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 1035136954}
+          m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Transform, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1625744704}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: LockPlayer
         m_Mode: 6
@@ -36359,6 +36442,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 161742413}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1155419596
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38970,7 +39055,7 @@ MonoBehaviour:
   <dialogueEndEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1625744704}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
         m_MethodName: LockPlayer
         m_Mode: 6
@@ -38982,7 +39067,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 481928699}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
         m_MethodName: ChangeTarget
         m_Mode: 2
@@ -39318,6 +39403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1116748029}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1254377517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41934,6 +42021,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6391215666148015017, guid: c3b5519ab32e7e54285932889e450678, type: 3}
   m_PrefabInstance: {fileID: 1330897886}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1332869258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1332869259}
+  m_Layer: 0
+  m_Name: Target (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1332869259
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1332869258}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -1, z: -0, w: -0.00017723814}
+  m_LocalPosition: {x: -0.86, y: -1.51, z: -0.39}
+  m_LocalScale: {x: 0.14277145, y: 0.1818215, z: 0.12502562}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1383442987}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1338355530
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42531,7 +42649,7 @@ Transform:
   m_GameObject: {fileID: 1359349562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.000000059604638, z: -0, w: 1}
-  m_LocalPosition: {x: 112.92964, y: 1.9999999, z: -187.05417}
+  m_LocalPosition: {x: 112.92964, y: 1.9999999, z: -182.35}
   m_LocalScale: {x: 45.999638, y: 1, z: 0.999646}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -42551,6 +42669,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1683122000}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1359349565
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43445,7 +43565,7 @@ PrefabInstance:
     - target: {fileID: 2712543543076003458, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
       propertyPath: m_Camera
       value: 
-      objectReference: {fileID: 1625744707}
+      objectReference: {fileID: 0}
     - target: {fileID: 6782939182602972050, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -43614,6 +43734,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1683122000}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1383413779
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43748,6 +43870,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1332869259}
+    - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1011167930}
     - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
@@ -43780,7 +43905,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
-  HasBeenObserved: 0
   observationPoints:
   - {fileID: 1011167929}
   - {fileID: 348703736}
@@ -44124,6 +44248,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1116748029}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1397050523
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -44231,7 +44357,7 @@ Transform:
   m_GameObject: {fileID: 1397241615}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 95.17964, y: 1.9999999, z: -330.05417}
+  m_LocalPosition: {x: 95.17964, y: 1.9999999, z: -337.5}
   m_LocalScale: {x: 37.498688, y: 1, z: 0.999646}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -44251,6 +44377,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 519925244}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1397241618
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45009,6 +45137,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1533613762}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1429599809
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -50068,6 +50198,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 161742413}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1558182338
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -52040,146 +52172,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5841993254175329819, guid: 5300749adfdaad8429a7d4d685a6858b, type: 3}
   m_PrefabInstance: {fileID: 1625564194}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &1625744703
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1943197362}
-    m_Modifications:
-    - target: {fileID: 1060437123090136335, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 1060437123090136335, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4010357244498754497, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.9605
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.9605
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.9605
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 217.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 9.44
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -326.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7892075952440317898, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8593480687241786602, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 1625744705}
-    - target: {fileID: 8593480687241786602, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      propertyPath: locked
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7892075952440317898, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1625744710}
-  m_SourcePrefab: {fileID: 100100000, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
---- !u!114 &1625744704 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8593480687241786602, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d5726240952155479f41243d9c49072, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: '::'
---- !u!54 &1625744705 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2033218753040073043, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1625744706 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7892075952440317898, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
---- !u!20 &1625744707 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 2146599118061061197, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1625744708 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4320371009729194558, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
-  m_PrefabInstance: {fileID: 1625744703}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1625744710
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1625744706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19df5280dd1f8e447970e6aa52da6c56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::S_Vignette_Track_Player
-  wallMaterial: {fileID: 2100000, guid: 77a63d26716f53a49916dace0c62e61d, type: 2}
-  Camera: {fileID: 1625744707}
-  Mask:
-    serializedVersion: 2
-    m_Bits: 128
 --- !u!1001 &1625938374
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53476,6 +53468,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1533613762}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1668354791
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54912,10 +54906,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721451976}
-  - component: {fileID: 1721451980}
   - component: {fileID: 1721451979}
   - component: {fileID: 1721451978}
   - component: {fileID: 1721451977}
+  - component: {fileID: 1721451981}
   m_Layer: 0
   m_Name: ObservationZone
   m_TagString: Untagged
@@ -55016,7 +55010,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721451975}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1721451980
+--- !u!114 &1721451981
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -55025,10 +55019,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1721451975}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObservationPoint
-  guardsZone: {fileID: 1867040206}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 384473312}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!1001 &1722608779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -55541,6 +55538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1116748029}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1737909737
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -59163,6 +59162,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.041129064
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.046693202
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99492484
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.10062173
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2858326326523326337, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -11.55
+      objectReference: {fileID: 0}
     - target: {fileID: 4350010187264649831, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
       propertyPath: m_Name
       value: Gardes
@@ -59170,6 +59197,9 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 384473312}
     - targetCorrespondingSourceObject: {fileID: 2476129199726571747, guid: a7423a3d7536f68429596694b50e3fa2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1721451976}
@@ -59203,7 +59233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab00833ab6989c64295b024c0d952e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlashbackGuards
-  HasBeenObserved: 0
   observationPoints:
   - {fileID: 1721451975}
   - {fileID: 2132765287}
@@ -60204,7 +60233,7 @@ Transform:
   m_GameObject: {fileID: 1904005233}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071058, z: -0, w: 0.7071078}
-  m_LocalPosition: {x: 119.67964, y: 1.9999999, z: -241.30417}
+  m_LocalPosition: {x: 112.84, y: 1.9999999, z: -241.3}
   m_LocalScale: {x: 37.997417, y: 1, z: 0.999646}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -60224,6 +60253,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 289460530}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1904005236
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62148,7 +62179,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 98833005}
-  - {fileID: 1625744708}
   m_Father: {fileID: 6745147095674961308}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1947196401
@@ -63237,6 +63267,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1615165356}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &1978979355
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -64554,6 +64586,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 229752211}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &2017739365
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -66597,6 +66631,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 289460530}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &2068454843
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -68341,10 +68377,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2131074466}
-  - component: {fileID: 2131074470}
   - component: {fileID: 2131074469}
   - component: {fileID: 2131074468}
   - component: {fileID: 2131074467}
+  - component: {fileID: 2131074471}
   m_Layer: 0
   m_Name: ObservationZone (1)
   m_TagString: Untagged
@@ -68445,7 +68481,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2131074465}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2131074470
+--- !u!114 &2131074471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68454,10 +68490,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2131074465}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObservationPoint
-  guardsZone: {fileID: 42788158}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 238048038}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!1001 &2131453534
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68533,10 +68572,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2132765288}
-  - component: {fileID: 2132765292}
   - component: {fileID: 2132765291}
   - component: {fileID: 2132765290}
   - component: {fileID: 2132765289}
+  - component: {fileID: 2132765293}
   m_Layer: 0
   m_Name: ObservationZone (1)
   m_TagString: Untagged
@@ -68553,7 +68592,7 @@ Transform:
   m_GameObject: {fileID: 2132765287}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0.025357451, z: -0, w: -0.99967843}
-  m_LocalPosition: {x: -5.062958, y: -0.35090625, z: 0.48829627}
+  m_LocalPosition: {x: -5.368, y: -0.35090625, z: 0.502}
   m_LocalScale: {x: 0.95331556, y: 0.1818215, z: 1.0123359}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -68637,7 +68676,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2132765287}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2132765292
+--- !u!114 &2132765293
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -68646,10 +68685,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 2132765287}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 107d8af74c475404bbc4789970d1b385, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e20f7f5ca5c05746b013400d6d2c4f0, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ObservationPoint
-  guardsZone: {fileID: 1867040206}
+  m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
+  cameraTargetPoint: {fileID: 384473312}
+  resetOnExit: 0
+  startSequence: 1
+  observationTime: 2.5
 --- !u!4 &2133526677 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2327727636677960044, guid: 23316b1405007254abb9b2ce565fe59f, type: 3}
@@ -69109,7 +69151,7 @@ Transform:
   m_GameObject: {fileID: 2140488048}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7071058, z: -0, w: 0.7071078}
-  m_LocalPosition: {x: 115.67964, y: 1.9999999, z: -241.05417}
+  m_LocalPosition: {x: 124.62, y: 1.9999999, z: -241.05}
   m_LocalScale: {x: 38.499454, y: 1, z: 0.999646}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69129,6 +69171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 521842467}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &2140488051
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69396,7 +69440,7 @@ Transform:
   m_GameObject: {fileID: 2143469050}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.000000059604638, z: -0, w: 1}
-  m_LocalPosition: {x: 112.92964, y: 1.9999999, z: -183.55417}
+  m_LocalPosition: {x: 112.92964, y: 1.9999999, z: -180.44}
   m_LocalScale: {x: 45.999638, y: 1, z: 0.999646}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -69416,6 +69460,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraTargetTrigger
   cameraTargetPoint: {fileID: 1285416638}
   resetOnExit: 0
+  startSequence: 0
+  observationTime: 1
 --- !u!65 &2143469053
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -69683,7 +69729,7 @@ PrefabInstance:
     - target: {fileID: 1320484656413964335, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
       propertyPath: player
       value: 
-      objectReference: {fileID: 1625744704}
+      objectReference: {fileID: 0}
     - target: {fileID: 1572181507312430409, guid: 6a8f18eda48a5af4baa60860f599e6d9, type: 3}
       propertyPath: m_IsActive
       value: 1

@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using Object = System.Object;
 
 public class TriggerEvent : MonoBehaviour
 {
@@ -10,6 +11,9 @@ public class TriggerEvent : MonoBehaviour
     
     public bool isTalking;
     public bool initDialog;
+    public bool once = false;
+
+    private bool doneOnce = false;
     
     public Dialogs dialogs;
 
@@ -17,6 +21,7 @@ public class TriggerEvent : MonoBehaviour
     {
         if (other.CompareTag(targetTag))
         {
+            if (once && doneOnce) return;
             onTriggerEnterAction?.Invoke();
             isTalking = true;
             
@@ -39,9 +44,17 @@ public class TriggerEvent : MonoBehaviour
     {
         if (other.CompareTag(targetTag))
         {
+            if (once && doneOnce) return;
+            if (once) doneOnce = true;
+            
             onTriggerExitAction?.Invoke();
             isTalking = false;
         }
     }
     
+    //Stoian
+    public void DeleteTrigger()
+    {
+        Destroy(this);
+    }
 }

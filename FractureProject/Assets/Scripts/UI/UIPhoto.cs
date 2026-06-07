@@ -13,7 +13,7 @@ public class UIPhoto : MonoBehaviour
     {
         sceneManager = SceneManager.instance;
         
-        OnTransition += sceneManager.Temp;
+        OnTransition += sceneManager.LoadNextScene;
     }
     
     public void ShowUI(bool isActive)
@@ -22,7 +22,6 @@ public class UIPhoto : MonoBehaviour
         {
             panel.SetActive(true);
             Player.instance.locked = true;
-            UIManager.instance.SetPhotoButton();
         }
         else
         {

@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
+using Unity.VisualScripting;
+using UnityEngine.Audio;
 using Random = UnityEngine.Random;
 
 public class SoundManager : MonoBehaviour
@@ -15,6 +17,13 @@ public class SoundManager : MonoBehaviour
     
     [SerializedDictionary("nom","AudioClip")]
     public SerializedDictionary<string, AudioClip> sfx = new SerializedDictionary<string, AudioClip>();
+    
+    [SerializedDictionary("nom","AudioClip")]
+    public SerializedDictionary<string, AudioClip> soundLoops= new SerializedDictionary<string, AudioClip>();
+    
+    public AudioSource[] loopSources = new AudioSource[3];
+    public bool[] loopBools = new bool[3];
+
     
     private void Awake()
     {
@@ -54,7 +63,34 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public IEnumerator MusicTransition(AudioClip newMusic, float time =2f)
+    public static int? CreateLoopSound(AudioClip clip)
+    {
+        if (!Instance)
+        {
+            Debug.LogWarning("SoundManager missing");
+        }
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (!Instance.loopBools[i])
+            {
+                Instance.loopBools[i] = true;
+                Instance.loopSources[i].clip = clip;
+                Instance.loopSources[i].Play();
+                return i;
+            }
+        }
+        Debug.LogWarning("no loops available");
+        return null;
+    }
+
+    public static void StopLoop(int i)
+    {
+        Instance.loopBools[i] = false;
+        Instance.loopSources[i].Stop();
+    }
+
+    public IEnumerator MusicTransition(AudioClip newMusic, float time =3f)
     {
         AudioSource currentSource = musicSource0;
         AudioSource otherSource = musicSource1;
@@ -71,5 +107,7 @@ public class SoundManager : MonoBehaviour
             yield return null;
         }
         currentSource.Stop();
+
+        musicTransition = null;
     }
 }

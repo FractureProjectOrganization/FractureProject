@@ -1,16 +1,22 @@
 using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PauseMenu : MonoBehaviour
 {
     public static PauseMenu instance { get; private set; }
- 
-    [SerializeField] private GameObject pauseMenuPanel;
-    [SerializeField] private GameObject tempText;
     
-    private InputAction pauseAction;
+    private static readonly int TrOuvertureMenuPause = Animator.StringToHash("Tr_OuvertureMenuPause");
+    private static readonly int TrFermetureMenuPause = Animator.StringToHash("Tr_FermetureMenuPause");
+    private static readonly int TrOuvertureSetting = Animator.StringToHash("Tr_OuvertureSetting");
+    private static readonly int TrFermetureSetting = Animator.StringToHash("Tr_FermetureSetting");
+
+    [SerializeField] private GameObject pauseMenuPanel;
+    
+    private Animator animator;
+    private bool isPaused, isSettingOpen;
+    public bool isMainMenu;
     
     private void Awake()
     {
@@ -20,57 +26,99 @@ public class PauseMenu : MonoBehaviour
             return;
         }
         instance = this;
-
-        pauseAction = GetComponent<PlayerInput>().actions["Pause"];
-        pauseAction.actionMap.Enable();
-        pauseAction.performed += OnPause;
-    }
-
-    private void OnEnable()
-    {
-        pauseAction.performed += OnPause;
-    }
-
-    private void OnDisable()
-    {
-        pauseAction.performed -= OnPause;
     }
     
     private void Start()
     {
         if (!pauseMenuPanel) return;
-        
-        pauseMenuPanel.SetActive(false);
-    }
 
-    private void OnPause(InputAction.CallbackContext context)
+        animator = pauseMenuPanel.GetComponent<Animator>();
+        foreach (Animator anim in pauseMenuPanel.GetComponentsInChildren<Animator>(true))
+        {
+            anim.updateMode = AnimatorUpdateMode.UnscaledTime;
+        }
+    }
+    
+    public void OnPauseButtonPress(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (!pauseMenuPanel) return;
+        
+        if (isPaused)
+        {
+            if (isSettingOpen) CloseSettings();
+            else Resume();
+        }
+        else
+        {
+            OnPause();
+        }
+    }
+    
+    public void OnApanyanAction(InputAction.CallbackContext context)
+    {
+        if (!context.performed) return;
+        if (!pauseMenuPanel) return;
+
+        if (isMainMenu)
+        {
+            CloseSettings();
+            return;
+        }
+        if (isPaused && isSettingOpen) CloseSettings();
+        else if (isPaused && !isSettingOpen) Resume();
+    }
+    
+    private void OnPause()
     {
         if (!pauseMenuPanel) return;
         
-        Time.timeScale = 0;
-        Player.instance.locked = true;
+        if (Player.instance) Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
-        pauseMenuPanel.SetActive(true);
-        
-        Debug.Log(Player.instance.locked);
+        animator.SetTrigger(TrOuvertureMenuPause);
+        isPaused = true;
     }
 
     public void Resume()
     {
         if (!pauseMenuPanel) return;
         
-        Time.timeScale = 1;
-        pauseMenuPanel.SetActive(false);
+        isPaused = false;
         UIManager.instance.RemoveFirstSelectedButton();
+        animator.SetTrigger(TrFermetureMenuPause);
+        if (Player.instance) Player.instance.locked = false;
     }
 
-    public void Settings()
+    public void OpenSettings()
     {
-        //TODO: Settings Menu
-        
         if (!pauseMenuPanel) return;
+        if (!isMainMenu) animator.SetTrigger(TrOuvertureSetting);
+        else animator.SetTrigger("Tr_OuvSettingMainMenu");
         
-        tempText.SetActive(true);
+        isSettingOpen = true;
+        StartCoroutine(WaitForSettings());
+    }
+    
+    public void CloseSettings()
+    {
+        if (!pauseMenuPanel) return;
+        if (!isMainMenu)
+        {
+            animator.SetTrigger(TrFermetureSetting);
+            UIManager.instance.SetPauseButton();
+        }
+        else
+        {
+            animator.SetTrigger("Tr_FerSettingMainMenu");
+            UIManager.instance.SetMainMenuButton();
+        }
+        isSettingOpen = false;
+    }
+
+    private IEnumerator WaitForSettings()
+    {
+        yield return new WaitForSecondsRealtime(0.2f);
+        UIManager.instance.SetSettingsButton();
     }
 
     public void Quit()

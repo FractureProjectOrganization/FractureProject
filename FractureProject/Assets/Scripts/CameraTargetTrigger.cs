@@ -1,50 +1,95 @@
-using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 
 public class CameraTargetTrigger : MonoBehaviour
 {
     public Transform cameraTargetPoint;
-    public bool resetOnExit = false;
+    public bool resetOnExit = false, isSequence = false;
     private Transform savedTarget;
 
-    [Header("Paramètres de séquence")] [Tooltip("Temps avant que la caméra revienne seule")]
-    public float observationTime = 1f;
+    [Header("Paramètres de séquence")] [Tooltip("Doit être cochée pour utiliser les paramètres ci-dessous")]
+    
     private bool sequenceStarted = false;
+    
+    [Tooltip("Permet de déclencher un mouvement de caméra vers une target")]
+    public bool startSequence;
+    
+    [Tooltip("Temps avant le reset de la caméra")]
+    public float observationTime = 0f;
     
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            if (resetOnExit) savedTarget = IsometricCameraFollow.instance.GetTarget();
-            IsometricCameraFollow.instance.ChangeTarget(cameraTargetPoint);
+            savedTarget = IsometricCameraFollow.instance.GetTarget();
 
+            if (IsometricCameraFollow.instance != null)
+            {
+                IsometricCameraFollow.instance.ChangeTarget(cameraTargetPoint);
+            }
+            
             if (!sequenceStarted)
             {
-                sequenceStarted = true;
-                StartCoroutine(BlockAndReleasePlayer(other.gameObject));
+                if (startSequence)
+                {
+                    sequenceStarted = true;
+                    StartCoroutine(BlockAndReleasePlayer(other.gameObject));
+                }
             }
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (isSequence && !sequenceStarted && other.CompareTag("Player"))
         {
-            if(resetOnExit) IsometricCameraFollow.instance.ChangeTarget(savedTarget);
+            if (savedTarget != null && IsometricCameraFollow.instance != null)
+            {
+                IsometricCameraFollow.instance.ChangeTarget(savedTarget);
+            }
+        }
+
+        if (other.CompareTag("Player") && resetOnExit)
+        {
+            IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
     }
     
-    //Fonction spécifique pour adapter le script aux gardes dans les flashbacks
-    private IEnumerator<> BlockAndReleasePlayer(GameObject player)
+    private IEnumerator BlockAndReleasePlayer(GameObject playerObject)
     {
-        if (Player.instance != null) Player.instance.LockPlayer(true);
+        Player activePlayer = playerObject.GetComponent<Player>();
+        if (activePlayer == null)
+        {
+            activePlayer = playerObject.GetComponentInParent<Player>();
+        }
+
+        if (activePlayer != null)
+        {
+            activePlayer.LockPlayer(true);
+        }
+        
         yield return new WaitForSeconds(observationTime);
 
-        if (resetOnExit && savedTarget != null)
+        if (activePlayer != null)
+        {
+            activePlayer.LockPlayer(false);
+        }
+        else
+        {
+            Debug.Log("Player not found");
+        }
+        
+        if (savedTarget != null)
         {
             IsometricCameraFollow.instance.ChangeTarget(savedTarget);
         }
         
-        if (Player.instance != null) Player.instance.LockPlayer(false);
+        sequenceStarted = false;
+        
+        FlashbackGuards guardsZone = GetComponentInParent<FlashbackGuards>();
+        if (guardsZone != null)
+        {
+            guardsZone.MarkAsObserved();
+        }
     }
 }

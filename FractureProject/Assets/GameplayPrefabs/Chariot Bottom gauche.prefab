@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7998502986891001543}
   - component: {fileID: 8621556009073693959}
   - component: {fileID: 1095568482536293725}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Handle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 3642897770723260808}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.34, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52,7 +52,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 2, z: 1}
+  m_Size: {x: 3, y: 2, z: 2}
   m_Center: {x: -1, y: -0.5, z: -4}
 --- !u!114 &1095568482536293725
 MonoBehaviour:
@@ -66,6 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4837334851ec81648b3d3a5ba23bc805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPushableHandle
+  outlineTrigger: {fileID: 7146524345858330954}
   lowFrequency: 0.1
   highFrequency: 0.6
   rumbleDuration: 0.08
@@ -81,7 +82,7 @@ GameObject:
   - component: {fileID: 1483411388155337364}
   - component: {fileID: 2559092343803003252}
   - component: {fileID: 241682721317418340}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Chariot Bottom gauche
   m_TagString: ProtoBarrier
   m_Icon: {fileID: 0}
@@ -152,7 +153,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3, y: 4, z: 5}
+  m_Size: {x: 3, y: 4, z: 6}
   m_Center: {x: -1, y: -0.5, z: -1}
 --- !u!114 &241682721317418340
 MonoBehaviour:
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6611d95a061f7b842bfe052bc4771193, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPushableObject
-  unitsPerPush: 3
+  unitsPerPush: 4
   pushSpeed: 10
   pushDelay: 0.25
   obstacleLayer:
@@ -177,9 +178,8 @@ MonoBehaviour:
   onZ: 1
   inPlayed: 0
   outPlayed: 0
-  outline: {fileID: 5350133133162434485}
+  canBePush: 1
   spriteRenderer: {fileID: 7682398642958613625}
-  spriteWhenPush: {fileID: 21300000, guid: 078ff512a7368184cb12d4546f630544, type: 3}
   lowFrequency: 0.6
   highFrequency: 0.35
 --- !u!1 &6608888938969317559
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9147744797417771313}
   - component: {fileID: 5350133133162434485}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 078ff512a7368184cb12d4546f630544, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ef53337ddd022824ba7999b435e38cb2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 1
   m_FlipY: 0
@@ -282,7 +282,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7620220750715791891}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -316,7 +316,7 @@ GameObject:
   - component: {fileID: 7273978398412073884}
   - component: {fileID: 7090228819719871436}
   - component: {fileID: 5314533657186991387}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ PrefabInstance:
     - target: {fileID: 2210350015859672479, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 679e716ba211b374195e4b99645fa68c, type: 3}
+      objectReference: {fileID: 21300000, guid: 0faca91a75f53194bbff0512364d4de3, type: 3}
     - target: {fileID: 3028293237164612591, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -431,6 +431,10 @@ PrefabInstance:
     - target: {fileID: 7425776260500217167, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
       propertyPath: m_Name
       value: "Sp_Int\xE9ragissable "
+      objectReference: {fileID: 0}
+    - target: {fileID: 7425776260500217167, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

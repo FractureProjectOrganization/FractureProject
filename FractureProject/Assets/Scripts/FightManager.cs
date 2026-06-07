@@ -39,7 +39,10 @@ public class FightManager : MonoBehaviour
         waitList.RemoveAll(item => item == null);
         attackList.RemoveAll(item => item == null);
 
-        if (aliveEnemies.Count == 0) return;
+        if (aliveEnemies.Count == 0)
+        {
+            TransitionManager.instance.FadeToBlack();
+        }
 
         ManageAttackerSlots();
         ManageAttackTiming();

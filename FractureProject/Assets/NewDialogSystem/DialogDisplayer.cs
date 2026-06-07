@@ -31,7 +31,7 @@ public class DialogDisplayer : MonoBehaviour
     {
         for (int i = 0; i < currentDialog.dialog.Length; i++)
         {
-            Debug.Log(currentDialog.dialog[i].text);
+            //Debug.Log(currentDialog.dialog[i].text);
             DisplayLine(currentDialog.dialog[i]);
             ManageBubble(currentDialog.dialog[i].isPlayer,true);
 
@@ -42,7 +42,7 @@ public class DialogDisplayer : MonoBehaviour
                 yield return new WaitForSeconds(2f);
             }
             
-            yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Q)||Input.GetButtonDown("Fire1"));
+            yield return new WaitUntil(() => InputManager.Instance != null && InputManager.Instance.Interact.WasPressedThisFrame());
             yield return null;
         }
         ManageBubble(currentDialog.dialog[currentDialog.dialog.Length-1].isPlayer, false);

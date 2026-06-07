@@ -8,6 +8,7 @@ public class OutlineGradient : MonoBehaviour
     private GameObject player;
     private bool isPlayerNear;
     private float maxDistance;
+    private bool isOutlined;
 
     private void Start()
     {
@@ -39,10 +40,22 @@ public class OutlineGradient : MonoBehaviour
     {
         if (!isPlayerNear) return;
 
-        float distance = Vector3.Distance(transform.position, player.transform.position);
-        float clampedDistance = 1f - Mathf.Clamp01(distance / maxDistance);
+        if (!isOutlined)
+        {
+            float distance = Vector3.Distance(transform.position, player.transform.position);
+            float clampedDistance = 1f - Mathf.Clamp01(distance / maxDistance);
 
-        float opacity = clampedDistance * (153f / 255f);
-        outline.color = new Color(1f, 1f, 1f, opacity);
+            float opacity = clampedDistance * (153f / 255f);
+            outline.color = new Color(1f, 1f, 1f, opacity);
+        }
+        else if (isOutlined)
+        {
+            outline.color = new Color(1f, 1f, 1f, 1f);
+        }
+    }
+
+    public void FillOutline(bool isActuallyOutlined)
+    {
+        isOutlined = isActuallyOutlined;
     }
 }

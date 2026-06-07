@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.PostProcessing;
 
 public class PlayerAttack : MonoBehaviour
 {
@@ -18,6 +20,9 @@ public class PlayerAttack : MonoBehaviour
     private float nextAttackTime = 0f;
     private Player playerMovement;
 
+    public Volume vignetteVolume;
+    public AudioSource walterHurt;
+
     void Start()
     {
         playerMovement = GetComponent<Player>();
@@ -26,9 +31,9 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (InputManager.Instance.Interact.IsPressed())
         {
-            if (Time.time >= nextAttackTime && 
+            if (Time.time >= nextAttackTime && !playerMovement.locked &&
                (playerMovement.currentState == Player.States.Idle || playerMovement.currentState == Player.States.Walking))
             {
                 PerformAttack();
@@ -38,10 +43,11 @@ public class PlayerAttack : MonoBehaviour
 
     private void PerformAttack()
     {
-        playerMovement.ChangeState(Player.States.Attacking);
-        nextAttackTime = Time.time + attackCooldown;
-
         Player.instance.locked = true;
+        
+        playerMovement.ChangeState(Player.States.Attacking);
+        SoundManager.PlaySound("Attack",0.2f);
+        nextAttackTime = Time.time + attackCooldown;
         
         Vector3 hitCenter = transform.position + (playerMovement.lastFacingDirection * attackRange);
         hitCenter.y = transform.position.y;
@@ -54,6 +60,7 @@ public class PlayerAttack : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(attackDamage, transform.position); 
+                SoundManager.PlaySound("Punch3",0.2f);
             }
         }
 
@@ -67,6 +74,9 @@ public class PlayerAttack : MonoBehaviour
     {
         currentHealth -= damage;
         Debug.Log("Le joueur a pris " + damage + " dégâts ! Vie : " + currentHealth);
+        
+        vignetteVolume.weight= 1f-((float) currentHealth/ (float) maxHealth);
+        walterHurt.volume = 1f - ((float)currentHealth / (float)maxHealth);
         
         Player.instance.locked = true;
 
@@ -95,6 +105,7 @@ public class PlayerAttack : MonoBehaviour
         Debug.Log("GAME OVER : Le joueur est mort !");
         playerMovement.ChangeState(Player.States.Down);
         Player.instance.locked = true;
+        SceneManager.instance.ReloadScene();
     }
 
     private void EndAttack()

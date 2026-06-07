@@ -8,6 +8,12 @@ public class CrowdDisplayer : MonoBehaviour
         public float absoluteDistance;
         public Vector4 uvRect;
     }
+    
+    public struct SymbolData {
+        public Vector3 randomOffset; 
+        public float absoluteDistance;
+        public Vector4 uvRect;
+    }
 
     public Crowd targetCrowd; 
     public SpriteAtlas atlas;
@@ -23,6 +29,30 @@ public class CrowdDisplayer : MonoBehaviour
     public float dispersionDelay = 3f;
     public float dispersionDuration = 2f;
     public float dispersionDistance = 5f;
+
+    [Header("Density Smoothing")]
+    public float densitySmoothSpeed = 1f;
+    
+    [Header("Symbol Settings")]
+    public SpriteAtlas symbolAtlas;
+    public Mesh symbolMesh;
+    public Material symbolMaterialTemplate;
+    public int symbolCount = 20;
+    
+    [Header("Symbol Settings (Joie)")]
+    public SpriteAtlas symbolJoyAtlas;
+
+    private ComputeBuffer symbolBuffer;
+    private ComputeBuffer symbolJoyBuffer;
+    private Texture2D angerTexture;
+    private Texture2D joyTexture;
+
+    private ComputeBuffer symbolArgsBuffer;
+    private Material runtimeSymbolMaterial;
+    private SymbolData[] symbolCpuData;
+    
+    private float[] targetDistances;
+    private bool isSmoothingDensity = false;
     
     private ComputeBuffer crowdBuffer;
     private ComputeBuffer argsBuffer;
@@ -33,12 +63,43 @@ public class CrowdDisplayer : MonoBehaviour
     private float globalOffset = 0f;
     private MaterialPropertyBlock propertyBlock;
     
+    private Material runtimeMaterial; 
+    
     private Sprite[] characters;
     private int currentWaypointCount = 0;
     
     private float currentPathLength = 0f; 
     private CharacterData[] cpuData;
     private bool hasStartedLooping = false;
+    
+    private MaterialPropertyBlock symbolPropertyBlock;
+    
+    private float resumeTime = 0f;
+    private bool wasMoving = false;
+    private bool wasCruising = false;
+    
+    [Header("Wall Settings")]
+    public float pathWidth = 3f;
+    public float wallHeight = 1f;
+    public float textureWorldLength = 2f;
+    public Material wallMaterial;
+    
+    [Header("Wall Fade Settings")]
+    public float wallFadeDuration = 1.0f;
+    private float currentFadeTimer = 0f;
+    private bool needsFadeIn = false;
+    private Color originalBaseColor;
+    private Color originalGlowColor;
+    
+    private GameObject wallGameObject;
+    private MeshFilter wallMeshFilter;
+    private MeshRenderer wallRenderer;
+    private Mesh wallMesh;
+    
+    private System.Collections.Generic.List<Vector3> wallVertices = new System.Collections.Generic.List<Vector3>();
+    private System.Collections.Generic.List<Vector2> wallUVs = new System.Collections.Generic.List<Vector2>();
+    private System.Collections.Generic.List<int> wallTriangles = new System.Collections.Generic.List<int>();
+    
 
     void Start()
     {
@@ -54,7 +115,9 @@ public class CrowdDisplayer : MonoBehaviour
         
         propertyBlock = new MaterialPropertyBlock();
         float initialLength = CalculateInitialPathLength();
+        
         cpuData = new CharacterData[characterCount];
+        targetDistances = new float[characterCount];
 
         for (int i = 0; i < characterCount; i++)
         {
@@ -70,7 +133,6 @@ public class CrowdDisplayer : MonoBehaviour
         crowdBuffer = new ComputeBuffer(characterCount, 32);
         crowdBuffer.SetData(cpuData);
         propertyBlock.SetBuffer("_CrowdBuffer", crowdBuffer);
-        if (characters.Length > 0 && characters[0] != null) propertyBlock.SetTexture("_MainTex", characters[0].texture);
 
         int maxPossibleNodes = targetCrowd.allNodes.Length;
         waypointPositions = new Vector4[maxPossibleNodes];
@@ -80,6 +142,94 @@ public class CrowdDisplayer : MonoBehaviour
 
         argsBuffer = new ComputeBuffer(1, 5 * sizeof(uint), ComputeBufferType.IndirectArguments);
         argsBuffer.SetData(new uint[5] { characterMesh.GetIndexCount(0), (uint)characterCount, 0, 0, 0 });
+        
+        propertyBlock.SetFloat("_RotationY", characterRotationY);
+
+        if (crowdMaterialTemplate != null)
+        {
+            runtimeMaterial = new Material(crowdMaterialTemplate);
+            runtimeMaterial.SetBuffer("_CrowdBuffer", crowdBuffer);
+            runtimeMaterial.SetBuffer("_WaypointBuffer", waypointBuffer);
+            
+            if (characters.Length > 0 && characters[0] != null) 
+            {
+                propertyBlock.SetTexture("_MainTex", characters[0].texture);
+                runtimeMaterial.SetTexture("_MainTex", characters[0].texture);
+            }
+        }
+        
+        if (symbolMaterialTemplate != null && symbolAtlas != null && symbolCount > 0)
+        {
+            float symbolSpacing = initialLength / Mathf.Max(1, symbolCount);
+            
+            Sprite[] symbolSprites = new Sprite[symbolAtlas.spriteCount]; 
+            symbolAtlas.GetSprites(symbolSprites);
+            if (symbolSprites.Length > 0 && symbolSprites[0] != null) angerTexture = symbolSprites[0].texture;
+    
+            symbolCpuData = new SymbolData[symbolCount];
+            for (int i = 0; i < symbolCount; i++)
+            {
+                Sprite s = symbolSprites[Random.Range(0, symbolSprites.Length)];
+                Rect r = s.textureRect;
+                symbolCpuData[i] = new SymbolData {
+                    randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(1.5f, 3f), Random.Range(0f, 100f)),
+                    absoluteDistance = (i * symbolSpacing) + Random.Range(-symbolSpacing * 0.2f, symbolSpacing * 0.2f),
+                    uvRect = new Vector4(r.x / s.texture.width, r.y / s.texture.height, r.width / s.texture.width, r.height / s.texture.height)
+                };
+            }
+            symbolBuffer = new ComputeBuffer(symbolCount, 32);
+            symbolBuffer.SetData(symbolCpuData);
+
+            if (symbolJoyAtlas != null)
+            {
+                Sprite[] joySprites = new Sprite[symbolJoyAtlas.spriteCount];
+                symbolJoyAtlas.GetSprites(joySprites);
+                if (joySprites.Length > 0 && joySprites[0] != null) joyTexture = joySprites[0].texture;
+
+                SymbolData[] symbolJoyCpuData = new SymbolData[symbolCount];
+                for (int i = 0; i < symbolCount; i++)
+                {
+                    Sprite s = joySprites[Random.Range(0, joySprites.Length)];
+                    Rect r = s.textureRect;
+                    symbolJoyCpuData[i] = new SymbolData {
+                        randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(1.5f, 3f), Random.Range(0f, 100f)),
+                        absoluteDistance = (i * symbolSpacing) + Random.Range(-symbolSpacing * 0.2f, symbolSpacing * 0.2f),
+                        uvRect = new Vector4(r.x / s.texture.width, r.y / s.texture.height, r.width / s.texture.width, r.height / s.texture.height)
+                    };
+                }
+                symbolJoyBuffer = new ComputeBuffer(symbolCount, 32);
+                symbolJoyBuffer.SetData(symbolJoyCpuData);
+            }
+
+            symbolArgsBuffer = new ComputeBuffer(1, 5 * sizeof(uint), ComputeBufferType.IndirectArguments);
+            symbolArgsBuffer.SetData(new uint[5] { symbolMesh.GetIndexCount(0), (uint)symbolCount, 0, 0, 0 });
+
+            symbolPropertyBlock = new MaterialPropertyBlock();
+            symbolPropertyBlock.SetFloat("_RotationY", characterRotationY);
+
+            runtimeSymbolMaterial = new Material(symbolMaterialTemplate);
+            runtimeSymbolMaterial.SetBuffer("_WaypointBuffer", waypointBuffer);
+            
+            runtimeSymbolMaterial.SetBuffer("_SymbolBuffer", symbolBuffer);
+        }
+        
+        wallGameObject = new GameObject("PathWalls");
+        wallGameObject.transform.SetParent(this.transform); 
+        
+        wallMeshFilter = wallGameObject.AddComponent<MeshFilter>();
+        wallRenderer = wallGameObject.AddComponent<MeshRenderer>();
+        wallRenderer.material = wallMaterial;
+        
+        wallMesh = new Mesh();
+        wallMesh.name = "ProceduralWallMesh";
+        wallMesh.MarkDynamic();
+        wallMeshFilter.mesh = wallMesh;
+        
+        if (wallMaterial != null) 
+        {
+            originalBaseColor = wallMaterial.GetColor("_BaseColor");
+            originalGlowColor = wallMaterial.GetColor("_GlowColor");
+        }
     }
 
     private void UpdatePathData()
@@ -152,7 +302,13 @@ public class CrowdDisplayer : MonoBehaviour
         }
         else if (newAccumulatedDistance > currentPathLength + 0.01f)
         {
+            float oldLength = currentPathLength;
             hasStartedLooping = false;
+    
+            if (oldLength > 0f)
+            {
+                RescaleAbsoluteDistances(oldLength, float.MaxValue, newAccumulatedDistance);
+            }
         }
 
         currentPathLength = newAccumulatedDistance;
@@ -167,6 +323,11 @@ public class CrowdDisplayer : MonoBehaviour
         waypointBuffer.SetData(waypointPositions);
         propertyBlock.SetInt("_WaypointCount", currentWaypointCount);
         propertyBlock.SetFloat("_TotalPathLength", currentPathLength);
+        
+        GenerateWallMesh();
+        
+        currentFadeTimer = 0f;
+        needsFadeIn = true;
     }
     
     void ExtractCutCharacters(float oldLength, float cutLength, CrowdNode refNode)
@@ -201,19 +362,24 @@ public class CrowdDisplayer : MonoBehaviour
             
             Texture tex = (characters != null && characters.Length > 0) ? characters[0].texture : null;
             
-            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, refNode, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, targetCrowd, dispersionDelay, dispersionDuration, dispersionDistance);
+            mgr.Initialize(cutChars.ToArray(), oldPath, oldNodes, currentWaypointCount, oldLength, characterMesh, crowdMaterialTemplate, tex, catchUpSpeed, dispersionDelay, dispersionDuration, dispersionDistance, characterRotationY);
         }
     }
 
     void Update()
     {
-        if (propertyBlock == null || crowdMaterialTemplate == null || targetCrowd.rootNode == null || currentWaypointCount < 2) return;
+        if (propertyBlock == null || runtimeMaterial == null || targetCrowd.rootNode == null || currentWaypointCount < 2) return;
 
         bool isFlowing = targetCrowd.rootNode.state == CrowdState.Flowing;
-        float currentSpeed = (isFlowing && hasStartedLooping) ? moveSpeed : catchUpSpeed;
+        
+        bool isCruising = isFlowing && hasStartedLooping; 
+        
+        float currentSpeed = isCruising ? moveSpeed : catchUpSpeed;
         
         bool canMove = true;
         bool bufferDirty = false;
+        
+        bool isVisuallyMoving = false;
 
         if (!isFlowing) 
         {
@@ -229,7 +395,40 @@ public class CrowdDisplayer : MonoBehaviour
             if (!canMove && distanceToEnd > 0) globalOffset += distanceToEnd;
         }
 
-        if (canMove) globalOffset += Time.deltaTime * currentSpeed; 
+        if (canMove)
+        {
+            globalOffset += Time.deltaTime * currentSpeed;
+            isVisuallyMoving = true;
+        } 
+        
+        if (!isVisuallyMoving && wasMoving) 
+        {
+            resumeTime = Time.time;
+        }
+        wasMoving = isVisuallyMoving;
+
+        if (isCruising && !wasCruising)
+        {
+            resumeTime = Time.time;
+        }
+        wasCruising = isCruising;
+
+        if (isSmoothingDensity && canMove)
+        {
+            bool stillSmoothing = false;
+            float maxSmoothDelta = Mathf.Min(densitySmoothSpeed, currentSpeed * 0.9f) * Time.deltaTime;
+
+            for (int i = 0; i < characterCount; i++)
+            {
+                if (Mathf.Abs(cpuData[i].absoluteDistance - targetDistances[i]) > 0.001f)
+                {
+                    cpuData[i].absoluteDistance = Mathf.MoveTowards(cpuData[i].absoluteDistance, targetDistances[i], maxSmoothDelta);
+                    stillSmoothing = true;
+                    bufferDirty = true;
+                }
+            }
+            isSmoothingDensity = stillSmoothing;
+        }
 
         if (isFlowing)
         {
@@ -247,6 +446,11 @@ public class CrowdDisplayer : MonoBehaviour
                     hasStartedLooping = true;
                     float newRealPos = minRealPos - averageSpacing;
                     cpuData[i].absoluteDistance = newRealPos - globalOffset;
+                    
+                    if (targetDistances != null && targetDistances.Length > i) {
+                        targetDistances[i] = cpuData[i].absoluteDistance; 
+                    }
+
                     minRealPos = newRealPos; 
                     bufferDirty = true;
                 }
@@ -256,39 +460,125 @@ public class CrowdDisplayer : MonoBehaviour
         if (bufferDirty) NormalizeDistances();
 
         propertyBlock.SetFloat("_GlobalOffset", globalOffset);
-        propertyBlock.SetFloat("_RotationY", characterRotationY);
         
-        Graphics.DrawMeshInstancedIndirect(characterMesh, 0, crowdMaterialTemplate, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
+        Graphics.DrawMeshInstancedIndirect(characterMesh, 0, runtimeMaterial, new Bounds(Vector3.zero, Vector3.one * 1000), argsBuffer, 0, propertyBlock);
+        
+        if ((isCruising || !isVisuallyMoving) && runtimeSymbolMaterial != null && symbolArgsBuffer != null && symbolPropertyBlock != null)
+        {
+            Texture2D activeTexture = isCruising ? joyTexture : angerTexture;
+            ComputeBuffer activeBuffer = isCruising ? symbolJoyBuffer : symbolBuffer;
+
+            if (activeTexture != null && activeBuffer != null)
+            {
+                symbolPropertyBlock.SetTexture("_MainTex", activeTexture);
+                symbolPropertyBlock.SetBuffer("_SymbolBuffer", activeBuffer);
+
+                symbolPropertyBlock.SetInt("_WaypointCount", currentWaypointCount);
+                symbolPropertyBlock.SetFloat("_TotalPathLength", currentPathLength);
+                symbolPropertyBlock.SetFloat("_ResumeTime", resumeTime);
+
+                Graphics.DrawMeshInstancedIndirect(
+                    symbolMesh, 
+                    0, 
+                    runtimeSymbolMaterial, 
+                    new Bounds(Vector3.zero, Vector3.one * 1000), 
+                    symbolArgsBuffer, 
+                    0, 
+                    symbolPropertyBlock
+                );
+            }
+        }
+        
+        if (wallRenderer != null)
+        {
+            if (isFlowing)
+            {
+                wallRenderer.enabled = false;
+            }
+            else
+            {
+                wallRenderer.enabled = true;
+
+                if (needsFadeIn)
+                {
+                    currentFadeTimer += Time.deltaTime;
+                    float fadeProgress = Mathf.Clamp01(currentFadeTimer / wallFadeDuration);
+
+                    Color currentBase = originalBaseColor;
+                    currentBase.a *= fadeProgress;
+
+                    Color currentGlow = originalGlowColor;
+                    currentGlow.a *= fadeProgress;
+
+                    wallRenderer.material.SetColor("_BaseColor", currentBase);
+                    wallRenderer.material.SetColor("_GlowColor", currentGlow);
+
+                    if (fadeProgress >= 1f)
+                    {
+                        needsFadeIn = false;
+                    }
+                }
+
+                if (Player.instance != null)
+                {
+                    wallRenderer.material.SetVector("_PlayerPos", Player.instance.transform.position);
+                }
+
+                float headDist = -float.MaxValue;
+                float tailDist = float.MaxValue;
+
+                for (int i = 0; i < characterCount; i++) 
+                {
+                    float currentPos = cpuData[i].absoluteDistance + globalOffset;
+                    if (currentPos > headDist) headDist = currentPos;
+                    if (currentPos < tailDist) tailDist = currentPos;
+                }
+
+                wallRenderer.material.SetFloat("_CrowdHeadDist", headDist / textureWorldLength);
+                wallRenderer.material.SetFloat("_CrowdTailDist", tailDist / textureWorldLength);
+            }
+        }
     }
     
     void RescaleAbsoluteDistances(float oldLength, float cutLength, float trueNewLength)
     {
         crowdBuffer.GetData(cpuData);
         float averageSpacing = trueNewLength / Mathf.Max(1, characterCount);
-        float minRealPos = 0f; 
-        bool hasKeptCharacters = false;
+
+        System.Collections.Generic.List<int> keptIndices = new System.Collections.Generic.List<int>();
+        System.Collections.Generic.List<int> cutIndices = new System.Collections.Generic.List<int>();
 
         for (int i = 0; i < characterCount; i++) {
-            float currentRealPos = cpuData[i].absoluteDistance + globalOffset;
-            if (!(cutLength < oldLength && currentRealPos > cutLength)) {
-                if (!hasKeptCharacters || currentRealPos < minRealPos) {
-                    minRealPos = currentRealPos;
-                    hasKeptCharacters = true;
-                }
-            }
+            cpuData[i].absoluteDistance += globalOffset;
+            float currentRealPos = cpuData[i].absoluteDistance;
+            
+            if (cutLength < oldLength && currentRealPos > cutLength) cutIndices.Add(i);
+            else keptIndices.Add(i);
         }
+        globalOffset = 0f;
 
-        for (int i = 0; i < characterCount; i++) {
-            float currentRealPos = cpuData[i].absoluteDistance + globalOffset;
-            if (cutLength < oldLength && currentRealPos > cutLength) {
-                minRealPos -= averageSpacing;
-                cpuData[i].absoluteDistance = minRealPos; 
-            } else {
-                cpuData[i].absoluteDistance = currentRealPos;
-            }
+        keptIndices.Sort((a, b) => cpuData[b].absoluteDistance.CompareTo(cpuData[a].absoluteDistance));
+        cutIndices.Sort((a, b) => cpuData[b].absoluteDistance.CompareTo(cpuData[a].absoluteDistance));
+
+        float startPos = trueNewLength;
+        if (keptIndices.Count > 0) {
+            startPos = cpuData[keptIndices[0]].absoluteDistance;
         }
         
-        globalOffset = 0f;
+        float currentTarget = startPos;
+
+        foreach (int i in keptIndices) {
+            targetDistances[i] = currentTarget;
+            currentTarget -= averageSpacing;
+        }
+
+        foreach (int i in cutIndices) {
+            cpuData[i].absoluteDistance = currentTarget;
+            targetDistances[i] = currentTarget;
+            currentTarget -= averageSpacing;
+        }
+
+        isSmoothingDensity = true;
         crowdBuffer.SetData(cpuData);
     }
 
@@ -300,7 +590,13 @@ public class CrowdDisplayer : MonoBehaviour
         }
 
         if (minDistance > 0f) {
-            for (int i = 0; i < characterCount; i++) cpuData[i].absoluteDistance -= minDistance;
+            for (int i = 0; i < characterCount; i++) {
+                cpuData[i].absoluteDistance -= minDistance;
+                
+                if (targetDistances != null && targetDistances.Length > i) {
+                    targetDistances[i] -= minDistance;
+                }
+            }
             globalOffset += minDistance;
         }
         crowdBuffer.SetData(cpuData);
@@ -318,6 +614,96 @@ public class CrowdDisplayer : MonoBehaviour
         }
         return total;
     }
+    
+    void GenerateWallMesh()
+    {
+        if (currentWaypointCount < 2 || wallMesh == null) return;
+
+        wallVertices.Clear();
+        wallUVs.Clear();
+        wallTriangles.Clear();
+
+        for (int i = 0; i < currentWaypointCount; i++)
+        {
+            Vector3 currentPos = waypointPositions[i];
+            float currentDist = waypointPositions[i].w;
+
+            Vector3 miterNormal;
+            float widthFactor = 1f;
+
+            if (i == 0)
+            {
+                Vector3 forward = ((Vector3)waypointPositions[1] - currentPos).normalized;
+                miterNormal = Vector3.Cross(Vector3.up, forward).normalized;
+            }
+            else if (i == currentWaypointCount - 1)
+            {
+                Vector3 forward = (currentPos - (Vector3)waypointPositions[i - 1]).normalized;
+                miterNormal = Vector3.Cross(Vector3.up, forward).normalized;
+            }
+            else
+            {
+                Vector3 dirBefore = (currentPos - (Vector3)waypointPositions[i - 1]).normalized;
+                Vector3 dirAfter = ((Vector3)waypointPositions[i + 1] - currentPos).normalized;
+
+                Vector3 normalBefore = Vector3.Cross(Vector3.up, dirBefore).normalized;
+                Vector3 normalAfter = Vector3.Cross(Vector3.up, dirAfter).normalized;
+
+                miterNormal = (normalBefore + normalAfter).normalized;
+
+                float dot = Vector3.Dot(miterNormal, normalBefore);
+                if (dot > 0.001f)
+                {
+                    widthFactor = 1f / dot;
+                }
+                
+                widthFactor = Mathf.Min(widthFactor, 2.5f);
+            }
+
+            Vector3 leftBottom = currentPos - miterNormal * (pathWidth / 2f) * widthFactor;
+            Vector3 leftTop = leftBottom + Vector3.up * wallHeight;
+            Vector3 rightBottom = currentPos + miterNormal * (pathWidth / 2f) * widthFactor;
+            Vector3 rightTop = rightBottom + Vector3.up * wallHeight;
+
+            int vIndex = wallVertices.Count;
+
+            wallVertices.Add(leftBottom);
+            wallVertices.Add(leftTop);
+            wallVertices.Add(rightBottom);
+            wallVertices.Add(rightTop);
+
+            float uvX = currentDist / textureWorldLength;
+            wallUVs.Add(new Vector2(uvX, 0));
+            wallUVs.Add(new Vector2(uvX, 1));
+            wallUVs.Add(new Vector2(uvX, 0));
+            wallUVs.Add(new Vector2(uvX, 1));
+
+            if (i < currentWaypointCount - 1)
+            {
+                wallTriangles.Add(vIndex);
+                wallTriangles.Add(vIndex + 1);
+                wallTriangles.Add(vIndex + 5);
+
+                wallTriangles.Add(vIndex);
+                wallTriangles.Add(vIndex + 5);
+                wallTriangles.Add(vIndex + 4);
+
+                wallTriangles.Add(vIndex + 2);
+                wallTriangles.Add(vIndex + 7);
+                wallTriangles.Add(vIndex + 6);
+
+                wallTriangles.Add(vIndex + 2);
+                wallTriangles.Add(vIndex + 3);
+                wallTriangles.Add(vIndex + 7);
+            }
+        }
+
+        wallMesh.Clear();
+        wallMesh.SetVertices(wallVertices);
+        wallMesh.SetUVs(0, wallUVs);
+        wallMesh.SetTriangles(wallTriangles, 0);
+        wallMesh.RecalculateNormals();
+    }
 
     void OnDisable() 
     {
@@ -325,5 +711,19 @@ public class CrowdDisplayer : MonoBehaviour
         if (crowdBuffer != null) crowdBuffer.Release();
         if (argsBuffer != null) argsBuffer.Release();
         if (waypointBuffer != null) waypointBuffer.Release(); 
+        
+        if (runtimeMaterial != null) 
+        {
+            Destroy(runtimeMaterial);
+            runtimeMaterial = null;
+        }
+        
+        if (symbolBuffer != null) symbolBuffer.Release();
+        if (symbolJoyBuffer != null) symbolJoyBuffer.Release();
+        if (symbolArgsBuffer != null) symbolArgsBuffer.Release();
+        if (runtimeSymbolMaterial != null) { Destroy(runtimeSymbolMaterial); runtimeSymbolMaterial = null; }
+        
+        if (wallMesh != null) Destroy(wallMesh);
+        if (wallGameObject != null) Destroy(wallGameObject);
     }
 }
