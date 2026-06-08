@@ -1,8 +1,5 @@
-using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.InputSystem;
 using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
@@ -21,31 +18,6 @@ public class MainMenu : MonoBehaviour
 
     private bool isDezoomed;
 
-    private void Start() 
-    {
-        videoPlayer.loopPointReached += OnVideoEnd;
-    }
-
-    private void Update()
-    {
-        if (isDezoomed) return;
-        
-        if (Input.anyKey)
-        {
-            OnVideoEnd(videoPlayer);
-        }
-
-    }
-
-    void OnVideoEnd(VideoPlayer vp)
-    {
-        if (isDezoomed) return;
-        OnVideoEndEvent.Invoke();
-        animator.SetBool(Dezoom, true);
-        isDezoomed = true;
-        skipText.SetActive(false);
-    }
-    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -56,10 +28,33 @@ public class MainMenu : MonoBehaviour
         instance = this;
     }
 
+    private void Start() 
+    {
+        videoPlayer.loopPointReached += OnVideoEnd;
+    }
+
+    private void Update()
+    {
+        if (isDezoomed) return;
+        
+        if (NewInput.GetSkipDown())
+        {
+            OnVideoEnd(videoPlayer);
+        }
+    }
+
+    void OnVideoEnd(VideoPlayer vp)
+    {
+        if (isDezoomed) return;
+        OnVideoEndEvent.Invoke();
+        animator.SetBool(Dezoom, true);
+        isDezoomed = true;
+        skipText.SetActive(false);
+    }
+
     public void StartGame()
     {
         if (!mainMenuPanel) return;
-        
         TransitionManager.instance.FadeToBlack();
     }
 
@@ -68,7 +63,6 @@ public class MainMenu : MonoBehaviour
         //TODO: Settings Menu
         
         if (!mainMenuPanel) return;
-        
         tempText.SetActive(true);
     }
 

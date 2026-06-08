@@ -46,4 +46,8 @@ public static class NewInput
     public static bool GetBack() => Controls.Player.Back.IsPressed();
     public static bool GetBackUp() => Controls.Player.Back.WasReleasedThisFrame();
 
+    public static bool GetSkipDown() => Controls.Player.Skip.WasPressedThisFrame();
+    public static bool GetSkip() => Controls.Player.Skip.IsPressed();
+    public static bool GetSkipUp() => Controls.Player.Skip.WasReleasedThisFrame();
+
 }

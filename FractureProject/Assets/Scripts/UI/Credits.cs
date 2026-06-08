@@ -1,12 +1,10 @@
-using System;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Credits : MonoBehaviour
 {
     private void Update()
     {
-        if (Input.anyKey)
+        if (NewInput.GetSkipDown())
         {
             TransitionManager.instance.FadeToBlack();
         }
