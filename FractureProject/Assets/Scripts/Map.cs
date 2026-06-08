@@ -56,7 +56,7 @@ public class Map : MonoBehaviour
     {
         if (!playerInside || !playerCollider) return;
 
-        if (InputManager.Instance.Interact.WasPressedThisFrame())
+        if (NewInput.GetInteractDown())
         {
             if (!changedCam)
             {

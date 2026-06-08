@@ -35,7 +35,7 @@ public class IntroductionManager : MonoBehaviour
             NextStep();
         }
         
-        if (InputManager.Instance.Interact.WasPressedThisFrame())
+        if (NewInput.GetInteractDown())
         {
             NextStep();
         }

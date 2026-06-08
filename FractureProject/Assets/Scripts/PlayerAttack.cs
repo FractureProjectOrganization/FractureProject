@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (InputManager.Instance.Interact.IsPressed())
+        if (NewInput.GetInteract())
         {
             if (Time.time >= nextAttackTime && !playerMovement.locked &&
                (playerMovement.currentState == Player.States.Idle || playerMovement.currentState == Player.States.Walking))

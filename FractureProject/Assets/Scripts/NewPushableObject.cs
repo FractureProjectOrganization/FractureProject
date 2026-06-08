@@ -61,7 +61,7 @@ public class NewPushableObject : MonoBehaviour
                 SoundManager.PlaySound("Interact In");
             }
             
-            if (InputManager.Instance.Interact.IsPressed())
+            if (NewInput.GetInteract())
             {
                 
                 Player.instance.locked = true;
@@ -81,8 +81,8 @@ public class NewPushableObject : MonoBehaviour
                 Player.instance.animatorController.UpdateMoveDirection(playerDir.x, playerDir.z);
                 
                 Vector3 dir = new Vector3(0f, 0f, 0f);
-                if(onX)dir +=(new Vector3(Input.GetAxis("Horizontal"), 0f, 0f));
-                if(onZ)dir +=(new Vector3( 0f, 0f,Input.GetAxis("Vertical")));
+                if(onX)dir +=(new Vector3(NewInput.GetAxisHorizontal(), 0f, 0f));
+                if(onZ)dir +=(new Vector3( 0f, 0f,NewInput.GetAxisVertical()));
                 pushTimer += Time.deltaTime;
 
                 if (pushTimer >= pushDelay)

@@ -61,7 +61,7 @@ public class DialogManager : MonoBehaviour
         while (sentencesQueue.Count > 0)
         {
             if (!dialogs.ended) animatorUrsula.SetTrigger("Start");
-            while(!(InputManager.Instance.Interact.WasPressedThisFrame()))
+            while(!NewInput.GetInteractDown())
             {
                 
                 yield return null;

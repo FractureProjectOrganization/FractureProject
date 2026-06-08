@@ -51,7 +51,7 @@ public class RotatingSign : MonoBehaviour
     {
         if (isPlayerNear)
         {
-            if (InputManager.Instance.Interact.WasPressedThisFrame())
+            if (NewInput.GetInteractDown())
             {
                 if (cooldown) return;
                 cooldown = true;

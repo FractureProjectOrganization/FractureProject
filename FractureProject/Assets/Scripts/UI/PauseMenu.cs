@@ -1,7 +1,5 @@
-using System;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -15,6 +13,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenuPanel;
     
     private Animator animator;
+
     private bool isPaused, isSettingOpen;
     public bool isMainMenu;
     
@@ -27,7 +26,7 @@ public class PauseMenu : MonoBehaviour
         }
         instance = this;
     }
-    
+
     private void Start()
     {
         if (!pauseMenuPanel) return;
@@ -38,15 +37,27 @@ public class PauseMenu : MonoBehaviour
             anim.updateMode = AnimatorUpdateMode.UnscaledTime;
         }
     }
-    
-    public void OnPauseButtonPress(InputAction.CallbackContext context)
+
+    private void Update()
     {
-        if (!context.performed) return;
+        if (NewInput.GetPauseDown())
+        {
+            HandlePauseInput();
+        }
+
+        if (NewInput.GetBackDown()) 
+        {
+            HandleApanyanInput();
+        }
+    }
+
+    private void HandlePauseInput()
+    {
         if (!pauseMenuPanel) return;
         
         if (isPaused)
         {
-            if (isSettingOpen) CloseSettings();
+            if(isSettingOpen) CloseSettings();
             else Resume();
         }
         else
@@ -55,9 +66,8 @@ public class PauseMenu : MonoBehaviour
         }
     }
     
-    public void OnApanyanAction(InputAction.CallbackContext context)
+    private void HandleApanyanInput()
     {
-        if (!context.performed) return;
         if (!pauseMenuPanel) return;
 
         if (isMainMenu)
@@ -65,17 +75,25 @@ public class PauseMenu : MonoBehaviour
             CloseSettings();
             return;
         }
-        if (isPaused && isSettingOpen) CloseSettings();
-        else if (isPaused && !isSettingOpen) Resume();
+        if (isPaused && isSettingOpen)
+        {
+            CloseSettings();
+        }
+        else if (isPaused && !isSettingOpen)
+        {
+            Resume();
+        }
     }
     
     private void OnPause()
     {
         if (!pauseMenuPanel) return;
         
-        if (Player.instance) Player.instance.locked = true;
+        if(Player.instance) Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
+        
         animator.SetTrigger(TrOuvertureMenuPause);
+
         isPaused = true;
     }
 
@@ -86,16 +104,18 @@ public class PauseMenu : MonoBehaviour
         isPaused = false;
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
-        if (Player.instance) Player.instance.locked = false;
+        
+        if(Player.instance) Player.instance.locked = false;
     }
-
+    
     public void OpenSettings()
     {
         if (!pauseMenuPanel) return;
-        if (!isMainMenu) animator.SetTrigger(TrOuvertureSetting);
+        if(!isMainMenu) animator.SetTrigger(TrOuvertureSetting);
         else animator.SetTrigger("Tr_OuvSettingMainMenu");
         
         isSettingOpen = true;
+        
         StartCoroutine(WaitForSettings());
     }
     
