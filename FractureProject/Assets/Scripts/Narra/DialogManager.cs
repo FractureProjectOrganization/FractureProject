@@ -61,7 +61,7 @@ public class DialogManager : MonoBehaviour
         while (sentencesQueue.Count > 0)
         {
             if (!dialogs.ended) animatorUrsula.SetTrigger("Start");
-            while(!(Input.GetKeyDown(KeyCode.Q)||Input.GetButtonDown("Fire1")))
+            while(!NewInput.GetInteractDown())
             {
                 
                 yield return null;

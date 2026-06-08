@@ -15,16 +15,6 @@ public class UIManager : MonoBehaviour
     public bool isMainMenu = false;
     
     public bool DestroyOnLoad = false;
-
-    /*[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-
-    static void Init()
-    {
-        
-        //GameObject obj = new GameObject("UIManager");
-        //instance = obj.AddComponent<UIManager>();
-        //DontDestroyOnLoad(obj);
-    }*/
     
     private void Awake()
     {

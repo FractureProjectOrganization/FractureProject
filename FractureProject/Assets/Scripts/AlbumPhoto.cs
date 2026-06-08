@@ -35,7 +35,7 @@ public class AlbumPhoto : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown("e") || Input.GetButtonDown("Fire3"))
+        if(NewInput.GetAlbum())
         {
             if (player && player.locked) return;
             if (!open)
@@ -49,8 +49,7 @@ public class AlbumPhoto : MonoBehaviour
                 }
             }
         }
-
-        if (!Input.GetKey("e") && !Input.GetButton("Fire3"))
+        else
         {
             if (!close)
             {
@@ -66,12 +65,12 @@ public class AlbumPhoto : MonoBehaviour
 
         if (open)
         {
-            if (Mathf.RoundToInt(Input.GetAxis("Horizontal")) != 0)
+            if (Mathf.RoundToInt(NewInput.GetAxisHorizontal()) != 0)
             {
                 if (!turned)
                 {
                     
-                    StartCoroutine(TurningPageCoroutine(Mathf.RoundToInt(Input.GetAxis("Horizontal"))));
+                    StartCoroutine(TurningPageCoroutine(Mathf.RoundToInt(NewInput.GetAxisHorizontal())));
                     turned = true;
                 }
             }

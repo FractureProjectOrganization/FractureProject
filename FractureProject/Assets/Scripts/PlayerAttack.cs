@@ -31,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.Q) || Input.GetButton("Fire1"))
+        if (NewInput.GetInteract())
         {
             if (Time.time >= nextAttackTime && !playerMovement.locked &&
                (playerMovement.currentState == Player.States.Idle || playerMovement.currentState == Player.States.Walking))
