@@ -76,8 +76,8 @@ public class Player : MonoBehaviour
             return;
         }
         
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
+        float h = NewInput.GetAxisHorizontal();
+        float v = NewInput.GetAxisVertical();
         
         direction = new Vector3(h, 0, v).normalized;
         

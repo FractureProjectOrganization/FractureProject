@@ -1,8 +1,5 @@
-using System;
-using TMPro;
-using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -15,7 +12,6 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuPanel;
     
-    private InputAction pauseAction, apanyanAction;
     private Animator animator;
 
     private bool isPaused, isSettingOpen;
@@ -29,26 +25,8 @@ public class PauseMenu : MonoBehaviour
             return;
         }
         instance = this;
-
-        pauseAction = GetComponent<PlayerInput>().actions["Pause"];
-        apanyanAction = GetComponent<PlayerInput>().actions["Crouch"];
-
-        pauseAction.actionMap.Enable();
-        apanyanAction.actionMap.Enable();
     }
 
-    private void OnEnable()
-    {
-        pauseAction.performed += OnPauseButtonPress;
-        apanyanAction.performed += OnApanyanAction;
-    }
-
-    private void OnDisable()
-    {
-        pauseAction.performed -= OnPauseButtonPress;
-        apanyanAction.performed -= OnApanyanAction;
-    }
-    
     private void Start()
     {
         if (!pauseMenuPanel) return;
@@ -60,7 +38,20 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    private void OnPauseButtonPress(InputAction.CallbackContext context)
+    private void Update()
+    {
+        if (NewInput.GetPauseDown())
+        {
+            HandlePauseInput();
+        }
+
+        if (NewInput.GetBackDown()) 
+        {
+            HandleApanyanInput();
+        }
+    }
+
+    private void HandlePauseInput()
     {
         if (!pauseMenuPanel) return;
         
@@ -69,13 +60,13 @@ public class PauseMenu : MonoBehaviour
             if(isSettingOpen) CloseSettings();
             else Resume();
         }
-        else if (!isPaused)
+        else
         {
             OnPause();
         }
     }
     
-    private void OnApanyanAction(InputAction.CallbackContext context)
+    private void HandleApanyanInput()
     {
         if (!pauseMenuPanel) return;
 
@@ -98,8 +89,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
         
-        //Time.timeScale = 0;
-        if(Player.instance)Player.instance.locked = true;
+        if(Player.instance) Player.instance.locked = true;
         UIManager.instance.SetPauseButton();
         
         animator.SetTrigger(TrOuvertureMenuPause);
@@ -111,21 +101,17 @@ public class PauseMenu : MonoBehaviour
     {
         if (!pauseMenuPanel) return;
         
-        //Time.timeScale = 1;
         isPaused = false;
         UIManager.instance.RemoveFirstSelectedButton();
         animator.SetTrigger(TrFermetureMenuPause);
         
-        if(Player.instance)Player.instance.locked = false;
-
+        if(Player.instance) Player.instance.locked = false;
     }
     
-    
-
     public void OpenSettings()
     {
         if (!pauseMenuPanel) return;
-        if(!isMainMenu)animator.SetTrigger(TrOuvertureSetting);
+        if(!isMainMenu) animator.SetTrigger(TrOuvertureSetting);
         else animator.SetTrigger("Tr_OuvSettingMainMenu");
         
         isSettingOpen = true;
@@ -140,7 +126,6 @@ public class PauseMenu : MonoBehaviour
         {
             animator.SetTrigger(TrFermetureSetting);
             UIManager.instance.SetPauseButton();
-
         }
         else
         {
@@ -148,17 +133,13 @@ public class PauseMenu : MonoBehaviour
             UIManager.instance.SetMainMenuButton();
         }
         isSettingOpen = false;
-
-        
     }
 
     private IEnumerator WaitForSettings()
     {
         yield return new WaitForSecondsRealtime(0.2f);
         UIManager.instance.SetSettingsButton();
-
     }
-
 
     public void Quit()
     {

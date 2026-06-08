@@ -18,7 +18,7 @@ public class PhotoHandler : MonoBehaviour
 
         //playerNear Feedback
         
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Fire1"))
+        if (NewInput.GetInteractDown())
         {
             OpenPhoto();
         }

@@ -56,7 +56,7 @@ public class Map : MonoBehaviour
     {
         if (!playerInside || !playerCollider) return;
 
-        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Fire1"))
+        if (NewInput.GetInteractDown())
         {
             if (!changedCam)
             {

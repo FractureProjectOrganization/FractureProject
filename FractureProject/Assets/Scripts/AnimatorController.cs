@@ -12,7 +12,7 @@ public class AnimatorController : MonoBehaviour
     private static readonly int MoveXHash = Animator.StringToHash("MoveX");
     private static readonly int MoveYHash = Animator.StringToHash("MoveY");
     private static readonly int IsDown = Animator.StringToHash("isDown"); //Stoian
-    private static readonly int FightFactor = Animator.StringToHash("FightFactor"); //Stoian
+    private static readonly int FightFactor = Animator.StringToHash("FightFactor");
     
     public bool isForFighting;
 
