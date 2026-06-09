@@ -34,21 +34,21 @@ public class HapticManager : MonoBehaviour
     
     //TODO: ON PAUSE UNTIL AFTER GOLD
     
-    // private ushort ToSteamSpeed(float value) => (ushort)(Mathf.Clamp01(value) * ushort.MaxValue);
-    //
-    // private void TriggerVibration(InputHandle_t inputHandle, ushort usLeftSpeed, ushort usRightSpeed)
-    // {
-    //     SteamInput.TriggerVibration(inputHandle, usLeftSpeed, usRightSpeed);
-    // }
-    //
-    // private void TriggerVibrationAllControllers(ushort usLeftSpeed, ushort usRightSpeed)
-    // {
-    //     InputHandle_t[] handles = new InputHandle_t[Constants.STEAM_INPUT_MAX_COUNT];
-    //     int count = SteamInput.GetConnectedControllers(handles);
-    //
-    //     for (int i = 0; i < count; i++)
-    //         TriggerVibration(handles[i], usLeftSpeed, usRightSpeed);
-    // }
+    private ushort ToSteamSpeed(float value) => (ushort)(Mathf.Clamp01(value) * ushort.MaxValue);
+    
+    private void TriggerVibration(InputHandle_t inputHandle, ushort usLeftSpeed, ushort usRightSpeed)
+    {
+        SteamInput.TriggerVibration(inputHandle, usLeftSpeed, usRightSpeed);
+    }
+    
+    private void TriggerVibrationAllControllers(ushort usLeftSpeed, ushort usRightSpeed)
+    {
+        InputHandle_t[] handles = new InputHandle_t[Constants.STEAM_INPUT_MAX_COUNT];
+        int count = SteamInput.GetConnectedControllers(handles);
+    
+        for (int i = 0; i < count; i++)
+            TriggerVibration(handles[i], usLeftSpeed, usRightSpeed);
+    }
     
     #endregion
     
@@ -68,12 +68,12 @@ public class HapticManager : MonoBehaviour
         if (gamepad == null) yield break;
         
         gamepad.SetMotorSpeeds(interactionLowFrequency, interactionHighFrequency);
-        // TriggerVibrationAllControllers(ToSteamSpeed(interactionLowFrequency), ToSteamSpeed(interactionHighFrequency));
+        TriggerVibrationAllControllers(ToSteamSpeed(interactionLowFrequency), ToSteamSpeed(interactionHighFrequency));
         
         yield return new WaitForSeconds(interactionRumbleDuration);
         
         gamepad.PauseHaptics();
-        // TriggerVibrationAllControllers(0, 0);
+        TriggerVibrationAllControllers(0, 0);
     }
     
     #endregion
@@ -95,7 +95,7 @@ public class HapticManager : MonoBehaviour
         if (gamepad == null) yield break;
         
         gamepad.SetMotorSpeeds(pushLowFrequency, pushHighFrequency);
-        // TriggerVibrationAllControllers(ToSteamSpeed(pushLowFrequency), ToSteamSpeed(pushHighFrequency));
+        TriggerVibrationAllControllers(ToSteamSpeed(pushLowFrequency), ToSteamSpeed(pushHighFrequency));
     }
     #endregion
 }
