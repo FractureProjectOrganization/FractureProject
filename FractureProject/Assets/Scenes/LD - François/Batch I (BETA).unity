@@ -3579,7 +3579,7 @@ MonoBehaviour:
   targetTag: Player
   isTalking: 0
   initDialog: 0
-  once: 0
+  once: 1
   dialogs: {fileID: 0}
 --- !u!65 &68461463
 BoxCollider:
@@ -29804,7 +29804,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: ea1b560794b4ebd41a1b50c0892dc299, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: c5ddfa0a95a6a7d4b89afb4496f4030e, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -61402,7 +61402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: b9f73f73d5bc9114bb61f893ded7abb1, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: d194ee53332dab946a2bd0df63d76a4a, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -71100,7 +71100,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: e646c42037317e74bad57f6d3ac0bf77, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 997249ddf18f77b46bfb5b62f209f230, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -81003,6 +81003,50 @@ Transform:
   - {fileID: 1404489436}
   - {fileID: 1735511585}
   m_Father: {fileID: 1006136346}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1282060081
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1282060083}
+  - component: {fileID: 1282060082}
+  m_Layer: 0
+  m_Name: LanguageManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1282060082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282060081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b6e63c4ceb54749b095af07faab150, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LanguageManager
+--- !u!4 &1282060083
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282060081}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 53.72246, y: 0, z: 57.89124}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1284849174
 PrefabInstance:
@@ -91217,7 +91261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 575b5fda6c378e2459c64ad5b2d5b038, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 9cb594eb9cd5d4a4f8e16e02e272f0c1, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -100000,6 +100044,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1018941916344381163, guid: eaef8aa2e89cb694fb667fe81e0d0ee9, type: 3}
   m_PrefabInstance: {fileID: 1589015823}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1589513998 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7093099767049081834, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
+  m_PrefabInstance: {fileID: 1625744703}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1591130821
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -111702,7 +111757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 024fd9e6608852f43b15b10ee240c084, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 2f001cacddb211e419cffcb620e0b777, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -114608,7 +114663,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 1324687449}
   playerText: {fileID: 754981432}
-  nameText: {fileID: 0}
+  nameText: {fileID: 1589513998}
 --- !u!4 &1845702142
 Transform:
   m_ObjectHideFlags: 0
@@ -124638,7 +124693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 7542ba3e6c11528478f62141832a5483, type: 2}
-  <vfData>k__BackingField: {fileID: 0}
+  <vfData>k__BackingField: {fileID: 11400000, guid: e903ade4b4dfca74fad9f77f6e2b3723, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -136401,3 +136456,4 @@ SceneRoots:
   - {fileID: 562183747}
   - {fileID: 202656309}
   - {fileID: 786117638}
+  - {fileID: 1282060083}

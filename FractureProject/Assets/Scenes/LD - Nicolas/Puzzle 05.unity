@@ -1550,6 +1550,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 8bce7b019baeb4a4b9d86d770bc5264b, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: e160183698c2c734aaa1ea3593158a11, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -14342,6 +14343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 1574637702}
   playerText: {fileID: 1574637701}
+  nameText: {fileID: 1574637703}
 --- !u!4 &687872999
 Transform:
   m_ObjectHideFlags: 0
@@ -34465,6 +34467,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1918995551298500281, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
   m_PrefabInstance: {fileID: 1574637700}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1574637703 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7093099767049081834, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
+  m_PrefabInstance: {fileID: 1574637700}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1575726853
 PrefabInstance:
   m_ObjectHideFlags: 0

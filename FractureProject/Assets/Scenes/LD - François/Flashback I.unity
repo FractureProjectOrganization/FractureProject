@@ -3919,6 +3919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 1902847291}
   playerText: {fileID: 962403923}
+  nameText: {fileID: 1902847292}
 --- !u!4 &80777163 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6336001311952872173, guid: 2fe3be77a0397e540825eccd2aa5e52d, type: 3}
@@ -8296,6 +8297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 1632815730}
   playerText: {fileID: 1587024465}
+  nameText: {fileID: 1224911104}
 --- !u!4 &171685184
 Transform:
   m_ObjectHideFlags: 0
@@ -12519,6 +12521,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6782939182602972050, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
   m_PrefabInstance: {fileID: 261723879}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &261723881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7683217986764923556, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 261723879}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &264599909
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18538,7 +18551,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2235622030339893329, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6462190875931544166, guid: 4547299ed693d1444aa137e0db253e55, type: 3}
       insertIndex: -1
@@ -18708,6 +18722,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1328037337446057975, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
   m_PrefabInstance: {fileID: 419870369}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &419870372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7683217986764923556, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 419870369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &420099756 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8436508086037129982, guid: cd48759caaf42d64baa4911597265833, type: 3}
@@ -22507,6 +22532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 1902847291}
   playerText: {fileID: 962403923}
+  nameText: {fileID: 1902847292}
 --- !u!4 &508268261
 Transform:
   m_ObjectHideFlags: 0
@@ -31492,6 +31518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: fb815408cc616c3428590848de1c0901, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: c761b46030835274db31e73af8d4c4d8, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -46418,6 +46445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 586984378}
   playerText: {fileID: 1233411497}
+  nameText: {fileID: 1381453417}
 --- !u!4 &1007420553
 Transform:
   m_ObjectHideFlags: 0
@@ -56410,6 +56438,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+--- !u!114 &1224911104 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7683217986764923556, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 1224911103}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!4 &1225366942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5850565110193109930, guid: 2eebced55131af74980799df9922d892, type: 3}
@@ -56971,6 +57010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 5df130968f7e21e4692c28e719f46678, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 7b1748abd0899d94da854c33d15d73c5, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -62885,6 +62925,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 419870371}
   playerText: {fileID: 1064905633}
+  nameText: {fileID: 419870372}
 --- !u!4 &1375476220
 Transform:
   m_ObjectHideFlags: 0
@@ -63230,6 +63271,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+--- !u!114 &1381453417 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7683217986764923556, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 1381453416}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1381617364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72063,6 +72115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: ad7d7616ebb932c4e9273255e8f260d9, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: bc6f4273b81cd9f40ada4ace25e9fdee, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -76263,6 +76316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 74cce04f61c065b4da8353472c91a371, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 3a1b27805678266429c4c43e60bd99cc, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
@@ -85769,6 +85823,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 1328037337446057975, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
   m_PrefabInstance: {fileID: 1902847289}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1902847292 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7683217986764923556, guid: 3ce7440d6d3490e40b579849e8398f78, type: 3}
+  m_PrefabInstance: {fileID: 1902847289}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &1902950202
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -88011,6 +88076,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogDisplayer
   playerAnimator: {fileID: 720072328}
   playerText: {fileID: 1949721859}
+  nameText: {fileID: 261723881}
 --- !u!1001 &1942312514
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -92210,6 +92276,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogRuntimeContainer
   <data>k__BackingField: {fileID: 11400000, guid: 6d5ccc03e3d029d429757517df989a05, type: 2}
+  <vfData>k__BackingField: {fileID: 11400000, guid: 7f3e8d6fcb18b404da48f21a29f81a00, type: 2}
   <pnjBubbleAnimator>k__BackingField: {fileID: 0}
   <pnjBubbleText>k__BackingField: {fileID: 0}
   <dialogueEndEvent>k__BackingField:
