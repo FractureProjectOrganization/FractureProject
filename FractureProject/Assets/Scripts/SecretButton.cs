@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -19,5 +20,7 @@ public class SecretButton : MonoBehaviour
         if(onGO)onGO.SetActive(active);
         if(offGO)offGO.SetActive(!active);
         if(active) onOn.Invoke(); else onOff.Invoke();
+        
+        LanguageManager.instance.ChangeLanguage(active);
     }
 }

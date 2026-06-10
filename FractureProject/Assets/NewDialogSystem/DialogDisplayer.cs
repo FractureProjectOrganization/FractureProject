@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class DialogDisplayer : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
 
     [SerializeField] private TMP_Text playerText;
+    
+    [SerializeField] private TMP_Text nameText;
     
     private static readonly int StartTrigger = Animator.StringToHash("Start");
     private static readonly int StopTrigger = Animator.StringToHash("End");
@@ -21,7 +24,7 @@ public class DialogDisplayer : MonoBehaviour
     {
         ResetDisplay();
         
-        currentDialog = datas.data;
+        currentDialog = LanguageManager.instance.isVf ? datas.vfData : datas.data;
 
         currentDialogContainer = datas;
         StartCoroutine(ReadDialog());
@@ -53,6 +56,7 @@ public class DialogDisplayer : MonoBehaviour
     private void DisplayLine(Line line)
     {
         playerText.text = line.text;
+        nameText.text = line.actorName;
     }
     
     private void ManageBubble(bool lineIsPlayer, bool isTalking)
@@ -84,4 +88,5 @@ public class DialogDisplayer : MonoBehaviour
         
         previousLineIsPlayer = null;
     }
+
 }
