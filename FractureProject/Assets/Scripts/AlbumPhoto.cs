@@ -33,6 +33,8 @@ public class AlbumPhoto : MonoBehaviour
         player = Player.instance;
         marquePages[0].localScale = new Vector3(1+marquePageDeformation,1+marquePageDeformation,1+marquePageDeformation);
     }
+    
+    /*
     void Update()
     {
         if(NewInput.GetAlbum())
@@ -83,6 +85,8 @@ public class AlbumPhoto : MonoBehaviour
         
         
     }
+    
+    */
 
     void TurnPage(int movement)
     {
