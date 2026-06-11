@@ -53,10 +53,14 @@ public class FightManager : MonoBehaviour
     {
         if (attackList.Count < maxSimultaneousAttackers && waitList.Count > 0)
         {
-            EnemyController nextAttacker = waitList[0];
-            waitList.RemoveAt(0);
-            attackList.Add(nextAttacker);
-            nextAttacker.SetState(EnemyState.PreparingAttack);
+            EnemyController nextAttacker = waitList.Find(e => e.currentState != EnemyState.Hit);
+        
+            if (nextAttacker != null)
+            {
+                waitList.Remove(nextAttacker);
+                attackList.Add(nextAttacker);
+                nextAttacker.SetState(EnemyState.PreparingAttack);
+            }
         }
     }
 
