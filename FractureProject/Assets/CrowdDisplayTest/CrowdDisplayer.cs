@@ -726,4 +726,9 @@ public class CrowdDisplayer : MonoBehaviour
         if (wallMesh != null) Destroy(wallMesh);
         if (wallGameObject != null) Destroy(wallGameObject);
     }
+
+    public void ChangeSpeed(float newSpeed)
+    {
+        catchUpSpeed = newSpeed;
+    }
 }
