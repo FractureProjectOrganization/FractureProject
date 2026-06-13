@@ -5,7 +5,8 @@ using UnityEngine;
 public class RealTimeTypewriter : MonoBehaviour
 {
     [SerializeField] private TMP_Text textDisplay;
-    [SerializeField] [TextArea] private List<string> textToDisplay = new List<string>();
+    [SerializeField] private string textVf, textVo;
+    [TextArea] private string textToDisplay;
     [SerializeField] private float typingSpeed = 0.5f;
     private float t = 0f;
     private bool hasToWrite = true;
@@ -16,8 +17,13 @@ public class RealTimeTypewriter : MonoBehaviour
     void Start()
     {
         textDisplay.text = "";
+        LanguageManager.instance.OnLanguageChange += UpdateDisplay;
+        UpdateDisplay();
     }
-
+    private void UpdateDisplay()
+    {
+        textToDisplay = LanguageManager.instance.isVf ? textVf : textVo;
+    }
     void FixedUpdate()
     {
         if (hasToWrite)
@@ -42,7 +48,7 @@ public class RealTimeTypewriter : MonoBehaviour
 
     private void Write()
     {
-        char character = textToDisplay[i][j];
+        char character = textToDisplay[j];
         
         SoundManager.PlaySound("TypeWriter",0.2f);
 
@@ -56,14 +62,9 @@ public class RealTimeTypewriter : MonoBehaviour
         }
 
         j++;
-        if (j == textToDisplay[i].Length)
+        if (j == textToDisplay.Length)
         {
-            j = 0;
-            i++;
-            if (i == textToDisplay.Count)
-            {
-                hasToWrite = false;
-            }
+            hasToWrite = false;
         }
     }
 }
