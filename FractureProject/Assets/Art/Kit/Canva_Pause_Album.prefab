@@ -241,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8064112240135766154
 RectTransform:
   m_ObjectHideFlags: 0
@@ -275,7 +275,7 @@ GameObject:
   - component: {fileID: 3700853544693030956}
   - component: {fileID: 453281324975450698}
   - component: {fileID: 8493971035900581431}
-  - component: {fileID: 4836790568573633998}
+  - component: {fileID: 2164769802703568027}
   m_Layer: 5
   m_Name: "Texte_Intitul\xE9"
   m_TagString: Untagged
@@ -402,7 +402,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &4836790568573633998
+--- !u!114 &2164769802703568027
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -411,11 +411,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 3740957895676879471}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Script: {fileID: 11500000, guid: dc293496800f9a34288a78ab7f9e8b9a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
-  textVo: Lorem ipsum
-  textVf: Lorem ipsum
+  m_EditorClassIdentifier: Assembly-CSharp::RealTimeTypewriter
+  textDisplay: {fileID: 1250731737005076917}
+  textVf: nom de l'acte
+  textVo: name of the act
+  typingSpeed: 0.1
 --- !u!1 &4461465950163575342
 GameObject:
   m_ObjectHideFlags: 0
@@ -426,6 +428,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7933505746566144199}
   - component: {fileID: 639674971502790303}
+  - component: {fileID: 3027969015309652947}
   m_Layer: 5
   m_Name: Actes
   m_TagString: Untagged
@@ -478,6 +481,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3027969015309652947
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4461465950163575342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f718df597b1ffce4596abf794870777d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &5207343947594470574
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,7 +504,7 @@ GameObject:
   - component: {fileID: 7566719959214621642}
   - component: {fileID: 1939010615386360694}
   - component: {fileID: 6572180301995576662}
-  - component: {fileID: 8263552337421819985}
+  - component: {fileID: 13183387389487269}
   m_Layer: 5
   m_Name: "Texte_Intitul\xE9"
   m_TagString: Untagged
@@ -616,7 +631,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &8263552337421819985
+--- !u!114 &13183387389487269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -625,11 +640,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 5207343947594470574}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Script: {fileID: 11500000, guid: dc293496800f9a34288a78ab7f9e8b9a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
-  textVo: Lorem ipsum
-  textVf: Lorem ipsum
+  m_EditorClassIdentifier: Assembly-CSharp::RealTimeTypewriter
+  textDisplay: {fileID: 1250731737005076917}
+  textVf: nom de l'acte
+  textVo: name of the act
+  typingSpeed: 0.1
 --- !u!1 &5523028459293156489
 GameObject:
   m_ObjectHideFlags: 0
@@ -793,7 +810,7 @@ GameObject:
   - component: {fileID: 5166581774160459738}
   - component: {fileID: 6765049615396980850}
   - component: {fileID: 1250731737005076917}
-  - component: {fileID: 3054169632630906184}
+  - component: {fileID: 8317583492672136358}
   m_Layer: 5
   m_Name: "Texte_Intitul\xE9"
   m_TagString: Untagged
@@ -920,7 +937,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &3054169632630906184
+--- !u!114 &8317583492672136358
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,11 +946,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7379586515222247630}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Script: {fileID: 11500000, guid: dc293496800f9a34288a78ab7f9e8b9a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
-  textVo: Lorem ipsum
-  textVf: Lorem ipsum
+  m_EditorClassIdentifier: Assembly-CSharp::RealTimeTypewriter
+  textDisplay: {fileID: 1250731737005076917}
+  textVf: nom de l'acte
+  textVo: name of the act
+  typingSpeed: 0.1
 --- !u!1 &7480413597631600179
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,7 +1016,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &567862813440456195
 MonoBehaviour:
