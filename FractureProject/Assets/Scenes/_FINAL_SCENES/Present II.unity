@@ -49080,23 +49080,23 @@ MonoBehaviour:
         m_CallState: 2
   dialogueEvents:
     _serializedList:
-    - Key: 8
+    - Key: 7
       Value:
         m_PersistentCalls:
           m_Calls:
           - m_Target: {fileID: 1747409778}
             m_TargetAssemblyTypeName: TriggerAlbumEvent, Assembly-CSharp
             m_MethodName: AlbumShow
-            m_Mode: 1
+            m_Mode: 3
             m_Arguments:
               m_ObjectArgument: {fileID: 0}
               m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-              m_IntArgument: 0
+              m_IntArgument: 2
               m_FloatArgument: 0
               m_StringArgument: 
               m_BoolArgument: 0
             m_CallState: 2
-    - Key: 9
+    - Key: 8
       Value:
         m_PersistentCalls:
           m_Calls:
@@ -49139,6 +49139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a49510429df9fb4e9b4640705bc8098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TriggerAlbumEvent
+  images: []
 --- !u!1001 &1747508715
 PrefabInstance:
   m_ObjectHideFlags: 0
