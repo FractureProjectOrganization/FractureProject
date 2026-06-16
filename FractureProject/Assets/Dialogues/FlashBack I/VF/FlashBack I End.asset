@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: FlashBack I End
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   <dialog>k__BackingField:
-  - text: End of my shift, I'm on the move
-    isPlayer: 1
-    actorName: Guard
-  - text: Be careful
+  - text: "C'est la fin de ma ronde, \xE0 plus tard les gars."
     isPlayer: 0
-    actorName: Guard
-  - text: Thanks, good night
-    isPlayer: 1
-    actorName: Guard
+    actorName: Garde 1
+  - text: Bonne nuit.
+    isPlayer: 0
+    actorName: Garde 2
+  - text: T'as pas entendu quelque chose ?
+    isPlayer: 0
+    actorName: Garde 3
