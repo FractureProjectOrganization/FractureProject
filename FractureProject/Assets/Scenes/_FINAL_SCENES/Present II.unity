@@ -49039,6 +49039,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1747409777}
   - component: {fileID: 1747409776}
+  - component: {fileID: 1747409778}
   m_Layer: 0
   m_Name: EndDialogContainer
   m_TagString: Untagged
@@ -49078,7 +49079,39 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   dialogueEvents:
-    _serializedList: []
+    _serializedList:
+    - Key: 8
+      Value:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1747409778}
+            m_TargetAssemblyTypeName: TriggerAlbumEvent, Assembly-CSharp
+            m_MethodName: AlbumShow
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
+    - Key: 9
+      Value:
+        m_PersistentCalls:
+          m_Calls:
+          - m_Target: {fileID: 1747409778}
+            m_TargetAssemblyTypeName: TriggerAlbumEvent, Assembly-CSharp
+            m_MethodName: AlbumHide
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
 --- !u!4 &1747409777
 Transform:
   m_ObjectHideFlags: 0
@@ -49094,6 +49127,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1747409778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1747409775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a49510429df9fb4e9b4640705bc8098, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerAlbumEvent
 --- !u!1001 &1747508715
 PrefabInstance:
   m_ObjectHideFlags: 0
