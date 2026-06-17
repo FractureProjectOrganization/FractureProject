@@ -21,6 +21,8 @@ public class FightManager : MonoBehaviour
 
     private List<EnemyController> attackList = new List<EnemyController>();
     private List<EnemyController> waitList = new List<EnemyController>();
+    
+    private bool isCalled;
 
     void Start()
     {
@@ -31,6 +33,8 @@ public class FightManager : MonoBehaviour
             enemy.Setup(this);
             waitList.Add(enemy);
         }
+        
+        isCalled = false;
     }
 
     void Update()
@@ -41,7 +45,21 @@ public class FightManager : MonoBehaviour
 
         if (aliveEnemies.Count == 0)
         {
-            TransitionManager.instance.FadeToBlack();
+            Debug.Log(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+            
+            if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 2 && !isCalled)
+            {
+                isCalled = true;
+                AchievementManager.instance.TriggerAchievement("Act_1");
+                TransitionManager.instance.FadeToBlack();
+            }
+            else if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex == 4 && !isCalled)
+            {
+                isCalled = true;
+                AchievementManager.instance.TriggerAchievement("Act_2");
+                TransitionManager.instance.FadeToBlack();
+            }
+            
         }
 
         ManageAttackerSlots();
