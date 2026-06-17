@@ -15,8 +15,6 @@ public class AchievementManager : MonoBehaviour
         instance = this;
 
         if (!SteamManager.Initialized) return;
-
-        SteamUserStats.ResetAllStats(true);
     }
     
     public void TriggerAchievement(string achievementID)
@@ -27,4 +25,8 @@ public class AchievementManager : MonoBehaviour
         SteamUserStats.StoreStats();
     }
 
+    public void ResetAchievements()
+    {
+        SteamUserStats.ResetAllStats(true);
+    }
 }
