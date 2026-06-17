@@ -10,12 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 340c55947df29be47bfebc56c0e5f9f5, type: 3}
-  m_Name: EndOfWallDialog
+  m_Name: DialogueCrowd 1.2
   m_EditorClassIdentifier: Assembly-CSharp::DialogData
   <dialog>k__BackingField:
-  - text: All these years he went out looking for me...
+  - text: These damned guards are stopping us from getting to the wall!
     isPlayer: 1
     actorName: Ursula
-  - text: But he never found me?
+  - text: If they saw a crowd coming towards them, they'd lets us go.
+    isPlayer: 1
+    actorName: Ursula
+  - text: There are a lot of us after all.
     isPlayer: 1
     actorName: Ursula
