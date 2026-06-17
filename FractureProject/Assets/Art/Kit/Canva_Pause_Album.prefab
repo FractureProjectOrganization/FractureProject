@@ -2103,9 +2103,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1815957280530063314, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1904550320960115706, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
       propertyPath: m_SortingLayer
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1980792220334378758, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2365651862106125654, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
       propertyPath: m_Name
@@ -2134,6 +2142,42 @@ PrefabInstance:
     - target: {fileID: 2783909225785003218, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_text
+      value: "C'est l\xE0 o\xF9 Walter et moi allions nous promener."
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.w
+      value: 17.74821
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.x
+      value: 7.78788
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.y
+      value: -10.27042
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.z
+      value: -241.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 3266549121419263824, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 5071334197236456630, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976057831967285959, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_text
+      value: "Sur l'affiche on peut lire \r\n\"Nous recrutons un m\xE9canicien !\" "
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976057831967285959, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 512
       objectReference: {fileID: 0}
     - target: {fileID: 8038104130489138685, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
       propertyPath: m_AnchorMax.y
@@ -2179,10 +2223,54 @@ PrefabInstance:
     - {fileID: 1904550320960115706, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7302347787784299631, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6868105404310353319}
+    - targetCorrespondingSourceObject: {fileID: 8076966112189470969, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4003784582727167189}
   m_SourcePrefab: {fileID: 100100000, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
 --- !u!224 &4433098269246877402 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 639752222950081085, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
   m_PrefabInstance: {fileID: 3847582760741842151}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &5004196001939256350 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8076966112189470969, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+  m_PrefabInstance: {fileID: 3847582760741842151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4003784582727167189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004196001939256350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
+  textVo: It says "We are recruiting a mechanic!"
+  textVf: "Sur l'affiche on peut lire  \"Nous recrutons un m\xE9canicien !\" "
+--- !u!1 &5778816224789072008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7302347787784299631, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+  m_PrefabInstance: {fileID: 3847582760741842151}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6868105404310353319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5778816224789072008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
+  textVo: It's where Walter and I used to take walks.
+  textVf: "C'est l\xE0 o\xF9 Walter et moi allions nous promener."
