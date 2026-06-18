@@ -338,10 +338,32 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6777020674543876216, guid: d6179f5b958b35c4299b32ef0af7a364, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7355036829246907134}
   m_SourcePrefab: {fileID: 100100000, guid: d6179f5b958b35c4299b32ef0af7a364, type: 3}
 --- !u!224 &1442745416488814040 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6907665523273694116, guid: d6179f5b958b35c4299b32ef0af7a364, type: 3}
   m_PrefabInstance: {fileID: 5465501319543619196}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1573317695304697348 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6777020674543876216, guid: d6179f5b958b35c4299b32ef0af7a364, type: 3}
+  m_PrefabInstance: {fileID: 5465501319543619196}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7355036829246907134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1573317695304697348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
+  textVo: Berlin - 12th December 1975
+  textVf: "Berlin - 12 d\xE9cembre 1975"

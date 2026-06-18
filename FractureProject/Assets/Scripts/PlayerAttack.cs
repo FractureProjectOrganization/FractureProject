@@ -106,6 +106,7 @@ public class PlayerAttack : MonoBehaviour
         playerMovement.ChangeState(Player.States.Down);
         Player.instance.locked = true;
         SceneManager.instance.ReloadScene();
+        AchievementManager.instance.TriggerAchievement("Die");
     }
 
     private void EndAttack()

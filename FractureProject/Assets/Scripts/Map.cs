@@ -90,6 +90,8 @@ public class Map : MonoBehaviour
         }
         
         changedCam = true;
+        
+        AchievementManager.instance.TriggerAchievement("Dezoom");
     }
 
     private void ResetCam(Collider other)
