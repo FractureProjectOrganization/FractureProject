@@ -11,6 +11,7 @@ public class SecretButton : MonoBehaviour
     public string onString, the_offSpring;
     public bool disabled;
     public GameObject onGO, offGO;
+    public bool isSecretButton;
     
     public void OnClick()
     {
@@ -20,7 +21,8 @@ public class SecretButton : MonoBehaviour
         if(onGO)onGO.SetActive(active);
         if(offGO)offGO.SetActive(!active);
         if(active) onOn.Invoke(); else onOff.Invoke();
-        
+
+        if (isSecretButton) return;
         LanguageManager.instance.ChangeLanguage(active);
     }
 }
