@@ -42,6 +42,7 @@ public class PauseMenu : MonoBehaviour
     {
         if (NewInput.GetPauseDown())
         {
+            if (isMainMenu) return;
             HandlePauseInput();
         }
 
@@ -138,7 +139,7 @@ public class PauseMenu : MonoBehaviour
     private IEnumerator WaitForSettings()
     {
         yield return new WaitForSecondsRealtime(0.2f);
-        UIManager.instance.SetSettingsButton();
+        if(UIManager.instance)UIManager.instance.SetSettingsButton();
     }
 
     public void Quit()
