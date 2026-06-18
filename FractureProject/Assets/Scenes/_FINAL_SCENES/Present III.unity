@@ -20039,7 +20039,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6391215666148015017, guid: c3b5519ab32e7e54285932889e450678, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 45
+      value: 46.5
       objectReference: {fileID: 0}
     - target: {fileID: 6391215666148015017, guid: c3b5519ab32e7e54285932889e450678, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30875,6 +30875,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: 167.00676
       objectReference: {fileID: 0}
+    - target: {fileID: 2887173512310967475, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
+      propertyPath: m_Size.x
+      value: 0.8000039
+      objectReference: {fileID: 0}
+    - target: {fileID: 2887173512310967475, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
+      propertyPath: m_Center.x
+      value: 0.09999804
+      objectReference: {fileID: 0}
     - target: {fileID: 2935960177744339930, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -36001,6 +36009,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5841993254175329819, guid: 5300749adfdaad8429a7d4d685a6858b, type: 3}
   m_PrefabInstance: {fileID: 1663956959}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1670334311 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3107330366397544390, guid: 2ba6749c88181eb469ec66fb32349688, type: 3}
+  m_PrefabInstance: {fileID: 1574637700}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1678467279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39548,11 +39561,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2327727636677960044, guid: 23316b1405007254abb9b2ce565fe59f, type: 3}
   m_PrefabInstance: {fileID: 1865935277}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1871741892 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5988020167876207668, guid: 1d7791479aa342445a322e1d0f25b047, type: 3}
-  m_PrefabInstance: {fileID: 1435695174}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1872738128
 PrefabInstance:
@@ -45015,7 +45023,7 @@ MonoBehaviour:
     unityEvent:
       m_PersistentCalls:
         m_Calls: []
-    cameraTargetPoint: {fileID: 1871741892}
+    cameraTargetPoint: {fileID: 1670334311}
     start: {fileID: 0}
     finish: {fileID: 0}
     targetObject: {fileID: 0}

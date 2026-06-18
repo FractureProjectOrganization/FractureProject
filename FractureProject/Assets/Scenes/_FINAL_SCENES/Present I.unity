@@ -14510,7 +14510,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: -3804384915903472847, guid: 2a3fc2de79f34b04d9ad4ff30bf3009b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2076743093}
   m_SourcePrefab: {fileID: 100100000, guid: 2a3fc2de79f34b04d9ad4ff30bf3009b, type: 3}
 --- !u!1001 &237965830
 PrefabInstance:
@@ -106259,7 +106262,7 @@ PrefabInstance:
       objectReference: {fileID: 1160103267}
     - target: {fileID: 8536239709629028024, guid: 41c9f32658089094495188283c1f53a8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 89.5
+      value: 88
       objectReference: {fileID: 0}
     - target: {fileID: 8536239709629028024, guid: 41c9f32658089094495188283c1f53a8, type: 3}
       propertyPath: m_LocalPosition.y
@@ -106267,7 +106270,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8536239709629028024, guid: 41c9f32658089094495188283c1f53a8, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -362
+      value: -363.5
       objectReference: {fileID: 0}
     - target: {fileID: 8536239709629028024, guid: 41c9f32658089094495188283c1f53a8, type: 3}
       propertyPath: m_LocalRotation.w
@@ -112607,18 +112610,6 @@ MonoBehaviour:
   <dialogueEndEvent>k__BackingField:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1625744704}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: LockPlayer
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
       - m_Target: {fileID: 1390491611}
         m_TargetAssemblyTypeName: IsometricCameraFollow, Assembly-CSharp
         m_MethodName: ChangeTarget
@@ -130935,6 +130926,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7589034863911509093, guid: d899fcf3e3bd335499eb103ef3042e72, type: 3}
   m_PrefabInstance: {fileID: 2076186663}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2076743089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3804384915903472847, guid: 2a3fc2de79f34b04d9ad4ff30bf3009b, type: 3}
+  m_PrefabInstance: {fileID: 236488258}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2076743093
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076743089}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.013087837, z: 0.05163181}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2077478792
 PrefabInstance:
   m_ObjectHideFlags: 0
