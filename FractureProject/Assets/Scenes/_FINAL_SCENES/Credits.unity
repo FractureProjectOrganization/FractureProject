@@ -690,6 +690,7 @@ GameObject:
   - component: {fileID: 471088111}
   - component: {fileID: 471088113}
   - component: {fileID: 471088112}
+  - component: {fileID: 471088114}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -816,6 +817,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 471088110}
   m_CullTransparentMesh: 1
+--- !u!114 &471088114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471088110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
+  textVo: Special Thanks
+  textVf: Remerciements
 --- !u!1 &525431549
 GameObject:
   m_ObjectHideFlags: 0
@@ -1423,6 +1438,7 @@ GameObject:
   - component: {fileID: 1559472882}
   - component: {fileID: 1559472884}
   - component: {fileID: 1559472883}
+  - component: {fileID: 1559472885}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1469,7 +1485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Thanks for playing !
+  m_text: Thanks for playing!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 455554c6e3018754dbac8de844686afd, type: 2}
   m_sharedMaterial: {fileID: 8182492614411814231, guid: 455554c6e3018754dbac8de844686afd, type: 2}
@@ -1549,6 +1565,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1559472881}
   m_CullTransparentMesh: 1
+--- !u!114 &1559472885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1559472881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
+  textVo: Thanks for playing!
+  textVf: "Merci d'avoir jou\xE9!"
 --- !u!1 &1594991516
 GameObject:
   m_ObjectHideFlags: 0
