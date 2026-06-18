@@ -19,4 +19,9 @@ public class MusicStarter : MonoBehaviour
             SoundManager.PlayMusic(music);
         }
     }
+
+    public void StartMusic()
+    {
+        SoundManager.PlayMusic(music);
+    }
 }

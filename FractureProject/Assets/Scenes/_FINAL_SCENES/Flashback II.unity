@@ -3245,6 +3245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 193637879}
   - component: {fileID: 193637878}
+  - component: {fileID: 193637880}
   m_Layer: 0
   m_Name: DialogContainer
   m_TagString: Untagged
@@ -3331,6 +3332,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 193637880}
+        m_TargetAssemblyTypeName: MusicStarter, Assembly-CSharp
+        m_MethodName: StartMusic
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   dialogueEvents:
     _serializedList: []
 --- !u!4 &193637879
@@ -3348,6 +3361,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &193637880
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 193637877}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 141bb456b8b3bf44db402552a7c5339c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicStarter
+  onAwake: 0
+  onTriggerEnter: 0
+  music: {fileID: 8300000, guid: f7d5acd55d3fd9c44b183535888ce575, type: 3}
 --- !u!114 &194619490 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5900867897934713174, guid: a849f4e3ee561924e9544af55df86388, type: 3}
