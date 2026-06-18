@@ -6,7 +6,9 @@ public class ActSplashscreensPlayer : MonoBehaviour
 {
     private Animator anim;
     private string save;
-
+    public GameObject secretButton;
+    public bool secretIsOn = false;
+    
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -28,6 +30,16 @@ public class ActSplashscreensPlayer : MonoBehaviour
            case "Present I" : anim.SetTrigger("Tr_Acte1"); break;
            case "Present II" : anim.SetTrigger("Tr_Acte2"); break;
            case "Present III" : anim.SetTrigger("Tr_Acte3"); break;
+           case "Credits" : secretButton.SetActive(true);
+               if (secretIsOn && secretButton.GetComponent<SecretButton>().active)
+               {
+                   //STOIAN ICI POUR LE SUCCES STEAM
+               }
+               else
+               {
+                   secretIsOn = true;
+               }
+               break;
            default: break;
 
        }
