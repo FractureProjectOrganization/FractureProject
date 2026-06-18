@@ -383,6 +383,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6120669534950224166, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: isMainMenu
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120669534950224166, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: DestroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6120669534950224166, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: firstMainMenuButton
+      value: 
+      objectReference: {fileID: 1535754234}
+    - target: {fileID: 6515534379715070481, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6550566183354536218, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -491,8 +507,7 @@ PrefabInstance:
       propertyPath: isMainMenu
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6120669534950224166, guid: d5c8a23eccb5ee74abf3f05e8f935fe4, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
