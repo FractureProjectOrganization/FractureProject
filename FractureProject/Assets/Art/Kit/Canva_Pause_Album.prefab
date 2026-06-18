@@ -1885,7 +1885,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
   textVo: Resume
-  textVf: Reprendre
+  textVf: Retour au jeu
 --- !u!1 &2308012096565761561 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3067106309404432611, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
@@ -2176,6 +2176,14 @@ PrefabInstance:
       value: "Sur l'affiche on peut lire \r\n\"Nous recrutons un m\xE9canicien !\" "
       objectReference: {fileID: 0}
     - target: {fileID: 5976057831967285959, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.x
+      value: 49.20404
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976057831967285959, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
+      propertyPath: m_margin.z
+      value: 55.155495
+      objectReference: {fileID: 0}
+    - target: {fileID: 5976057831967285959, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}
       propertyPath: m_VerticalAlignment
       value: 512
       objectReference: {fileID: 0}
@@ -2253,8 +2261,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33e5aa664275df54da3cbe9401736252, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
-  textVo: It says "We are recruiting a mechanic!"
-  textVf: "Sur l'affiche on peut lire  \"Nous recrutons un m\xE9canicien !\" "
+  textVo: 'It says: "We are recruiting a mechanic!"'
+  textVf: "Sur l'affiche on peut lire:  \"Nous recrutons un m\xE9canicien !\" "
 --- !u!1 &5778816224789072008 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7302347787784299631, guid: 48ce9e262a8774c4abf3818f2ee4c794, type: 3}

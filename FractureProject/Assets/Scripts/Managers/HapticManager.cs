@@ -32,8 +32,6 @@ public class HapticManager : MonoBehaviour
     
     #region Steam Input Convertion
     
-    //TODO: ON PAUSE UNTIL AFTER GOLD
-    
     private ushort ToSteamSpeed(float value) => (ushort)(Mathf.Clamp01(value) * ushort.MaxValue);
     
     private void TriggerVibration(InputHandle_t inputHandle, ushort usLeftSpeed, ushort usRightSpeed)
