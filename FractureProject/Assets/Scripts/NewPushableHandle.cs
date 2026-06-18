@@ -33,6 +33,7 @@ public class NewPushableHandle : MonoBehaviour
         {
             obj.isPlayerNear = false;
             outlineGradient.FillOutline(false);
+            obj.ResetPlayer();
         }
     }
 }

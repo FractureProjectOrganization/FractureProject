@@ -101,6 +101,7 @@ public class NewPushableObject : MonoBehaviour
         }
         else
         {
+
             spriteRenderer.sprite = baseSprite;
             if (!outPlayed)
             {
@@ -109,6 +110,14 @@ public class NewPushableObject : MonoBehaviour
                 SoundManager.PlaySound("Interact Out");
             }
         }
+    }
+
+    public void ResetPlayer()
+    {
+        Player.instance.locked = false;
+        Player.instance.ChangeState(Player.States.Idle);
+                
+        Player.instance.currentPushable = null;
     }
 
     public SpriteRenderer spriteRenderer;
