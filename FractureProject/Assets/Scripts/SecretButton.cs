@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class SecretButton : MonoBehaviour
 {
     public TextMeshProUGUI text;
-    private bool active = false;
+    public bool active = false;
     public UnityEvent onOn, onOff;
     public string onString, the_offSpring;
     public bool disabled;
