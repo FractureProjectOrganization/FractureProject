@@ -493,6 +493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f718df597b1ffce4596abf794870777d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  secretButton: {fileID: 6515534379715070481}
+  secretIsOn: 0
 --- !u!1 &5207343947594470574
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,6 +2017,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AdaptativeTextFlag
   textVo: Effects Volume
   textVf: Volume Effets
+--- !u!1 &6515534379715070481 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5835798466989737195, guid: 8c7a5f01549a55f4a93a6fe3b8c12a74, type: 3}
+  m_PrefabInstance: {fileID: 763140467204443898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3847582760741842151
 PrefabInstance:
   m_ObjectHideFlags: 0
