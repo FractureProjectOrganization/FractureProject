@@ -33,7 +33,7 @@ public class ActSplashscreensPlayer : MonoBehaviour
            case "Credits" : secretButton.SetActive(true);
                if (secretIsOn && secretButton.GetComponent<SecretButton>().active)
                {
-                   //STOIAN ICI POUR LE SUCCES STEAM
+                   AchievementManager.instance.TriggerAchievement("SquidGame");
                }
                else
                {
