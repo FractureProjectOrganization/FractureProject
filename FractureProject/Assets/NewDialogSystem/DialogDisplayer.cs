@@ -32,6 +32,8 @@ public class DialogDisplayer : MonoBehaviour
 
     private IEnumerator ReadDialog()
     {
+        PauseMenu.instance.isBlocked = true;
+        
         for (int i = 0; i < currentDialog.dialog.Length; i++)
         {
             //Debug.Log(currentDialog.dialog[i].text);
@@ -51,6 +53,8 @@ public class DialogDisplayer : MonoBehaviour
         ManageBubble(currentDialog.dialog[currentDialog.dialog.Length-1].isPlayer, false);
         ResetDisplay();
         currentDialogContainer.dialogueEndEvent.Invoke();
+        
+        PauseMenu.instance.isBlocked = false;
     }
 
     private void DisplayLine(Line line)

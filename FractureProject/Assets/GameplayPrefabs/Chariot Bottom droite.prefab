@@ -158,9 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPushableHandle
   outlineTrigger: {fileID: 7420050750005318718}
-  lowFrequency: 0.1
-  highFrequency: 0.6
-  rumbleDuration: 0.08
+  forcedDirAnim: {x: 1, y: 0, z: 1}
 --- !u!1 &4084583410421166712
 GameObject:
   m_ObjectHideFlags: 0
@@ -264,6 +262,11 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  invertXAnim: 0
+  invertZAnim: 0
+  playerDirAnim: {x: 0, y: 0, z: 0}
+  autoXAnim: 0
+  autoZAnim: 0
   isPlayerNear: 0
   onX: 1
   onZ: 0
@@ -271,8 +274,6 @@ MonoBehaviour:
   outPlayed: 0
   canBePush: 1
   spriteRenderer: {fileID: 7682398642958613625}
-  lowFrequency: 0.6
-  highFrequency: 0.35
 --- !u!1 &7127406416743827479
 GameObject:
   m_ObjectHideFlags: 0

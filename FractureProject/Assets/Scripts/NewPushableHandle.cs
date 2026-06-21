@@ -10,6 +10,8 @@ public class NewPushableHandle : MonoBehaviour
     [SerializeField] private GameObject outlineTrigger;
 
     private OutlineGradient outlineGradient;
+    
+    public Vector3 forcedDirAnim;
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class NewPushableHandle : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             obj.isPlayerNear = true;
+            obj.playerDirAnim = forcedDirAnim;
             StartCoroutine(HapticManager.instance.InteractionFeedback());
             outlineGradient.FillOutline(true);
         }

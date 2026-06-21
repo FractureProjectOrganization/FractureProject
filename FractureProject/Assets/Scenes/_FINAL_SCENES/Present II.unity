@@ -54898,7 +54898,7 @@ Transform:
   m_GameObject: {fileID: 1930354653}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 21, y: 2.38, z: 69}
+  m_LocalPosition: {x: 21, y: 0, z: 69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56806,6 +56806,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PauseMenu
   pauseMenuPanel: {fileID: 222757550}
   isMainMenu: 0
+  isBlocked: 0
 --- !u!114 &2008466843
 MonoBehaviour:
   m_ObjectHideFlags: 0

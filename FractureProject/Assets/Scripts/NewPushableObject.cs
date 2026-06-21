@@ -12,6 +12,8 @@ public class NewPushableObject : MonoBehaviour
     
     public LayerMask obstacleLayer;
 
+    public Vector3 playerDirAnim;
+
     private bool isMoving = false;
     private float pushTimer = 0f;
     
@@ -69,16 +71,7 @@ public class NewPushableObject : MonoBehaviour
                 
                 Player.instance.currentPushable = this;
                 
-                if (Camera.main == null) return;
-                
-                Vector3 camForward = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z);
-                
-                Vector3 playerDir = (transform.position - Player.instance.transform.position).normalized;
-
-                playerDir = Camera.main.transform.right * playerDir.x + camForward * playerDir.z;
-                playerDir = Quaternion.AngleAxis(-45f, Vector3.up) * playerDir;
-                
-                Player.instance.animatorController.UpdateMoveDirection(playerDir.x, playerDir.z);
+                Player.instance.animatorController.UpdateMoveDirection(playerDirAnim.x, playerDirAnim.z);
                 
                 Vector3 dir = new Vector3(0f, 0f, 0f);
                 if(onX)dir +=(new Vector3(NewInput.GetAxisHorizontal(), 0f, 0f));
@@ -101,7 +94,6 @@ public class NewPushableObject : MonoBehaviour
         }
         else
         {
-
             spriteRenderer.sprite = baseSprite;
             if (!outPlayed)
             {

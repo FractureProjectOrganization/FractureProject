@@ -16,6 +16,8 @@ public class PauseMenu : MonoBehaviour
 
     private bool isPaused, isSettingOpen;
     public bool isMainMenu;
+
+    public bool isBlocked = false;
     
     private void Awake()
     {
@@ -43,8 +45,10 @@ public class PauseMenu : MonoBehaviour
         if (NewInput.GetPauseDown())
         {
             if (isMainMenu) return;
-            if (Player.instance.currentState == Player.States.Idle || Player.instance.currentState == Player.States.Walking)
-                HandlePauseInput();
+            if (!(Player.instance.currentState == Player.States.Idle || Player.instance.currentState == Player.States.Walking)) return;
+            if (isBlocked) return;
+            
+            HandlePauseInput();
         }
 
         if (NewInput.GetBackDown()) 
