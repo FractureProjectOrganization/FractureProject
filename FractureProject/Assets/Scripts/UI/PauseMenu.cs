@@ -43,11 +43,13 @@ public class PauseMenu : MonoBehaviour
         if (NewInput.GetPauseDown())
         {
             if (isMainMenu) return;
-            HandlePauseInput();
+            if (Player.instance.currentState == Player.States.Idle || Player.instance.currentState == Player.States.Walking)
+                HandlePauseInput();
         }
 
         if (NewInput.GetBackDown()) 
         {
+            if (isMainMenu && !isSettingOpen) return;
             HandleApanyanInput();
         }
     }
