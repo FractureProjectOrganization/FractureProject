@@ -173,10 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0ba118ef1b453e4da72a23b82c6e93c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  lowFrequency: 0.1
-  highFrequency: 0.6
-  rumbleDuration: 0.08
-  lineSignRenderer: {fileID: 1469996702589648738}
+  outlineTrigger: {fileID: 0}
   onInteraction:
     m_PersistentCalls:
       m_Calls:
@@ -239,7 +236,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 793142130, guid: 2ac8615fbf8e920438472ca4d8e1c840, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -395,7 +392,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1786206285, guid: 8aa2e9cf26110f34bb1c600a27953c3d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0}

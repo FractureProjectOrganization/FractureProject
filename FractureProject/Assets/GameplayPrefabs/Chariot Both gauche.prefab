@@ -67,9 +67,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPushableHandle
   outlineTrigger: {fileID: 2714822952904936015}
-  lowFrequency: 0.1
-  highFrequency: 0.6
-  rumbleDuration: 0.08
+  forcedDirAnim: {x: 0, y: 0, z: 0}
 --- !u!1 &2714822952904936015
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,9 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NewPushableHandle
   outlineTrigger: {fileID: 2714822952904936015}
-  lowFrequency: 0.1
-  highFrequency: 0.6
-  rumbleDuration: 0.08
+  forcedDirAnim: {x: 0, y: 0, z: 0}
 --- !u!1 &4084583410421166712
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,6 +307,7 @@ MonoBehaviour:
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 128
+  playerDirAnim: {x: 0, y: 0, z: 0}
   isPlayerNear: 0
   onX: 0
   onZ: 1
@@ -318,8 +315,6 @@ MonoBehaviour:
   outPlayed: 0
   canBePush: 1
   spriteRenderer: {fileID: 7682398642958613625}
-  lowFrequency: 0.6
-  highFrequency: 0.35
 --- !u!1 &4272764630158552798
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,7 +394,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 3700f41e24893b34186b2d746d7acba3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -459,6 +454,10 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: a4e0aaeaf224efd42a1d68fe1e85de8a, type: 3}
+    - target: {fileID: 2210350015859672479, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3028293237164612591, guid: 4bc67090de85af34a9ffd5d65d4148a0, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
