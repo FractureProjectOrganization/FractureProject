@@ -104,6 +104,12 @@ public class EnemyController : MonoBehaviour
             return;
         }
 
+        if (PauseMenu.instance.isPaused)
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
         if (currentState == EnemyState.Attacking) return;
 
         if (currentState == EnemyState.PreparingAttack || currentState == EnemyState.RushingPlayer)

@@ -14,7 +14,7 @@ public class PauseMenu : MonoBehaviour
     
     private Animator animator;
 
-    private bool isPaused, isSettingOpen;
+    public bool isPaused, isSettingOpen;
     public bool isMainMenu;
 
     public bool isBlocked = false;
