@@ -731,4 +731,9 @@ public class CrowdDisplayer : MonoBehaviour
     {
         catchUpSpeed = newSpeed;
     }
+
+    public void ChangeBaseSpeed(float newSpeed)
+    {
+        moveSpeed = newSpeed;
+    }
 }

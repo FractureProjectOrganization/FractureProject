@@ -282,6 +282,11 @@ public class Player : MonoBehaviour
         crowdSpeed = speed;
     }
 
+    public void ChangeEjectionDistance(int newDistance)
+    {
+        ejectionDistance = newDistance;
+    }
+
     public IEnumerator FootstepsCoroutine()
     {
         if(!footsteps) yield break;
