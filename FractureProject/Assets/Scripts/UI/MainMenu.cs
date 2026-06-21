@@ -1,5 +1,7 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.Video;
 
 public class MainMenu : MonoBehaviour
@@ -17,6 +19,8 @@ public class MainMenu : MonoBehaviour
     public UnityEvent OnVideoEndEvent;
 
     private bool isDezoomed;
+
+    public InputSystemUIInputModule EventSystemObject;
 
     private void Awake()
     {
@@ -46,10 +50,21 @@ public class MainMenu : MonoBehaviour
     void OnVideoEnd(VideoPlayer vp)
     {
         if (isDezoomed) return;
+        
+        EventSystemObject.enabled = false;
+        
         OnVideoEndEvent.Invoke();
         animator.SetBool(Dezoom, true);
         isDezoomed = true;
         skipText.SetActive(false);
+
+        StartCoroutine(WaitForDezoom());
+    }
+
+    private IEnumerator WaitForDezoom()
+    {
+        yield return new WaitForSeconds(4f);
+        EventSystemObject.enabled = true;
     }
 
     public void StartGame()
